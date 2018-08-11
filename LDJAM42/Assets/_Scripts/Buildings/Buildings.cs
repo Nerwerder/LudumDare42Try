@@ -84,7 +84,7 @@ public class Buildings : MonoBehaviour
 
     private bool checkTreesInRange(Vector3 pos)
     {
-        Collider[] hitcolliders = Physics.OverlapSphere(pos, 0.08f);
+        Collider[] hitcolliders = Physics.OverlapSphere(pos, 0.1f);
         int i = 0;
         while (i < hitcolliders.Length)
         {
