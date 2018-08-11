@@ -239,6 +239,12 @@ Prefab:
       propertyPath: buildings
       value: 
       objectReference: {fileID: 26781640}
+    - target: {fileID: 114600361142561228, guid: bbedeebba8032fa49b14d11effcd7a45,
+        type: 2}
+      propertyPath: treePrefab
+      value: 
+      objectReference: {fileID: 1488824970728930, guid: 368eda53378c2cf499edc05b242af8dd,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bbedeebba8032fa49b14d11effcd7a45, type: 2}
   m_IsPrefabAsset: 0
