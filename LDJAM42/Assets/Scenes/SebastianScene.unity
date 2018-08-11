@@ -113,6 +113,48 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &100193754
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 100193755}
+  - component: {fileID: 100193756}
+  m_Layer: 0
+  m_Name: Buildings
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &100193755
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 100193754}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 6.543515, y: 16.089476, z: -12.947813}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &100193756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 100193754}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f04f3a8eae5e4fe49a2167625a12118e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buildingPrefabs:
+  - {fileID: 1041265108855874, guid: 83c4f7615476f5242852e5f98b34a426, type: 2}
 --- !u!1 &206319962
 GameObject:
   m_ObjectHideFlags: 0
@@ -218,9 +260,34 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1869100039438304, guid: bbedeebba8032fa49b14d11effcd7a45, type: 2}
+      propertyPath: m_Name
+      value: World
+      objectReference: {fileID: 0}
+    - target: {fileID: 114600361142561228, guid: bbedeebba8032fa49b14d11effcd7a45,
+        type: 2}
+      propertyPath: buildings
+      value: 
+      objectReference: {fileID: 100193756}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bbedeebba8032fa49b14d11effcd7a45, type: 2}
   m_IsPrefabAsset: 0
+--- !u!1 &258691474 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1869100039438304, guid: bbedeebba8032fa49b14d11effcd7a45,
+    type: 2}
+  m_PrefabInternal: {fileID: 258691473}
+--- !u!114 &258691475
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 258691474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cd7aaecdf14ec04ca56312bba0cc070, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1428158350
 Prefab:
   m_ObjectHideFlags: 0
@@ -300,7 +367,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4856498483941806, guid: 2b004288090ccea429861c27901abfb3, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 114177319164270530, guid: 2b004288090ccea429861c27901abfb3,
         type: 2}
