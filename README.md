@@ -8,7 +8,7 @@
 
 2: Meadow
 
-3: Forrest
+3: Forest
 
 4: City
 

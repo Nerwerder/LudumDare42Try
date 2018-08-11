@@ -4,11 +4,18 @@ using UnityEngine;
 
 public class Place : MonoBehaviour
 {
-    private int line, column, type;
+    public enum PlaceType { Water, Meadow, Forest, City }
+
+    private PlaceType type;
+    private int line, column;
+    private bool buildSpaceFree, canvasSpaceFree;
 
     public void Set(int t, int x, int z)
     {
-        type = t;
+        buildSpaceFree = true;
+        canvasSpaceFree = true;
+
+        type = (PlaceType)t;
         SetPos(x, z);
     }
 
@@ -32,5 +39,23 @@ public class Place : MonoBehaviour
     {
         return GetComponent<GameObject>().transform.position;
     }
+
+    public bool TestForBuilding()
+    {
+        if (type == PlaceType.Meadow && buildSpaceFree == true)
+            return true;
+        return false;
+    }
+
+    public GameObject BuildBuilding(GameObject g, Transform parent)
+    {
+        buildSpaceFree = false;
+        return Instantiate(g, (this.transform.position + g.transform.position), this.transform.rotation, parent);
+    }
+
+    public bool GetCanvasSpaceFree() { return canvasSpaceFree; }
+    public void SetCanvasSpaceFree(bool free) { canvasSpaceFree = free; }
+
+    public PlaceType getPlaceType() { return type; }
 
 }
