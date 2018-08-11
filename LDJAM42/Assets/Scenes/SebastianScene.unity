@@ -155,6 +155,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buildingPrefabs:
   - {fileID: 1041265108855874, guid: 83c4f7615476f5242852e5f98b34a426, type: 2}
+  - {fileID: 1702279550035938, guid: a34c7f3698f02604a89e9d84d52d0c11, type: 2}
+  - {fileID: 1081771321270006, guid: b06919bd157aaf84b820cbac86204845, type: 2}
 --- !u!1 &206319962
 GameObject:
   m_ObjectHideFlags: 0
@@ -372,6 +374,11 @@ Prefab:
     - target: {fileID: 114177319164270530, guid: 2b004288090ccea429861c27901abfb3,
         type: 2}
       propertyPath: camera
+      value: 
+      objectReference: {fileID: 1727512259}
+    - target: {fileID: 114177319164270530, guid: 2b004288090ccea429861c27901abfb3,
+        type: 2}
+      propertyPath: myCamera
       value: 
       objectReference: {fileID: 1727512259}
     m_RemovedComponents: []

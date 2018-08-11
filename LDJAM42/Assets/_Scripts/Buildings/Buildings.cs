@@ -4,62 +4,68 @@ using UnityEngine;
 
 public class Buildings : MonoBehaviour
 {
-    public enum BuildingType { city, lumberjack, sawmill, farm, windmill, bakery }
+    public enum BuildingType { City, WoodCutter, Sawmill, Farm, Windmill, Bakery}
     public List<GameObject> buildingPrefabs;
 
-    private List<Building> buildings;
+    private List<Building> buildings = new List<Building>();
 
     //Things the System builds
-    public bool defaultBuild(int t, Place p)
+    public bool DefaultBuild(int t, Place p)
     {
         switch (t)
         {
-            case 3: //trees
+            case 3:     //Trees
 
                 return true;
             case 4:     //City
-                var cG = p.buildBuilding(buildingPrefabs[0], this.transform);
-                var city = cG.AddComponent<City>();
-                buildings.Add(city);
+                var gO = p.buildBuilding(buildingPrefabs[0], this.transform);
+                buildings.Add(AddBuildingForType(BuildingType.City, gO));
                 return true;
-            default:
-                return false;
+            default: return false;
         }
     }
 
     //Things the Player can Build
-    public bool build(BuildingType t, Place p)
+    public bool Build(BuildingType t, Place p)
     {
         //1. Test the Field
         if (p.TestForBuilding() == false)
             return false;
 
         //2. Build the Building
-        switch (t)
-        {
-            case BuildingType.lumberjack:
+        GameObject gO = p.buildBuilding(buildingPrefabs[(int)t], this.transform);
+        buildings.Add(AddBuildingForType(t, gO));
 
-                return true;
+        return true;
 
-            case BuildingType.sawmill:
-
-                return true;
-
-            case BuildingType.farm:
-
-                return true;
-
-            case BuildingType.windmill:
-
-                return true;
-
-            case BuildingType.bakery:
-
-                return true;
-        }
-
-
-        return false;
     }
 
+    public Building AddBuildingForType(BuildingType t, GameObject g)
+    {
+        switch (t)
+        {
+            case BuildingType.City:
+                return g.AddComponent<City>();
+
+            case BuildingType.WoodCutter:
+                return g.AddComponent<WoodCutter>();
+
+            case BuildingType.Sawmill:
+                return g.AddComponent<SawMill>();
+
+            case BuildingType.Farm:
+
+                return null;
+
+            case BuildingType.Windmill:
+
+                return null;
+
+            case BuildingType.Bakery:
+
+                return null;
+
+            default: return null;
+        }
+    }
 }

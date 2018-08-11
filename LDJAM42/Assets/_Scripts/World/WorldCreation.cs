@@ -80,7 +80,7 @@ public class WorldCreation : MonoBehaviour
         world.RegisterPlace(nPla);
 
         //Test if there is already a Building on this Place
-        buildings.defaultBuild(type, nPla);
+        buildings.DefaultBuild(type, nPla);
     }
 
     private Vector3 GetPlacePosition(int x, int z)
