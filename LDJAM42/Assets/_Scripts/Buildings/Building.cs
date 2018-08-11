@@ -2,15 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Building : MonoBehaviour {
+public class Building : MonoBehaviour
+{
+    public Buildings.BuildingType type;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    public void set (Buildings.BuildingType t)
+    {
+        type = t;
+    }
+
 }

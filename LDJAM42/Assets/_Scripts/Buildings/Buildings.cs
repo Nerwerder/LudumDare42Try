@@ -18,7 +18,7 @@ public class Buildings : MonoBehaviour
 
                 return true;
             case 4:     //City
-                var gO = p.buildBuilding(buildingPrefabs[0], this.transform);
+                var gO = p.BuildBuilding(buildingPrefabs[0], this.transform);
                 buildings.Add(AddBuildingForType(BuildingType.City, gO));
                 return true;
             default: return false;
@@ -33,7 +33,7 @@ public class Buildings : MonoBehaviour
             return false;
 
         //2. Build the Building
-        GameObject gO = p.buildBuilding(buildingPrefabs[(int)t], this.transform);
+        GameObject gO = p.BuildBuilding(buildingPrefabs[(int)t], this.transform);
         buildings.Add(AddBuildingForType(t, gO));
 
         return true;
@@ -54,16 +54,13 @@ public class Buildings : MonoBehaviour
                 return g.AddComponent<SawMill>();
 
             case BuildingType.Farm:
-
-                return null;
+                return g.AddComponent<Farm>();
 
             case BuildingType.Windmill:
-
-                return null;
+                return g.AddComponent<WindMill>();
 
             case BuildingType.Bakery:
-
-                return null;
+                return g.AddComponent<Bakery>();
 
             default: return null;
         }

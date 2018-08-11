@@ -76,7 +76,7 @@ public class WorldCreation : MonoBehaviour
 
         //Create and Register the Place
         var nPla = nHex.AddComponent<Place>();
-        nPla.Set(type, column, line);
+        nPla.Set((type - 1), column, line);
         world.RegisterPlace(nPla);
 
         //Test if there is already a Building on this Place
@@ -90,6 +90,4 @@ public class WorldCreation : MonoBehaviour
         else
             return new Vector3(x * xOffset + x2Offset, 0, -(zOffset * z));
     }
-
-
 }
