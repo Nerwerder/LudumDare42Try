@@ -15,7 +15,23 @@ public class Buildings : MonoBehaviour
         switch (t)
         {
             case 3:     //Trees
+                int treeCount = Random.Range(6, 10);
+                for (int i = 0; i < treeCount; i++)
+                {
+                    Vector3 treepos;
+                    do
+                    {
+                        float deltaX = Random.Range(-0.55f, 0.55f);
+                        float deltaZ = Random.Range(-0.55f, 0.55f);
+                        treepos = new Vector3(p.transform.position.x + deltaX, p.transform.position.y + 0.114f, p.transform.position.z + deltaZ);
+                    } while (checkTreesInRange(treepos));
+                    
 
+                    float sizeModifier = Random.Range(0.8f, 1.2f);
+                    GameObject tree = Instantiate(buildingPrefabs[6], treepos, p.transform.rotation);
+                    Vector3 scale = new Vector3(tree.transform.localScale.x * sizeModifier, tree.transform.localScale.y * sizeModifier, tree.transform.localScale.z * sizeModifier);
+                    tree.transform.localScale = scale;
+                }
                 return true;
             case 4:     //City
                 var gO = p.BuildBuilding(buildingPrefabs[0], this.transform);
@@ -65,4 +81,20 @@ public class Buildings : MonoBehaviour
             default: return null;
         }
     }
+
+    private bool checkTreesInRange(Vector3 pos)
+    {
+        Collider[] hitcolliders = Physics.OverlapSphere(pos, 0.08f);
+        int i = 0;
+        while (i < hitcolliders.Length)
+        {
+            if(hitcolliders[i].tag == "tree")
+            {
+                return true;
+            }
+            i++;
+        }
+        return false;
+    }
+
 }
