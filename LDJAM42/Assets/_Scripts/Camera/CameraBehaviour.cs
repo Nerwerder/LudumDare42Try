@@ -69,7 +69,7 @@ public class CameraBehaviour : MonoBehaviour
 
     private void Rotation(float x, float y)
     {
-        this.transform.Rotate(this.transform.right, y * rotationSpeed);
+        this.transform.Rotate(this.transform.right, -y * rotationSpeed);
         this.transform.Rotate(Vector3.up, -x * rotationSpeed);
     }
 
