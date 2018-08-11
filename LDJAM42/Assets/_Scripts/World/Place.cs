@@ -4,17 +4,33 @@ using UnityEngine;
 
 public class Place : MonoBehaviour
 {
-    private int posX, posZ, type;
+    private int line, column, type;
 
-    public void set(int t, int x, int z)
+    public void Set(int t, int x, int z)
     {
         type = t;
-        setPos(x, z);
+        SetPos(x, z);
     }
 
-    private void setPos(int x, int z)
+    private void SetPos(int x, int z)
     {
-        posX = x;
-        posZ = z;
+        column = x;
+        line = z;
     }
+
+    public int GetColumn()
+    {
+        return column;
+    }
+
+    public int GetLine()
+    {
+        return line;
+    }
+
+    public Vector3 GetPos()
+    {
+        return GetComponent<GameObject>().transform.position;
+    }
+
 }

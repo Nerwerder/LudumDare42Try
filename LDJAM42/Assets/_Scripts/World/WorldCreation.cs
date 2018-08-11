@@ -10,28 +10,32 @@ public class WorldCreation : MonoBehaviour
 
     public float xOffset, zOffset, x2Offset;
 
-
     World world;
     char lineSeperator = '\n';
     char fieldSeperator = ' ';
     int diferentFieldTypes = 4;
 
-    private void Start()
+    private void Awake()
     {
         //1. Create the World
-        creatWorld();
+        CreatWorld();
 
         //2. Load the World from the Table
-        loadTable();
+        LoadTable();
     }
 
-    private void creatWorld()
+    public World GetWorld()
+    {
+        return world;
+    }
+
+    private void CreatWorld()
     {
         this.gameObject.AddComponent<World>();
         world = this.GetComponent<World>();
     }
 
-    private void loadTable()
+    private void LoadTable()
     {
         if (worldFile == null)
             Debug.Log("no worldFile");
@@ -39,22 +43,27 @@ public class WorldCreation : MonoBehaviour
         string[] lines = worldFile.text.Split(lineSeperator);
 
         int lineCounter = 0;
+        int columnCounter = 0;
+
         foreach (var line in lines)
         {
             string[] entrys = line.Split(fieldSeperator);
-            int columnCounter = 0;
 
+            columnCounter = 0;
             foreach (var entry in entrys)
             {
-                createPlace(entry, lineCounter, columnCounter);
+                CreatePlace(entry, lineCounter, columnCounter);
                 columnCounter++;
             }
 
             lineCounter++;
         }
+
+        //set the WorldSize
+        world.SetSize(lineCounter, columnCounter, xOffset, zOffset);
     }
 
-    private void createPlace(string entry, int line, int column)
+    private void CreatePlace(string entry, int line, int column)
     {
         //get the Int from the Entry
         int type = int.Parse(entry);
@@ -63,7 +72,7 @@ public class WorldCreation : MonoBehaviour
             Debug.Log("Field " + line + "|" + column + " has the wrong Type: " + type);
 
         //Create the Hex-Field
-        Vector3 pos = getPlacePosition(column, line);
+        Vector3 pos = GetPlacePosition(column, line);
 
         var nHex = Instantiate(hexagon, pos, hexagon.transform.rotation);
 
@@ -72,11 +81,11 @@ public class WorldCreation : MonoBehaviour
 
         //Create and Register the Place
         var nPla = nHex.AddComponent<Place>();
-        nPla.set(type, column, line);
-        world.registerPlace(nPla);
+        nPla.Set(type, column, line);
+        world.RegisterPlace(nPla);
     }
 
-    private Vector3 getPlacePosition(int x, int z)
+    private Vector3 GetPlacePosition(int x, int z)
     {
         if (z % 2 == 0)
             return new Vector3(x * xOffset, 0, -(zOffset * z));
