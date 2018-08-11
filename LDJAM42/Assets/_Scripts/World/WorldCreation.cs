@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class WorldCreation : MonoBehaviour
 {
-    public GameObject hexagon;
-    public TextAsset worldFile;
+    public GameObject   hexagon;
+    public TextAsset    worldFile;
+    public Buildings    buildings;
     public List<Material> materials;
 
     public float xOffset, zOffset, x2Offset;
@@ -18,10 +19,10 @@ public class WorldCreation : MonoBehaviour
     private void Awake()
     {
         //1. Create the World
-        CreatWorld();
+        world = this.GetComponent<World>();
 
         //2. Load the World from the Table
-        LoadTable();
+        CreateWorld();
     }
 
     public World GetWorld()
@@ -29,13 +30,7 @@ public class WorldCreation : MonoBehaviour
         return world;
     }
 
-    private void CreatWorld()
-    {
-        this.gameObject.AddComponent<World>();
-        world = this.GetComponent<World>();
-    }
-
-    private void LoadTable()
+    private void CreateWorld()
     {
         if (worldFile == null)
             Debug.Log("no worldFile");
@@ -74,15 +69,18 @@ public class WorldCreation : MonoBehaviour
         //Create the Hex-Field
         Vector3 pos = GetPlacePosition(column, line);
 
-        var nHex = Instantiate(hexagon, pos, hexagon.transform.rotation);
+        var nHex = Instantiate(hexagon, pos, hexagon.transform.rotation, this.transform);
 
         //Set the Material
         nHex.GetComponent<Renderer>().material = materials[type - 1];
 
         //Create and Register the Place
         var nPla = nHex.AddComponent<Place>();
-        nPla.Set(type, column, line);
+        nPla.Set((type - 1), column, line);
         world.RegisterPlace(nPla);
+
+        //Test if there is already a Building on this Place
+        buildings.DefaultBuild(type, nPla);
     }
 
     private Vector3 GetPlacePosition(int x, int z)
