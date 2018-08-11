@@ -53,7 +53,7 @@ public class Control : MonoBehaviour
                     {
                         //Get the Right Place
                         Place p = hitInfo.collider.GetComponent<Place>();
-                        if(p && p.GetCanvasSpaceFree())
+                        if(p && p.canvasSpaceFree)
                         {
                             AddCanvas(p);
                         }
@@ -89,7 +89,7 @@ public class Control : MonoBehaviour
         //canvas.transform.position += canvasOffset;
 
         var text = canvas.GetComponentInChildren<Text>();
-        text.text = p.getPlaceType().ToString();
+        text.text = p.type.ToString();
 
         var buttons = canvas.GetComponentsInChildren<Button>();
         ChangeButton(buttons[0], Buildings.BuildingType.WoodCutter, p);
@@ -111,7 +111,7 @@ public class Control : MonoBehaviour
     private void RemoveCanvas(GameObject canvas, Place p)
     {
         Destroy(canvas, 0.3f);
-        p.SetCanvasSpaceFree(true);
+        p.canvasSpaceFree = true;
         activeCanvas = null;
         activeCanvasPlace = null;
     }

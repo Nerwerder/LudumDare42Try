@@ -275,6 +275,18 @@ Prefab:
       propertyPath: m_Name
       value: World
       objectReference: {fileID: 0}
+    - target: {fileID: 114600361142561228, guid: bbedeebba8032fa49b14d11effcd7a45,
+        type: 2}
+      propertyPath: hexagonPrefab
+      value: 
+      objectReference: {fileID: 1459146187104986, guid: abd2776a53d8b744f89ca97e42fe1779,
+        type: 2}
+    - target: {fileID: 114600361142561228, guid: bbedeebba8032fa49b14d11effcd7a45,
+        type: 2}
+      propertyPath: connecionPointPrefab
+      value: 
+      objectReference: {fileID: 1391535735475780, guid: 17e673f9e83baa040a86f76acaffcd51,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bbedeebba8032fa49b14d11effcd7a45, type: 2}
   m_IsPrefabAsset: 0
