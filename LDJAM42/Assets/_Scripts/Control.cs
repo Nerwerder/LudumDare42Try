@@ -49,9 +49,6 @@ public class Control : MonoBehaviour
                     Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                     RaycastHit hitInfo;
 
-                    if (activeCanvas != null)
-                        RemoveCanvas(activeCanvas, activeCanvasPlace);
-
                     if (Physics.Raycast(ray, out hitInfo))
                     {
                         //Get the Right Place
@@ -66,6 +63,10 @@ public class Control : MonoBehaviour
                     
                     break;
                 case LeftClickState.Selected:
+
+                    if (activeCanvas != null)
+                        RemoveCanvas(activeCanvas, activeCanvasPlace);
+
                     lCState = LeftClickState.Selection;
                     break;
                 default:
