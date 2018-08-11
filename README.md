@@ -4,13 +4,28 @@
 
 ## WorldGeneration
 
-1: Wasser
+1: Water
 
-2: Wiese
+2: Meadow
 
-3: Wald
+3: Forrest
 
-4: Stadt
+4: City
 
 
 
+## Control
+
+### Camera
+
+#### Richt Click 
+
+Move the Mouse to translate
+
+#### Middle Mouse Button
+
+Move the Mouse to Rotate
+
+#### R 
+
+Reset Rotation
