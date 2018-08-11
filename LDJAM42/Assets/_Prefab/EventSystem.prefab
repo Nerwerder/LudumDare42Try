@@ -9,31 +9,31 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1869100039438304}
+  m_RootGameObject: {fileID: 1263690713525126}
   m_IsPrefabAsset: 1
---- !u!1 &1869100039438304
+--- !u!1 &1263690713525126
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4627150814879652}
-  - component: {fileID: 114600361142561228}
-  - component: {fileID: 114083334296575320}
+  - component: {fileID: 4163336005383506}
+  - component: {fileID: 114395043560217364}
+  - component: {fileID: 114950944560623670}
   m_Layer: 0
-  m_Name: WorldCreation
+  m_Name: EventSystem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4627150814879652
+--- !u!4 &4163336005383506
 Transform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1869100039438304}
+  m_GameObject: {fileID: 1263690713525126}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -41,36 +41,35 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114083334296575320
+--- !u!114 &114395043560217364
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1869100039438304}
+  m_GameObject: {fileID: 1263690713525126}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6cd7aaecdf14ec04ca56312bba0cc070, type: 3}
+  m_Script: {fileID: -619905303, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114600361142561228
+  m_FirstSelected: {fileID: 0}
+  m_sendNavigationEvents: 1
+  m_DragThreshold: 10
+--- !u!114 &114950944560623670
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1869100039438304}
+  m_GameObject: {fileID: 1263690713525126}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc63d20ab4f80cb4aa04ba862ef0994b, type: 3}
+  m_Script: {fileID: 1077351063, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hexagon: {fileID: 1459146187104986, guid: abd2776a53d8b744f89ca97e42fe1779, type: 2}
-  worldFile: {fileID: 4900000, guid: 303b1ae3480dd4841ba658c455ada836, type: 3}
-  buildings: {fileID: 0}
-  materials:
-  - {fileID: 2100000, guid: 051c57c31aefc6a4ebb0c3b44091a0c7, type: 2}
-  - {fileID: 2100000, guid: 25d520364197b544b8f809a4ee34e570, type: 2}
-  - {fileID: 2100000, guid: 958d5792144be2b46aa752632a4742bb, type: 2}
-  - {fileID: 2100000, guid: 9849a89910340f3489fcfc52640a9e16, type: 2}
-  xOffset: 2
-  zOffset: 1.725
-  x2Offset: 1
+  m_HorizontalAxis: Horizontal
+  m_VerticalAxis: Vertical
+  m_SubmitButton: Submit
+  m_CancelButton: Cancel
+  m_InputActionsPerSecond: 10
+  m_RepeatDelay: 0.5
+  m_ForceModuleActive: 0

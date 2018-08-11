@@ -51,4 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 859dc1b622b4ef8438be414efd476397, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera: {fileID: 0}
+  myCamera: {fileID: 0}
+  canvasPrefab: {fileID: 1088385031903882, guid: b632b8ab7f51bf444a805cc6bfa54b50,
+    type: 2}
+  buildings: {fileID: 0}
