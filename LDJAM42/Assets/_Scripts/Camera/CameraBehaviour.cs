@@ -15,7 +15,7 @@ public class CameraBehaviour : MonoBehaviour
     private bool rightButton, middleButton, rButton;
     private float xMovement, yMovement, wZoom;
 
-    private Vector3 startPosition, startLookAt;
+    private Vector3 startPosition, startRotEuler;
     private Quaternion startRotation;
     
 
@@ -24,8 +24,8 @@ public class CameraBehaviour : MonoBehaviour
     {
         world = FindObjectOfType<WorldCreation>().GetWorld();
         startPosition = new Vector3(world.getSizeX() / 2, startHeight, -(world.getSizeY()/2));
-        startLookAt = new Vector3(startPosition.x, 0, startPosition.z);
-
+        startRotEuler = new Vector3(55, 0, 0);
+        startRotation = Quaternion.Euler(startRotEuler);
         resetCamera();
 	}
 
@@ -63,8 +63,8 @@ public class CameraBehaviour : MonoBehaviour
 
     private void Movement(float x, float y)
     {
-        this.transform.position -= this.transform.right * x * movementSpeed;
-        this.transform.position -= this.transform.up * y * movementSpeed;
+        this.transform.position -= Vector3.right * x * movementSpeed;
+        this.transform.position -= Vector3.forward * y * movementSpeed;
     }
 
     private void Rotation(float x, float y)
@@ -76,8 +76,7 @@ public class CameraBehaviour : MonoBehaviour
     private void resetCamera()
     {
         this.transform.position = startPosition;
-        this.transform.LookAt(startLookAt);
-        startRotation = this.transform.rotation;
+        resetCameraRotation();
     }
 
     private void resetCameraRotation()
