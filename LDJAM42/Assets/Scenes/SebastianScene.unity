@@ -463,6 +463,21 @@ Prefab:
       propertyPath: efficiancy
       value: 
       objectReference: {fileID: 1722965552}
+    - target: {fileID: 114302663958496596, guid: 2b004288090ccea429861c27901abfb3,
+        type: 2}
+      propertyPath: canvas
+      value: 
+      objectReference: {fileID: 1722965551}
+    - target: {fileID: 114302663958496596, guid: 2b004288090ccea429861c27901abfb3,
+        type: 2}
+      propertyPath: buildings
+      value: 
+      objectReference: {fileID: 100193756}
+    - target: {fileID: 114302663958496596, guid: 2b004288090ccea429861c27901abfb3,
+        type: 2}
+      propertyPath: efficiancy
+      value: 
+      objectReference: {fileID: 1722965552}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2b004288090ccea429861c27901abfb3, type: 2}
   m_IsPrefabAsset: 0
