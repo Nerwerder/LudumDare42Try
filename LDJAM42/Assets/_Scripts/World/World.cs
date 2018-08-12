@@ -69,7 +69,7 @@ public class World : MonoBehaviour
             step = columns;
             if (!uneven)
                 ++step;
-            n.registerAdress(p.id - step);
+            n.RegisterNeighbor(GetPlace(p.id - step), NeighborPosition.Position.TOP_LEFT);
         }
 
         if (!top && (!uneven || !right))             //TOP RIGHT
@@ -77,18 +77,18 @@ public class World : MonoBehaviour
             step = (columns - 1);
             if (!uneven)
                 ++step;
-            n.registerAdress(p.id - step);
+            n.RegisterNeighbor(GetPlace(p.id - step), NeighborPosition.Position.TOP_RIGHT);
         }
 
         if (!right)                                 //RIGHT
-            n.registerAdress(p.id + 1);
+            n.RegisterNeighbor(GetPlace(p.id + 1), NeighborPosition.Position.SAME_RIGHT);
 
-        if (!down && (!uneven || !right))            //DOWN RIGHT
+        if (!down && (!uneven || !right))           //DOWN RIGHT
         {
             step = (columns + 1);
             if (!uneven)
                 --step;
-            n.registerAdress(p.id + step);
+            n.RegisterNeighbor(GetPlace(p.id + step), NeighborPosition.Position.DOWN_RIGHT);
         }
 
         if (!down && (uneven || !left))             //DOWN LEFT
@@ -96,11 +96,11 @@ public class World : MonoBehaviour
             step = columns;
             if (!uneven)
                 --step;
-            n.registerAdress(p.id + step);
+            n.RegisterNeighbor(GetPlace(p.id + step), NeighborPosition.Position.DOWN_LEFT);
         }
 
         if (!left)                                   //LEFT
-            n.registerAdress(p.id - 1);
+            n.RegisterNeighbor(GetPlace(p.id - 1), NeighborPosition.Position.SAME_LEFT);
 
         return n;
     }

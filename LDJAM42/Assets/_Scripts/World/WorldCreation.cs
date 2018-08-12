@@ -18,7 +18,6 @@ public class WorldCreation : MonoBehaviour
     private char lineSeperator = '\n';
     private char fieldSeperator = ' ';
     private int diferentFieldTypes = 4;
-    private List<ConnectionPoint> connectionPoints = new List<ConnectionPoint>();
 
     private void Awake()
     {
@@ -36,14 +35,23 @@ public class WorldCreation : MonoBehaviour
 
     private void CreateWorld()
     {
+        System.DateTime start = System.DateTime.Now;
+
         //Create All the Tiles from the txt File
         CreateTiles();
 
-        //Create The Neighborhoods
+        //Create the Neighborhoods
         DetermineNeighbors();
 
         //Create the ConnectionPoints
         CreateConnectionPoints();
+
+        //Create Connections between ConnectionPoints
+        CreateConnections();
+
+        System.DateTime end = System.DateTime.Now;
+        System.TimeSpan time = end - start;
+        Debug.Log("Worldcreation Done - Time : " + time.TotalMilliseconds + " ms");
 
     }
 
@@ -123,18 +131,18 @@ public class WorldCreation : MonoBehaviour
         foreach (Place n0 in world.GetPlaces())
         {
             //A ConnectionPoint exists if 3 places Connect with each other -> Test this place with every possible Neighborhood Pair
-            for (int k = 0; k < n0.neighborhood.count; ++k)
+            for (int k = 0; k < n0.neighborhood.GetNeighbors().Count; ++k)
             {
                 //Special Case: only two Neighbors
-                if (k == 1 && n0.neighborhood.count == 2)
+                if (k == 1 && n0.neighborhood.GetNeighbors().Count == 2)
                     continue;
 
-                n1ID = n0.neighborhood.Adresses[k];
+                n1ID = n0.neighborhood.GetNeighbors()[k].place.id;
 
-                if ((k + 1) < n0.neighborhood.count)
-                    n2ID = n0.neighborhood.Adresses[(k + 1)];
+                if ((k + 1) < n0.neighborhood.GetNeighbors().Count)
+                    n2ID = n0.neighborhood.GetNeighbors()[(k + 1)].place.id;
                 else
-                    n2ID = n0.neighborhood.Adresses[0]; //The Circle is closed!
+                    n2ID = n0.neighborhood.GetNeighbors()[0].place.id; //The Circle is closed!
 
 
                 //We know Allready that p is Neighbor of n1 and n2, so we only have to test if n1 and n2 are Neighbors
@@ -145,27 +153,24 @@ public class WorldCreation : MonoBehaviour
                 //Test if this ConnectionPoint exists allready (the System will try to create every ConnectionPoint 3 Times)
                 n2 = world.GetPlace(n2ID);
                 if (n0.ContainsConnectionPoint(n1, n2))
-                    continue;              
+                    continue;
 
                 //There is a ConnectionPoint!
-                var nCon = Instantiate(connecionPointPrefab, getMiddle(n0, n1, n2), connecionPointPrefab.transform.rotation, n0.transform);
+                var nCon = Instantiate(connecionPointPrefab, GetMiddle(n0, n1, n2), connecionPointPrefab.transform.rotation, n0.transform);
                 var con = nCon.GetComponent<ConnectionPoint>();
-                
+
                 //Register the ConnectionPoint with n0, n1, n2  
                 con.RegisterPlaces(n0, n1, n2);
-
-                //Only for easy Handling
-                connectionPoints.Add(con);
             }
         }
     }
 
-    private Vector3 getMiddle(Place p0, Place p1, Place p2)
+    private Vector3 GetMiddle(Place p0, Place p1, Place p2)
     {
         List<Vector3> vs = new List<Vector3>() { p0.transform.position, p1.transform.position, p2.transform.position };
 
         float minX = vs[0].x, maxX = vs[0].x, minZ = vs[0].z, maxZ = vs[0].z;
-        for(int k = 1; k < 3; ++k)
+        for (int k = 1; k < 3; ++k)
         {
             //X
             if (minX > vs[k].x)
@@ -174,13 +179,37 @@ public class WorldCreation : MonoBehaviour
                 maxX = vs[k].x;
 
             //Z
-            if (minZ> vs[k].z)
+            if (minZ > vs[k].z)
                 minZ = vs[k].z;
             else if (maxZ < vs[k].z)
                 maxZ = vs[k].z;
         }
 
         Vector3 of = new Vector3(maxX - ((maxX - minX) / 2), 0.1f, maxZ - ((maxZ - minZ) / 2));
+
+        //WORKAROUND (FIX THIS)
+        //Correction-Factor
+        float cZ = 0.25f;
+        int dC = 0;
+
+        if (p0.neighborhood.getPosition(p1.id).level == NeighborPosition.Level.DOWN)
+            ++dC;
+        if (p0.neighborhood.getPosition(p2.id).level == NeighborPosition.Level.DOWN)
+            ++dC;
+
+        if (dC < 2)
+            of.z += cZ;
+        else
+            of.z -= cZ;
+
         return of;
+    }
+
+    public void CreateConnections()
+    {
+        foreach (var p in world.GetPlaces())
+            foreach (var c1 in p.GetConnectionPoints())
+                foreach (var c2 in p.GetConnectionPoints())
+                    c1.TestForConnection(c2);
     }
 }

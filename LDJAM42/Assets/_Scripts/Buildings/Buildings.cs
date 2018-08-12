@@ -15,7 +15,7 @@ public class Buildings : MonoBehaviour
         switch (t)
         {
             case 3:     //Trees
-                int treeCount = Random.Range(6, 10);
+                int treeCount = Random.Range(1, 4);
                 for (int i = 0; i < treeCount; i++)
                 {
                     Vector3 treepos;
@@ -27,8 +27,8 @@ public class Buildings : MonoBehaviour
                     } while (checkTreesInRange(treepos));
                     
 
-                    float sizeModifier = Random.Range(0.8f, 1.2f);
-                    GameObject tree = Instantiate(buildingPrefabs[6], treepos, p.transform.rotation);
+                    float sizeModifier = Random.Range(1.5f, 2.5f) + 1/treeCount;
+                    GameObject tree = Instantiate(buildingPrefabs[6], treepos, p.transform.rotation, this.transform);
                     Vector3 scale = new Vector3(tree.transform.localScale.x * sizeModifier, tree.transform.localScale.y * sizeModifier, tree.transform.localScale.z * sizeModifier);
                     tree.transform.localScale = scale;
                 }

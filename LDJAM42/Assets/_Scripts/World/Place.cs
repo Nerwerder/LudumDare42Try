@@ -60,4 +60,6 @@ public class Place : MonoBehaviour
 
         return false;
     }
+
+    public List<ConnectionPoint> GetConnectionPoints() { return connectionPoints; }
 }
