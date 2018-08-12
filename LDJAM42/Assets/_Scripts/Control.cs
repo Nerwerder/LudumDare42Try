@@ -14,12 +14,19 @@ public class Control : MonoBehaviour
     LeftClickState lCState = LeftClickState.Selection;
 
     public GameObject canvas = null;
+
+    public Image efficiancy = null;
+
+    public List<Sprite> efficiancies = new List<Sprite>();
+
     private bool canvasActive = false;
     private Place activeCanvasPlace = null;
 
+
     void Start()
     {
-        //canvas = GameObject.FindGameObjectWithTag("BuildMenu");
+        if(canvas == null)
+            canvas = GameObject.FindGameObjectWithTag("BuildMenu");
         canvas.SetActive(false);
     }
 
