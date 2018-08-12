@@ -62,7 +62,7 @@ public class Control : MonoBehaviour
                         Place p = hitInfo.collider.GetComponent<Place>();
                         if(p && p.type == Place.PlaceType.Meadow && p.canvasSpaceFree)
                         {
-                            guiControll.ActivateCanvas(p);
+                            guiControll.ActivateBuildPanel(p);
                             lCState = LeftClickState.Selected;
                         }
                         
