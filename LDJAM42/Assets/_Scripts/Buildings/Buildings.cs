@@ -20,8 +20,8 @@ public class Buildings : MonoBehaviour
                     Vector3 treepos;
                     do
                     {
-                        float deltaX = Random.Range(-0.55f, 0.55f);
-                        float deltaZ = Random.Range(-0.55f, 0.55f);
+                        float deltaX = Random.Range(-0.35f, 0.35f);
+                        float deltaZ = Random.Range(-0.35f, 0.35f);
                         treepos = new Vector3(p.transform.position.x + deltaX, p.transform.position.y + 0.114f, p.transform.position.z + deltaZ);
                     } while (checkTreesInRange(treepos));
                     
