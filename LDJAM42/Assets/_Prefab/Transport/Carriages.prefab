@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 114925910729898102}
   m_Layer: 0
   m_Name: Carriages
-  m_TagString: Untagged
+  m_TagString: Carriage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

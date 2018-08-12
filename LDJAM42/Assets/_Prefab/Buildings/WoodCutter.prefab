@@ -22,9 +22,10 @@ GameObject:
   - component: {fileID: 33422654440538104}
   - component: {fileID: 23624916482147324}
   - component: {fileID: 114474450250328030}
-  m_Layer: 0
+  - component: {fileID: 65983921003414098}
+  m_Layer: 9
   m_Name: WoodCutter
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -84,6 +85,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1702279550035938}
   m_Mesh: {fileID: 4300000, guid: 85a2fa3b116b4994c9877a657dd53291, type: 3}
+--- !u!65 &65983921003414098
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1702279550035938}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.02, y: 0.020000005, z: 0.1318635}
+  m_Center: {x: 0, y: -4.9677364e-17, z: 0.055931754}
 --- !u!114 &114474450250328030
 MonoBehaviour:
   m_ObjectHideFlags: 1

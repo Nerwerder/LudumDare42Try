@@ -113,6 +113,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!20 &2476777 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 20074783053010662, guid: 7a37091a20e40cc41a8dfdde747e8c55,
+    type: 2}
+  m_PrefabInternal: {fileID: 1428158350}
 --- !u!1001 &47453246
 Prefab:
   m_ObjectHideFlags: 0
@@ -443,6 +448,21 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 114302663958496596, guid: 2b004288090ccea429861c27901abfb3,
+        type: 2}
+      propertyPath: buildings
+      value: 
+      objectReference: {fileID: 100193756}
+    - target: {fileID: 114302663958496596, guid: 2b004288090ccea429861c27901abfb3,
+        type: 2}
+      propertyPath: canvas
+      value: 
+      objectReference: {fileID: 1722965551}
+    - target: {fileID: 114302663958496596, guid: 2b004288090ccea429861c27901abfb3,
+        type: 2}
+      propertyPath: efficiancy
+      value: 
+      objectReference: {fileID: 1722965552}
     - target: {fileID: 114177319164270530, guid: 2b004288090ccea429861c27901abfb3,
         type: 2}
       propertyPath: myCamera
@@ -455,29 +475,9 @@ Prefab:
       objectReference: {fileID: 100193756}
     - target: {fileID: 114177319164270530, guid: 2b004288090ccea429861c27901abfb3,
         type: 2}
-      propertyPath: canvas
+      propertyPath: TEST
       value: 
-      objectReference: {fileID: 1722965551}
-    - target: {fileID: 114177319164270530, guid: 2b004288090ccea429861c27901abfb3,
-        type: 2}
-      propertyPath: efficiancy
-      value: 
-      objectReference: {fileID: 1722965552}
-    - target: {fileID: 114302663958496596, guid: 2b004288090ccea429861c27901abfb3,
-        type: 2}
-      propertyPath: canvas
-      value: 
-      objectReference: {fileID: 1722965551}
-    - target: {fileID: 114302663958496596, guid: 2b004288090ccea429861c27901abfb3,
-        type: 2}
-      propertyPath: buildings
-      value: 
-      objectReference: {fileID: 100193756}
-    - target: {fileID: 114302663958496596, guid: 2b004288090ccea429861c27901abfb3,
-        type: 2}
-      propertyPath: efficiancy
-      value: 
-      objectReference: {fileID: 1722965552}
+      objectReference: {fileID: 2100000, guid: c541553c8071e314cb16468ee6c7caf8, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2b004288090ccea429861c27901abfb3, type: 2}
   m_IsPrefabAsset: 0
@@ -578,6 +578,26 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 223954025445243454, guid: b632b8ab7f51bf444a805cc6bfa54b50,
+        type: 2}
+      propertyPath: m_RenderMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 223954025445243454, guid: b632b8ab7f51bf444a805cc6bfa54b50,
+        type: 2}
+      propertyPath: m_PixelPerfect
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 223954025445243454, guid: b632b8ab7f51bf444a805cc6bfa54b50,
+        type: 2}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 2476777}
+    - target: {fileID: 223954025445243454, guid: b632b8ab7f51bf444a805cc6bfa54b50,
+        type: 2}
+      propertyPath: m_PlaneDistance
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b632b8ab7f51bf444a805cc6bfa54b50, type: 2}
   m_IsPrefabAsset: 0
@@ -592,6 +612,18 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 1722965550}
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+--- !u!65 &1722965556
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1722965551}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 547.35913, y: 160.61691, z: 16.854645}
+  m_Center: {x: -3.001587, y: -9.4474945, z: -7.9273224}
 --- !u!114 &1727512259 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114626994295413538, guid: 7a37091a20e40cc41a8dfdde747e8c55,

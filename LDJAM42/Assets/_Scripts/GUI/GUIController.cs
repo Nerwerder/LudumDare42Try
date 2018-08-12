@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine;
 
-public class GUIController : MonoBehaviour {
+public class GUIController : MonoBehaviour
+{
 
 
     public Buildings buildings = null;
@@ -17,18 +18,24 @@ public class GUIController : MonoBehaviour {
     private Place activeCanvasPlace = null;
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
         if (canvas == null)
             canvas = GameObject.FindGameObjectWithTag("BuildMenu");
         canvas.SetActive(false);
     }
-	
+
 
     public void ActivateBuildPanel(Place p)
     {
         canvas.SetActive(true);
 
         var buttons = canvas.GetComponentsInChildren<Button>();
+
+        //WORKAROUND
+        foreach (var b in buttons)
+            b.onClick.RemoveAllListeners();
+
         ChangeButton(buttons[0], Buildings.BuildingType.WoodCutter, p, Place.PlaceType.Forest);
         ChangeButton(buttons[1], Buildings.BuildingType.Sawmill, p);
         ChangeButton(buttons[2], Buildings.BuildingType.Farm, p);
@@ -77,7 +84,7 @@ public class GUIController : MonoBehaviour {
                 break;
 
         }
-        
+
         ChangeButton(b, t, p);
     }
 
@@ -86,10 +93,9 @@ public class GUIController : MonoBehaviour {
         b.onClick.AddListener(() => ActionWrapper(t, p));
     }
 
-    private void RemoveCanvas(Place p)
+    private void RemoveCanvas()
     {
         canvas.SetActive(false);
-        p.canvasSpaceFree = true;
         canvasActive = false;
         activeCanvasPlace = null;
     }
@@ -97,7 +103,7 @@ public class GUIController : MonoBehaviour {
     public void ActionWrapper(Buildings.BuildingType type, Place p)
     {
         buildings.Build(type, p);
-        RemoveCanvas(p);
+        RemoveCanvas();
     }
 
     public bool getCanvasActive()

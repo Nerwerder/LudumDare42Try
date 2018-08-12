@@ -7,28 +7,21 @@ using UnityEngine;
 public class Control : MonoBehaviour
 {
     public CameraBehaviour myCamera = null;
-    
     public Buildings buildings = null;
+    public Material TEST = null;
 
     private enum LeftClickState { Selection, Selected };
-    LeftClickState lCState = LeftClickState.Selection;
+    private LeftClickState lCState = LeftClickState.Selection;
 
-    GUIController guiControll;
-    
+    private GUIController guiControll;
+
+    //Selection
+    private Place selectedPlace = null;
 
 
     void Start()
     {
         guiControll = GetComponent<GUIController>();
-    }
-
-    void Update ()
-    {
-        //Camera
-        CameraControl();
-
-        //LeftClick
-        LeftClick();
     }
 
     private void CameraControl()
@@ -42,40 +35,79 @@ public class Control : MonoBehaviour
         myCamera.SetInput(cBR, cBM, cAX, cAY, cAZ, cKR);
     }
 
+    void Update()
+    {
+        //Camera
+        CameraControl();
+
+        //LeftClick
+        if (Input.GetMouseButtonDown(0))
+            LeftClick();
+
+        //RightClick
+        if (Input.GetMouseButtonDown(1))
+            RightClick(); ;
+    }
+
+
     private void LeftClick()                //This is basically a state Machine
     {
-        if(!guiControll.getCanvasActive())
-        {
-            lCState = LeftClickState.Selection;
-        }
-        if (Input.GetMouseButtonDown(0))
-        {
-            switch (lCState)
-            {
-                case LeftClickState.Selection:  //Select a Field
-                    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                    RaycastHit hitInfo;
+        LeftClickSelection();
+    }
 
-                    if (Physics.Raycast(ray, out hitInfo))
-                    {
-                        //Get the Right Place
-                        Place p = hitInfo.collider.GetComponent<Place>();
-                        if(p && p.type == Place.PlaceType.Meadow && p.canvasSpaceFree)
-                        {
-                            guiControll.ActivateBuildPanel(p);
-                            lCState = LeftClickState.Selected;
-                        }
-                        
-                    }
-                    break;
-                default:
-                    break;
-            }
+    private void LeftClickSelection()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hitInfo;
+
+        if (Physics.Raycast(ray, out hitInfo))
+        {
+            Debug.Log(hitInfo.collider.tag.ToString());
+
+            if (hitInfo.collider.CompareTag("Place"))
+                selectPlace(hitInfo.collider.GetComponent<Place>());
+
+            if (hitInfo.collider.CompareTag("Carriage"))
+                selectCarriage(hitInfo.collider.GetComponent<Carriage>());
+
+            if (hitInfo.collider.CompareTag("Building"))
+                selectBuilding(hitInfo.collider.GetComponent<Building>());
         }
     }
 
-    
+    private void selectPlace(Place p)
+    {
+        //Mark the Selected Element
+        if (selectedPlace)
+            deselectPlace(selectedPlace);
+
+        p.SetGlowMaterial();
+        selectedPlace = p;
+
+        guiControll.ActivateBuildPanel(p);
+    }
+    private void deselectPlace(Place p)
+    {
+        p.SetBasicMaterial();
+    }
+
+    private void selectCarriage(Carriage c)
+    {
+
+    }
+
+    private void selectBuilding(Building b)
+    {
+        guiControll.ActivateBuildingInfo();
+    }
+
+    private void RightClick()
+    {
+
+    }
+
+
 
     //ChangeButton but Search the Environment for a special Type of Area
-   
+
 }
