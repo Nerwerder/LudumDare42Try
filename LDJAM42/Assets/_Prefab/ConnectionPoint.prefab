@@ -20,7 +20,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4361470143084758}
   - component: {fileID: 114830735119871924}
-  - component: {fileID: 114012891149302050}
   m_Layer: 0
   m_Name: ConnectionPoint
   m_TagString: Untagged
@@ -41,19 +40,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114012891149302050
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1391535735475780}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 044de50f0f0bd0a43a7a0ca5a2e9d834, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gizmoColor: {r: 1, g: 0.015686274, b: 0.034767997, a: 1}
-  gizmoSize: 0.15
 --- !u!114 &114830735119871924
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -59,3 +59,9 @@ MonoBehaviour:
   - {fileID: 1668181056183498, guid: 2b1b6978fc349e04c84b0cecbc8395f9, type: 2}
   - {fileID: 1831609278846814, guid: 439cbe7a0d0c83e42af5338c6cc659bc, type: 2}
   - {fileID: 1488824970728930, guid: 368eda53378c2cf499edc05b242af8dd, type: 2}
+  resourcePrefabs:
+  - {fileID: 1488824970728930, guid: 368eda53378c2cf499edc05b242af8dd, type: 2}
+  - {fileID: 1488824970728930, guid: 368eda53378c2cf499edc05b242af8dd, type: 2}
+  - {fileID: 1748365773276420, guid: d37c15083ee8cf8449766ee91e0f54a3, type: 2}
+  - {fileID: 1748365773276420, guid: d37c15083ee8cf8449766ee91e0f54a3, type: 2}
+  - {fileID: 1748365773276420, guid: d37c15083ee8cf8449766ee91e0f54a3, type: 2}

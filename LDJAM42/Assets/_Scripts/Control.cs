@@ -10,22 +10,20 @@ public class Control : MonoBehaviour
     public GameObject canvasPrefab = null;
     public Buildings buildings = null;
 
-    private enum LeftClickState {Selection, Selected};
+    private enum LeftClickState { Selection, Selected };
     LeftClickState lCState = LeftClickState.Selection;
 
     private GameObject activeCanvas = null;
     private Place activeCanvasPlace = null;
 
-	void Update ()
+    void Update()
     {
         //Camera
         CameraControl();
 
         //LeftClick
         LeftClick();
-
-
-	}
+    }
 
 
     private void CameraControl()
@@ -41,7 +39,7 @@ public class Control : MonoBehaviour
 
     private void LeftClick()                //This is basically a state Machine
     {
-        if(Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))
         {
             switch (lCState)
             {
@@ -53,14 +51,14 @@ public class Control : MonoBehaviour
                     {
                         //Get the Right Place
                         Place p = hitInfo.collider.GetComponent<Place>();
-                        if(p && p.canvasSpaceFree)
+                        if (p && p.canvasSpaceFree)
                         {
                             AddCanvas(p);
                         }
                         lCState = LeftClickState.Selected;
                     }
-                       
-                    
+
+
                     break;
                 case LeftClickState.Selected:
 
@@ -83,16 +81,11 @@ public class Control : MonoBehaviour
         //Prefab, Position, Rotation, Parent
         var canvas = Instantiate(canvasPrefab, canvasPosition, canvasRotation, p.transform);
 
-        //Move the Canvas to the Right Position
-        //var canvasRect = canvas.GetComponent<RectTransform>();
-        //var canvasOffset = new Vector3((canvasRect.rect.width / 2) * canvas.transform.localScale.x, 0, (canvasRect.rect.height / 2) * canvas.transform.localScale.z);
-        //canvas.transform.position += canvasOffset;
-
         var text = canvas.GetComponentInChildren<Text>();
         text.text = p.type.ToString();
 
         var buttons = canvas.GetComponentsInChildren<Button>();
-        ChangeButton(buttons[0], Buildings.BuildingType.WoodCutter, p);
+        ChangeButton(buttons[0], Buildings.BuildingType.WoodCutter, p, Place.PlaceType.Forest);
         ChangeButton(buttons[1], Buildings.BuildingType.Sawmill, p);
         ChangeButton(buttons[2], Buildings.BuildingType.Farm, p);
         ChangeButton(buttons[3], Buildings.BuildingType.Windmill, p);
@@ -102,9 +95,22 @@ public class Control : MonoBehaviour
         activeCanvasPlace = p;
     }
 
-    private void ChangeButton(Button b, Buildings.BuildingType t, Place p)
+    //ChangeButton but Search the Environment for a special Type of Area
+    private void ChangeButton(Button b, Buildings.BuildingType t, Place p, Place.PlaceType pt)
     {
-        b.GetComponentInChildren<Text>().text = t.ToString(); ;
+        int f = 0;
+        int e = 20;
+        foreach (var n in p.neighborhood.GetNeighbors())
+            if (n.place.type == pt)
+                f += e;
+
+        string s = " (" + f.ToString() + "%)";
+        ChangeButton(b, t, p, s);
+    }
+
+    private void ChangeButton(Button b, Buildings.BuildingType t, Place p, string s = "")
+    {
+        b.GetComponentInChildren<Text>().text = t.ToString() + s;
         b.onClick.AddListener(() => ActionWrapper(t, p));
     }
 
@@ -121,7 +127,7 @@ public class Control : MonoBehaviour
         buildings.Build(type, p);
     }
 
-    
+
 
 
 }

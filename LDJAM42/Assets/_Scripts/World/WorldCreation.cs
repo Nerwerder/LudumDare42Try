@@ -14,6 +14,10 @@ public class WorldCreation : MonoBehaviour
 
     public float xOffset, zOffset, x2Offset;
 
+    public float defaultTravelSpeed = 1f;
+    public float forestSlowdown = 0.25f;
+    public float waterSlowdown = 0.5f;
+    
     private World world;
     private char lineSeperator = '\n';
     private char fieldSeperator = ' ';
@@ -210,6 +214,24 @@ public class WorldCreation : MonoBehaviour
         foreach (var p in world.GetPlaces())
             foreach (var c1 in p.GetConnectionPoints())
                 foreach (var c2 in p.GetConnectionPoints())
-                    c1.TestForConnection(c2);
+                {
+                    var c = c1.TestForConnection(c2);
+                    if(c != null)   //Calculate the TravelSpeed
+                    {
+                        float slowdown = getSlowDown(c.place1) + getSlowDown(c.place2);
+                        c.SetSpeed(defaultTravelSpeed * (1 - slowdown));              
+                    }
+                }
+    }
+
+    public float getSlowDown(Place c)
+    {
+        if (c.type == Place.PlaceType.Forest)
+            return forestSlowdown;
+
+        if (c.type == Place.PlaceType.Water)
+            return waterSlowdown;
+
+        return 0f;
     }
 }

@@ -5,10 +5,31 @@ using UnityEngine;
 public class Building : MonoBehaviour
 {
     public Buildings.BuildingType type;
+    protected Place place;
 
-    public void set (Buildings.BuildingType t)
+
+    private void Update()
     {
-        type = t;
+        Work(Time.deltaTime);
     }
 
+    public void SetPlace(Place p)
+    {
+        place = p;
+    }
+
+    public virtual void Init()
+    {
+
+    }
+
+    public virtual void Work(float time)
+    {
+
+    }
+
+    public virtual void Done()
+    {
+
+    }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Place : MonoBehaviour
 {
-    public enum PlaceType { Water, Meadow, Forest, City }
+    public enum PlaceType { Water, Meadow, Forest, City}
 
     [HideInInspector] public PlaceType type;
     [HideInInspector] public int line, column, id;
@@ -35,10 +35,22 @@ public class Place : MonoBehaviour
         return false;
     }
 
-    public GameObject BuildBuilding(GameObject g, Transform parent)
+    public GameObject BuildBuilding(GameObject g)
     {
         buildSpaceFree = false;
-        return Instantiate(g, (this.transform.position + g.transform.position), this.transform.rotation, parent);
+        var b = Instantiate(g, (this.transform.position + g.transform.position), this.transform.rotation, this.transform);
+        b.GetComponent<Building>().SetPlace(this);
+        removeScale(b);
+        b.GetComponent<Building>().Init();
+
+        return b;
+    }
+
+    public void removeScale(GameObject o)
+    {
+        var os = o.transform.localScale;
+        var ns = this.transform.localScale;
+        o.transform.localScale = new Vector3(os.x / ns.x, os.y / ns.y, os.z / ns.z);
     }
 
     public void RegisterConnectionPoint(ConnectionPoint p)

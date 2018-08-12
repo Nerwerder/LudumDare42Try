@@ -2,35 +2,67 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public struct Connection
-{
-    public ConnectionPoint target;
-    public Place place1, place2;
-    public float speed;
-
-    public void set(ConnectionPoint t, Place p1, Place p2)
-    {
-        target = t;
-        p1 = place1;
-        p2 = place2;
-    }
-
-    public void setSpeed(float s)
-    {
-        speed = s;
-    }
-}
-
 public class ConnectionPoint : MonoBehaviour
 {
     [HideInInspector] public int ID;
     private List<Place> places = new List<Place>(3);
     public List<Connection> connections = new List<Connection>();
 
+    //Resources and Travel
+    private bool resourceOutput, resourceInput, full;
+    private Building    building;
+    private GameObject  resource;    
+
+    public bool Full()
+    {
+        return full;
+    }
+    public bool FreeForUse()
+    {
+        return !(resourceInput || resourceOutput);
+    }
+    public void UseAsOPutput(Building source)
+    {
+        resourceOutput = true;
+        building = source;
+    }
+    public void UseAsInput(Building source)
+    {
+        resourceInput = true;
+        building = source;
+    }
+    public void StopUsing(Building source)
+    {
+        resourceInput = false;
+        resourceOutput = false;
+        building = null;
+    }
+    public bool PushResource(GameObject prefab)
+    {
+        resource = Instantiate(prefab, this.transform);
+
+        //Remove the Parent Scale
+        this.transform.parent.GetComponent<Place>().removeScale(resource);
+        
+        full = true;
+        return true;
+    }
+    public GameObject PullResource()
+    {
+        full = false;
+        return null;
+    }
+    public bool ResourceWaiting()
+    {
+        if (full && resource != null)
+            return true;
+        return false;
+    }
+
     private void Update()
     {
-        foreach (var c in connections)
-            Debug.DrawLine(this.transform.position, c.target.transform.position);
+        //foreach (var c in connections)
+        //    Debug.DrawLine(this.transform.position, c.target.transform.position);
     }
 
     static int SortByID(Place p1, Place p2)
@@ -93,25 +125,24 @@ public class ConnectionPoint : MonoBehaviour
         return false;
     }
     private List<Place> sharedPlaces = new List<Place>(2);
-    public bool TestForConnection(ConnectionPoint other)
+    public Connection TestForConnection(ConnectionPoint other)
     {
         //Do not Connect to yourself
         if (this == other)
-            return false;
+            return null;
 
         if(this.GetSharedPlaces(other, sharedPlaces) >= 2)
         {
 
             //Test if this Connection already exists
             if (this.ConnectedTo(other))
-                return false;
+                return null;
             
-            var c = new Connection();
-            c.set(other, sharedPlaces[0], sharedPlaces[1]);
+            var c = new Connection(other, sharedPlaces[0], sharedPlaces[1]);
             connections.Add(c);
-            return true;
+            return c;
         }
         
-        return false;
+        return null;
     }
 }
