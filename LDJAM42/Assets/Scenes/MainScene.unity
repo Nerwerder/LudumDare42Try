@@ -219,6 +219,12 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b632b8ab7f51bf444a805cc6bfa54b50, type: 2}
   m_IsPrefabAsset: 0
+--- !u!114 &321126669 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114882966539151044, guid: b632b8ab7f51bf444a805cc6bfa54b50,
+    type: 2}
+  m_PrefabInternal: {fileID: 321126668}
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1 &369355989
 GameObject:
   m_ObjectHideFlags: 0
@@ -390,11 +396,6 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1bd5c341d1e666c428296ec1996ee26c, type: 2}
   m_IsPrefabAsset: 0
---- !u!1 &791038324 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1039935762071870, guid: b632b8ab7f51bf444a805cc6bfa54b50,
-    type: 2}
-  m_PrefabInternal: {fileID: 321126668}
 --- !u!1001 &1057466867
 Prefab:
   m_ObjectHideFlags: 0
@@ -402,11 +403,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 114177319164270530, guid: 2b004288090ccea429861c27901abfb3,
-        type: 2}
-      propertyPath: efficiancies.Array.size
-      value: 7
-      objectReference: {fileID: 0}
     - target: {fileID: 4856498483941806, guid: 2b004288090ccea429861c27901abfb3, type: 2}
       propertyPath: m_LocalPosition.x
       value: 12.748482
@@ -439,11 +435,16 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 114177319164270530, guid: 2b004288090ccea429861c27901abfb3,
+    - target: {fileID: 114302663958496596, guid: 2b004288090ccea429861c27901abfb3,
         type: 2}
-      propertyPath: camera
+      propertyPath: buildings
       value: 
-      objectReference: {fileID: 1784658580}
+      objectReference: {fileID: 26781640}
+    - target: {fileID: 114302663958496596, guid: 2b004288090ccea429861c27901abfb3,
+        type: 2}
+      propertyPath: efficiancy
+      value: 
+      objectReference: {fileID: 321126669}
     - target: {fileID: 114177319164270530, guid: 2b004288090ccea429861c27901abfb3,
         type: 2}
       propertyPath: myCamera
@@ -451,62 +452,9 @@ Prefab:
       objectReference: {fileID: 1784658580}
     - target: {fileID: 114177319164270530, guid: 2b004288090ccea429861c27901abfb3,
         type: 2}
-      propertyPath: canvasPrefab
-      value: 
-      objectReference: {fileID: 1819834195414110, guid: abebf6b9ee6babd408c6f81093f73331,
-        type: 2}
-    - target: {fileID: 114177319164270530, guid: 2b004288090ccea429861c27901abfb3,
-        type: 2}
       propertyPath: buildings
       value: 
       objectReference: {fileID: 26781640}
-    - target: {fileID: 114177319164270530, guid: 2b004288090ccea429861c27901abfb3,
-        type: 2}
-      propertyPath: canvas
-      value: 
-      objectReference: {fileID: 791038324}
-    - target: {fileID: 114177319164270530, guid: 2b004288090ccea429861c27901abfb3,
-        type: 2}
-      propertyPath: efficiancies.Array.data[0]
-      value: 
-      objectReference: {fileID: 21300000, guid: 45993a625410a094b930cea00a0210ec,
-        type: 3}
-    - target: {fileID: 114177319164270530, guid: 2b004288090ccea429861c27901abfb3,
-        type: 2}
-      propertyPath: efficiancies.Array.data[1]
-      value: 
-      objectReference: {fileID: 21300000, guid: 10d2aba546ad2b34da8bd008261720ce,
-        type: 3}
-    - target: {fileID: 114177319164270530, guid: 2b004288090ccea429861c27901abfb3,
-        type: 2}
-      propertyPath: efficiancies.Array.data[2]
-      value: 
-      objectReference: {fileID: 21300000, guid: 1b2d10425d442be409c0e913cc69ff7b,
-        type: 3}
-    - target: {fileID: 114177319164270530, guid: 2b004288090ccea429861c27901abfb3,
-        type: 2}
-      propertyPath: efficiancies.Array.data[3]
-      value: 
-      objectReference: {fileID: 21300000, guid: dad2c6c4cbd5a854086a1dfb8f4cf28e,
-        type: 3}
-    - target: {fileID: 114177319164270530, guid: 2b004288090ccea429861c27901abfb3,
-        type: 2}
-      propertyPath: efficiancies.Array.data[4]
-      value: 
-      objectReference: {fileID: 21300000, guid: 709b026261a72b243a34baaa66d50a0f,
-        type: 3}
-    - target: {fileID: 114177319164270530, guid: 2b004288090ccea429861c27901abfb3,
-        type: 2}
-      propertyPath: efficiancies.Array.data[5]
-      value: 
-      objectReference: {fileID: 21300000, guid: 4d8f3bd9e5733814c889e456660bf134,
-        type: 3}
-    - target: {fileID: 114177319164270530, guid: 2b004288090ccea429861c27901abfb3,
-        type: 2}
-      propertyPath: efficiancies.Array.data[6]
-      value: 
-      objectReference: {fileID: 21300000, guid: c62628ff3674e9e4da74827b2d491766,
-        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2b004288090ccea429861c27901abfb3, type: 2}
   m_IsPrefabAsset: 0
