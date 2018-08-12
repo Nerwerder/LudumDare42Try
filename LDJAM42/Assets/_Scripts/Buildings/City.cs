@@ -33,11 +33,14 @@ public class City : Building
 
     public void SpawnCariage()
     {
-        var l = FindRandomFreeMOVELocation();
-        l.CarriageMovesOnField();
-        var c = Instantiate(carriagePrefab, l.transform.position, carriagePrefab.transform.rotation, carriageParent);
         workTimer = 0f;
-        carriages.Add(c.GetComponent<Carriage>());
-        Debug.Log("Spawn Carriage");
+        var l = FindRandomFreeMOVELocation();
+        if(l != null)
+        {
+            var c = Instantiate(carriagePrefab, l.transform.position, carriagePrefab.transform.rotation, carriageParent);
+            var ca = c.GetComponent<Carriage>();
+            l.CarriageMovesOnField(ca);
+            carriages.Add(ca);
+        }
     }
 }

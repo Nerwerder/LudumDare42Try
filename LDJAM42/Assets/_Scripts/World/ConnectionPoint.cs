@@ -65,12 +65,15 @@ public class ConnectionPoint : MonoBehaviour
     {
         return !full;
     }
-    public void CarriageMovesOnField()
+    public void CarriageMovesOnField(Carriage c)
     {
+        c.SetActualPosition(this);
         full = true;
+        
     }
-    public void CarriageMovesFromField()
+    public void CarriageMovesFromField(Carriage c)
     {
+        c.SetActualPosition(null);
         full = false;
     }
 
