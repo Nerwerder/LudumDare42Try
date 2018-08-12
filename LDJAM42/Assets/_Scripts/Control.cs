@@ -39,7 +39,6 @@ public class Control : MonoBehaviour
         LeftClick();
     }
 
-
     private void CameraControl()
     {
         var cBR = Input.GetButton("Fire2");
@@ -65,23 +64,14 @@ public class Control : MonoBehaviour
                     {
                         //Get the Right Place
                         Place p = hitInfo.collider.GetComponent<Place>();
-                        if(p && p.getPlaceType() == Place.PlaceType.Meadow && p.GetCanvasSpaceFree())
+                        if(p && p.type == Place.PlaceType.Meadow && p.canvasSpaceFree)
                         {
                             ActivateCanvas(p);
                             lCState = LeftClickState.Selected;
                         }
                         
                     }
-
-
                     break;
-                //case LeftClickState.Selected:
-
-                //    if (canvasActive == true)
-                //        RemoveCanvas(activeCanvasPlace);
-
-                //    lCState = LeftClickState.Selection;
-                //    break;
                 default:
                     break;
             }
@@ -90,16 +80,6 @@ public class Control : MonoBehaviour
 
     public void ActivateCanvas(Place p)
     {
-
-
-        //Move the Canvas to the Right Position
-        //var canvasRect = canvas.GetComponent<RectTransform>();
-        //var canvasOffset = new Vector3((canvasRect.rect.width / 2) * canvas.transform.localScale.x, 0, (canvasRect.rect.height / 2) * canvas.transform.localScale.z);
-        //canvas.transform.position += canvasOffset;
-
-        //var text = canvas.GetComponentInChildren<Text>();
-        //text.text = p.getPlaceType().ToString();
-
         canvas.SetActive(true);
 
         var buttons = canvas.GetComponentsInChildren<Button>();
@@ -116,14 +96,25 @@ public class Control : MonoBehaviour
     //ChangeButton but Search the Environment for a special Type of Area
     private void ChangeButton(Button b, Buildings.BuildingType t, Place p, Place.PlaceType pt)
     {
-        //b.GetComponentInChildren<Text>().text = t.ToString(); ;
+        int f = 0;
+        int e = 20;
+        foreach (var n in p.neighborhood.GetNeighbors())
+            if (n.place.type == pt)
+                f += e;
+
+        string s = " (" + f.ToString() + "%)";
+        ChangeButton(b, t, p, s);
+    }
+
+    private void ChangeButton(Button b, Buildings.BuildingType t, Place p, string s = "")
+    {
         b.onClick.AddListener(() => ActionWrapper(t, p));
     }
 
     private void RemoveCanvas(Place p)
     {
         canvas.SetActive(false);
-        p.SetCanvasSpaceFree(true);
+        p.canvasSpaceFree = true;
         canvasActive = false;
         activeCanvasPlace = null;
         lCState = LeftClickState.Selection;
@@ -134,8 +125,4 @@ public class Control : MonoBehaviour
         buildings.Build(type, p);
         RemoveCanvas(p);
     }
-
-
-
-
 }
