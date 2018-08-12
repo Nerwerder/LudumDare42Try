@@ -7,16 +7,23 @@ using UnityEngine.UI;
 public class Control : MonoBehaviour
 {
     public CameraBehaviour myCamera = null;
-    public GameObject canvasPrefab = null;
+    
     public Buildings buildings = null;
 
     private enum LeftClickState {Selection, Selected};
     LeftClickState lCState = LeftClickState.Selection;
 
-    private GameObject activeCanvas = null;
+    public GameObject canvas = null;
+    private bool canvasActive = false;
     private Place activeCanvasPlace = null;
 
-	void Update ()
+    void Start()
+    {
+        //canvas = GameObject.FindGameObjectWithTag("BuildMenu");
+        canvas.SetActive(false);
+    }
+
+    void Update ()
     {
         //Camera
         CameraControl();
@@ -53,43 +60,42 @@ public class Control : MonoBehaviour
                     {
                         //Get the Right Place
                         Place p = hitInfo.collider.GetComponent<Place>();
-                        if(p && p.GetCanvasSpaceFree())
+                        if(p && p.getPlaceType() == Place.PlaceType.Meadow && p.GetCanvasSpaceFree())
                         {
-                            AddCanvas(p);
+                            ActivateCanvas(p);
+                            lCState = LeftClickState.Selected;
                         }
-                        lCState = LeftClickState.Selected;
+                        
                     }
                        
                     
                     break;
-                case LeftClickState.Selected:
+                //case LeftClickState.Selected:
 
-                    if (activeCanvas != null)
-                        RemoveCanvas(activeCanvas, activeCanvasPlace);
+                //    if (canvasActive == true)
+                //        RemoveCanvas(activeCanvasPlace);
 
-                    lCState = LeftClickState.Selection;
-                    break;
+                //    lCState = LeftClickState.Selection;
+                //    break;
                 default:
                     break;
             }
         }
     }
 
-    public void AddCanvas(Place p)
+    public void ActivateCanvas(Place p)
     {
-        Vector3 canvasPosition = new Vector3(p.transform.position.x, 1, p.transform.position.z);
-        Quaternion canvasRotation = Quaternion.LookRotation(myCamera.transform.forward, myCamera.transform.up);
 
-        //Prefab, Position, Rotation, Parent
-        var canvas = Instantiate(canvasPrefab, canvasPosition, canvasRotation, p.transform);
 
         //Move the Canvas to the Right Position
         //var canvasRect = canvas.GetComponent<RectTransform>();
         //var canvasOffset = new Vector3((canvasRect.rect.width / 2) * canvas.transform.localScale.x, 0, (canvasRect.rect.height / 2) * canvas.transform.localScale.z);
         //canvas.transform.position += canvasOffset;
 
-        var text = canvas.GetComponentInChildren<Text>();
-        text.text = p.getPlaceType().ToString();
+        //var text = canvas.GetComponentInChildren<Text>();
+        //text.text = p.getPlaceType().ToString();
+
+        canvas.SetActive(true);
 
         var buttons = canvas.GetComponentsInChildren<Button>();
         ChangeButton(buttons[0], Buildings.BuildingType.WoodCutter, p);
@@ -98,27 +104,29 @@ public class Control : MonoBehaviour
         ChangeButton(buttons[3], Buildings.BuildingType.Windmill, p);
         ChangeButton(buttons[4], Buildings.BuildingType.Bakery, p);
 
-        activeCanvas = canvas;
+        canvasActive = true;
         activeCanvasPlace = p;
     }
 
     private void ChangeButton(Button b, Buildings.BuildingType t, Place p)
     {
-        b.GetComponentInChildren<Text>().text = t.ToString(); ;
+        //b.GetComponentInChildren<Text>().text = t.ToString(); ;
         b.onClick.AddListener(() => ActionWrapper(t, p));
     }
 
-    private void RemoveCanvas(GameObject canvas, Place p)
+    private void RemoveCanvas(Place p)
     {
-        Destroy(canvas, 0.3f);
+        canvas.SetActive(false);
         p.SetCanvasSpaceFree(true);
-        activeCanvas = null;
+        canvasActive = false;
         activeCanvasPlace = null;
+        lCState = LeftClickState.Selection;
     }
 
     public void ActionWrapper(Buildings.BuildingType type, Place p)
     {
         buildings.Build(type, p);
+        RemoveCanvas(p);
     }
 
     
