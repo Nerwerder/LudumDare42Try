@@ -24,7 +24,7 @@ public class GUIController : MonoBehaviour {
     }
 	
 
-    public void ActivateCanvas(Place p)
+    public void ActivateBuildPanel(Place p)
     {
         canvas.SetActive(true);
 
@@ -38,6 +38,10 @@ public class GUIController : MonoBehaviour {
         canvasActive = true;
         activeCanvasPlace = p;
     }
+    public void ActivateBuildingInfo()
+    {
+
+    }
 
     private void ChangeButton(Button b, Buildings.BuildingType t, Place p, Place.PlaceType pt)
     {
@@ -46,12 +50,38 @@ public class GUIController : MonoBehaviour {
         foreach (var n in p.neighborhood.GetNeighbors())
             if (n.place.type == pt)
                 f += e;
+        switch (f)
+        {
+            case 0:
+                efficiancy.sprite = efficiancies[0];
+                break;
+            case 20:
+                efficiancy.sprite = efficiancies[1];
+                break;
+            case 40:
+                efficiancy.sprite = efficiancies[2];
+                break;
+            case 60:
+                efficiancy.sprite = efficiancies[3];
+                break;
+            case 80:
+                efficiancy.sprite = efficiancies[4];
+                break;
+            case 100:
+                efficiancy.sprite = efficiancies[5];
+                break;
+            case 120:
+                efficiancy.sprite = efficiancies[6];
+                break;
+            default:
+                break;
 
-        string s = " (" + f.ToString() + "%)";
-        ChangeButton(b, t, p, s);
+        }
+        
+        ChangeButton(b, t, p);
     }
 
-    private void ChangeButton(Button b, Buildings.BuildingType t, Place p, string s = "")
+    private void ChangeButton(Button b, Buildings.BuildingType t, Place p)
     {
         b.onClick.AddListener(() => ActionWrapper(t, p));
     }
