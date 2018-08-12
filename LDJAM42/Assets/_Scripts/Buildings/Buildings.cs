@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Buildings : MonoBehaviour
 {
-    public enum BuildingType { City, WoodCutter, Sawmill, Farm, Windmill, Bakery}
+    public enum BuildingType { City, WoodCutter, Sawmill, Farm, Windmill, Bakery }
     public List<GameObject> buildingPrefabs;
     public List<GameObject> resourcePrefabs;
 
@@ -18,15 +18,18 @@ public class Buildings : MonoBehaviour
                 for (int i = 0; i < treeCount; i++)
                 {
                     Vector3 treepos;
+                    int whileThreshold = 20;
+                    int counter = 0;
                     do
                     {
                         float deltaX = Random.Range(-0.35f, 0.35f);
                         float deltaZ = Random.Range(-0.35f, 0.35f);
                         treepos = new Vector3(p.transform.position.x + deltaX, p.transform.position.y + 0.114f, p.transform.position.z + deltaZ);
-                    } while (checkTreesInRange(treepos));
-                    
+                        ++counter;
+                    } while (checkTreesInRange(treepos) && counter < whileThreshold);
 
-                    float sizeModifier = Random.Range(1.5f, 2.5f) + 1/treeCount;
+
+                    float sizeModifier = Random.Range(0.8f, 1.2f) + 1 / treeCount;
                     GameObject tree = Instantiate(buildingPrefabs[6], treepos, p.transform.rotation, this.transform);
                     Vector3 scale = new Vector3(tree.transform.localScale.x * sizeModifier, tree.transform.localScale.y * sizeModifier, tree.transform.localScale.z * sizeModifier);
                     tree.transform.localScale = scale;
@@ -54,15 +57,9 @@ public class Buildings : MonoBehaviour
     private bool checkTreesInRange(Vector3 pos)
     {
         Collider[] hitcolliders = Physics.OverlapSphere(pos, 0.1f);
-        int i = 0;
-        while (i < hitcolliders.Length)
-        {
-            if(hitcolliders[i].tag == "tree")
-            {
+        for (int i = 0; i < hitcolliders.Length; ++i)
+            if (hitcolliders[i].tag == "tree")
                 return true;
-            }
-            i++;
-        }
         return false;
     }
 }
