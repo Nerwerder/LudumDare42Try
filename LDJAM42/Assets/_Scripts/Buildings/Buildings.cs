@@ -6,8 +6,7 @@ public class Buildings : MonoBehaviour
 {
     public enum BuildingType { City, WoodCutter, Sawmill, Farm, Windmill, Bakery}
     public List<GameObject> buildingPrefabs;
-
-    private List<Building> buildings = new List<Building>();
+    public List<GameObject> resourcePrefabs;
 
     //Things the System builds
     public bool DefaultBuild(int t, Place p)
@@ -27,15 +26,14 @@ public class Buildings : MonoBehaviour
                     } while (checkTreesInRange(treepos));
                     
 
-                    float sizeModifier = Random.Range(0.8f, 1.2f);
-                    GameObject tree = Instantiate(buildingPrefabs[6], treepos, p.transform.rotation);
+                    float sizeModifier = Random.Range(1.5f, 2.5f) + 1/treeCount;
+                    GameObject tree = Instantiate(buildingPrefabs[6], treepos, p.transform.rotation, this.transform);
                     Vector3 scale = new Vector3(tree.transform.localScale.x * sizeModifier, tree.transform.localScale.y * sizeModifier, tree.transform.localScale.z * sizeModifier);
                     tree.transform.localScale = scale;
                 }
                 return true;
             case 4:     //City
-                var gO = p.BuildBuilding(buildingPrefabs[0], this.transform);
-                buildings.Add(AddBuildingForType(BuildingType.City, gO));
+                p.BuildBuilding(buildingPrefabs[0]);
                 return true;
             default: return false;
         }
@@ -49,37 +47,8 @@ public class Buildings : MonoBehaviour
             return false;
 
         //2. Build the Building
-        GameObject gO = p.BuildBuilding(buildingPrefabs[(int)t], this.transform);
-        buildings.Add(AddBuildingForType(t, gO));
-
+        p.BuildBuilding(buildingPrefabs[(int)t]);
         return true;
-
-    }
-
-    public Building AddBuildingForType(BuildingType t, GameObject g)
-    {
-        switch (t)
-        {
-            case BuildingType.City:
-                return g.AddComponent<City>();
-
-            case BuildingType.WoodCutter:
-                return g.AddComponent<WoodCutter>();
-
-            case BuildingType.Sawmill:
-                return g.AddComponent<SawMill>();
-
-            case BuildingType.Farm:
-                return g.AddComponent<Farm>();
-
-            case BuildingType.Windmill:
-                return g.AddComponent<WindMill>();
-
-            case BuildingType.Bakery:
-                return g.AddComponent<Bakery>();
-
-            default: return null;
-        }
     }
 
     private bool checkTreesInRange(Vector3 pos)
@@ -96,5 +65,4 @@ public class Buildings : MonoBehaviour
         }
         return false;
     }
-
 }

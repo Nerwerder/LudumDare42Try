@@ -10,7 +10,7 @@ public class Control : MonoBehaviour
     
     public Buildings buildings = null;
 
-    private enum LeftClickState {Selection, Selected};
+    private enum LeftClickState { Selection, Selected };
     LeftClickState lCState = LeftClickState.Selection;
 
     public GameObject canvas = null;
@@ -37,9 +37,7 @@ public class Control : MonoBehaviour
 
         //LeftClick
         LeftClick();
-
-
-	}
+    }
 
 
     private void CameraControl()
@@ -55,7 +53,7 @@ public class Control : MonoBehaviour
 
     private void LeftClick()                //This is basically a state Machine
     {
-        if(Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))
         {
             switch (lCState)
             {
@@ -74,8 +72,8 @@ public class Control : MonoBehaviour
                         }
                         
                     }
-                       
-                    
+
+
                     break;
                 //case LeftClickState.Selected:
 
@@ -105,7 +103,7 @@ public class Control : MonoBehaviour
         canvas.SetActive(true);
 
         var buttons = canvas.GetComponentsInChildren<Button>();
-        ChangeButton(buttons[0], Buildings.BuildingType.WoodCutter, p);
+        ChangeButton(buttons[0], Buildings.BuildingType.WoodCutter, p, Place.PlaceType.Forest);
         ChangeButton(buttons[1], Buildings.BuildingType.Sawmill, p);
         ChangeButton(buttons[2], Buildings.BuildingType.Farm, p);
         ChangeButton(buttons[3], Buildings.BuildingType.Windmill, p);
@@ -115,7 +113,8 @@ public class Control : MonoBehaviour
         activeCanvasPlace = p;
     }
 
-    private void ChangeButton(Button b, Buildings.BuildingType t, Place p)
+    //ChangeButton but Search the Environment for a special Type of Area
+    private void ChangeButton(Button b, Buildings.BuildingType t, Place p, Place.PlaceType pt)
     {
         //b.GetComponentInChildren<Text>().text = t.ToString(); ;
         b.onClick.AddListener(() => ActionWrapper(t, p));
@@ -136,7 +135,7 @@ public class Control : MonoBehaviour
         RemoveCanvas(p);
     }
 
-    
+
 
 
 }

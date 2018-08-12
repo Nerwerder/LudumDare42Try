@@ -9,44 +9,45 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1702279550035938}
+  m_RootGameObject: {fileID: 1041265108855874}
   m_IsPrefabAsset: 1
---- !u!1 &1702279550035938
+--- !u!1 &1041265108855874
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4873046899279912}
-  - component: {fileID: 33422654440538104}
-  - component: {fileID: 23624916482147324}
+  - component: {fileID: 4637023153509014}
+  - component: {fileID: 33138817093622686}
+  - component: {fileID: 23402352964255202}
+  - component: {fileID: 114371624125105662}
   m_Layer: 0
-  m_Name: WoodCutter
+  m_Name: City
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4873046899279912
+--- !u!4 &4637023153509014
 Transform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1702279550035938}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: 0, y: 0.143, z: -0}
-  m_LocalScale: {x: 52.208275, y: 52.208275, z: 3.2852676}
+  m_GameObject: {fileID: 1041265108855874}
+  m_LocalRotation: {x: -0.7071068, y: -0.000000015454312, z: -0.000000015454312, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0.12, z: -0}
+  m_LocalScale: {x: 14.377512, y: 14.377512, z: 21.91375}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!23 &23624916482147324
+--- !u!23 &23402352964255202
 MeshRenderer:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1702279550035938}
+  m_GameObject: {fileID: 1041265108855874}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -76,10 +77,27 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!33 &33422654440538104
+--- !u!33 &33138817093622686
 MeshFilter:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1702279550035938}
-  m_Mesh: {fileID: 4300000, guid: 85a2fa3b116b4994c9877a657dd53291, type: 3}
+  m_GameObject: {fileID: 1041265108855874}
+  m_Mesh: {fileID: 4300000, guid: 7e188e72f6d15a144bb93149dd012233, type: 3}
+--- !u!114 &114371624125105662
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1041265108855874}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cca9ac9b5fcfdf4f9c525d912dffe38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 0
+  carriageParent: {fileID: 0}
+  carriagePrefab: {fileID: 1020129574645412, guid: 4949312d0d19a7d4581f41cc14f68207,
+    type: 2}
+  carriageSpawnTime: 1
+  maxCarriages: 3
