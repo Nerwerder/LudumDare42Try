@@ -443,6 +443,21 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 114302663958496596, guid: 2b004288090ccea429861c27901abfb3,
+        type: 2}
+      propertyPath: buildings
+      value: 
+      objectReference: {fileID: 100193756}
+    - target: {fileID: 114302663958496596, guid: 2b004288090ccea429861c27901abfb3,
+        type: 2}
+      propertyPath: canvas
+      value: 
+      objectReference: {fileID: 1722965551}
+    - target: {fileID: 114302663958496596, guid: 2b004288090ccea429861c27901abfb3,
+        type: 2}
+      propertyPath: efficiancy
+      value: 
+      objectReference: {fileID: 1722965552}
     - target: {fileID: 114177319164270530, guid: 2b004288090ccea429861c27901abfb3,
         type: 2}
       propertyPath: myCamera
@@ -455,29 +470,9 @@ Prefab:
       objectReference: {fileID: 100193756}
     - target: {fileID: 114177319164270530, guid: 2b004288090ccea429861c27901abfb3,
         type: 2}
-      propertyPath: canvas
+      propertyPath: TEST
       value: 
-      objectReference: {fileID: 1722965551}
-    - target: {fileID: 114177319164270530, guid: 2b004288090ccea429861c27901abfb3,
-        type: 2}
-      propertyPath: efficiancy
-      value: 
-      objectReference: {fileID: 1722965552}
-    - target: {fileID: 114302663958496596, guid: 2b004288090ccea429861c27901abfb3,
-        type: 2}
-      propertyPath: canvas
-      value: 
-      objectReference: {fileID: 1722965551}
-    - target: {fileID: 114302663958496596, guid: 2b004288090ccea429861c27901abfb3,
-        type: 2}
-      propertyPath: buildings
-      value: 
-      objectReference: {fileID: 100193756}
-    - target: {fileID: 114302663958496596, guid: 2b004288090ccea429861c27901abfb3,
-        type: 2}
-      propertyPath: efficiancy
-      value: 
-      objectReference: {fileID: 1722965552}
+      objectReference: {fileID: 2100000, guid: c541553c8071e314cb16468ee6c7caf8, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2b004288090ccea429861c27901abfb3, type: 2}
   m_IsPrefabAsset: 0
@@ -488,11 +483,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 224828690037664556, guid: b632b8ab7f51bf444a805cc6bfa54b50,
-        type: 2}
-      propertyPath: m_RootOrder
-      value: 7
-      objectReference: {fileID: 0}
     - target: {fileID: 224828690037664556, guid: b632b8ab7f51bf444a805cc6bfa54b50,
         type: 2}
       propertyPath: m_LocalPosition.x
@@ -597,6 +587,31 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 1722965550}
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+--- !u!61 &1722965556
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1722965551}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.4437256, y: 0.6346741}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 543.6926, y: 190.39752}
+  m_EdgeRadius: 0
 --- !u!114 &1727512259 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114626994295413538, guid: 7a37091a20e40cc41a8dfdde747e8c55,

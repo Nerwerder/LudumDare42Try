@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class Place : MonoBehaviour
 {
-    public enum PlaceType { Water, Meadow, Forest, City}
+    public enum PlaceType { Water, Meadow, Forest, City }
+
+    public List<Material> basicMaterials;
+    public List<Material> glowiMaterials;
 
     [HideInInspector] public PlaceType type;
     [HideInInspector] public int line, column, id;
@@ -19,6 +22,23 @@ public class Place : MonoBehaviour
 
         type = (PlaceType)t;
         SetPos(x, z, i);
+
+        SetBasicMaterial();
+    }
+
+    public void SetBasicMaterial()
+    {
+        SetMaterial(basicMaterials[(int)type]);
+    }
+
+    public void SetGlowMaterial()
+    {
+        SetMaterial(glowiMaterials[(int)type]);
+    }
+
+    public void SetMaterial(Material m)
+    {
+        this.GetComponent<Renderer>().material = m;
     }
 
     private void SetPos(int x, int z, int i)

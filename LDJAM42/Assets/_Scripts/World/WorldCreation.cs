@@ -10,7 +10,6 @@ public class WorldCreation : MonoBehaviour
     public TextAsset worldFile;
 
     public Buildings buildings;
-    public List<Material> materials;
 
     public float xOffset, zOffset, x2Offset;
 
@@ -102,11 +101,8 @@ public class WorldCreation : MonoBehaviour
 
         var nHex = Instantiate(hexagonPrefab, pos, hexagonPrefab.transform.rotation, this.transform);
 
-        //Set the Material
-        nHex.GetComponent<Renderer>().material = materials[type - 1];
-
         //Create and Register the Place
-        var nPla = nHex.AddComponent<Place>();
+        var nPla = nHex.GetComponent<Place>();
         nPla.Set((type - 1), column, line, counter);
         world.RegisterPlace(nPla);
 

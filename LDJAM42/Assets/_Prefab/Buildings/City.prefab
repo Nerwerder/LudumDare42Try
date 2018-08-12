@@ -22,9 +22,10 @@ GameObject:
   - component: {fileID: 33138817093622686}
   - component: {fileID: 23402352964255202}
   - component: {fileID: 114371624125105662}
-  m_Layer: 0
+  - component: {fileID: 65351131181930936}
+  m_Layer: 9
   m_Name: City
-  m_TagString: Untagged
+  m_TagString: Building
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -84,6 +85,18 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1041265108855874}
   m_Mesh: {fileID: 4300000, guid: 7e188e72f6d15a144bb93149dd012233, type: 3}
+--- !u!65 &65351131181930936
+BoxCollider:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1041265108855874}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.10432961, y: 0.10432963, z: 0.036506765}
+  m_Center: {x: -0.000015262516, y: 0.00028848287, z: 0.018314261}
 --- !u!114 &114371624125105662
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -96,7 +109,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
-  carriageParent: {fileID: 0}
   carriagePrefab: {fileID: 1020129574645412, guid: 4949312d0d19a7d4581f41cc14f68207,
     type: 2}
   carriageSpawnTime: 1
