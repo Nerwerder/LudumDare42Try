@@ -96,6 +96,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
-  productionTime: 1
-  inputResourcePrefab: {fileID: 0}
-  outputResourcePrefab: {fileID: 0}
+  carriageParent: {fileID: 0}
+  carriagePrefab: {fileID: 1020129574645412, guid: 4949312d0d19a7d4581f41cc14f68207,
+    type: 2}
+  carriageSpawnTime: 1
+  maxCarriages: 3

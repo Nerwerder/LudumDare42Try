@@ -95,7 +95,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dbe765cdb7f421f4d95a9f9a1762c720, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
+  type: 2
   inputResourcePrefab: {fileID: 1299866933725002, guid: cbf4679bd74743a4a8393114b12b29ea,
     type: 2}
   outputResourcePrefab: {fileID: 1299866933725002, guid: cbf4679bd74743a4a8393114b12b29ea,

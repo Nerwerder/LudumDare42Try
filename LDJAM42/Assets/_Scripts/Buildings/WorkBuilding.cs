@@ -13,6 +13,7 @@ public class WorkBuilding : Building
     public float productionTime = 1f;
 
     protected float workTimer;
+    protected bool inputResource;
 
     public override void Init()
     {
@@ -33,12 +34,17 @@ public class WorkBuilding : Building
     public override void Done()
     {
         base.Done();
-        outputLocation.PushResource(outputResourcePrefab);
+        if (outputLocation.PushResource(outputResourcePrefab))
+        {
+            inputResource = false;
+            workTimer = 0f;
+        }
+           
     }
 
     protected bool FindRandomOutputLocation()
     {
-        var c = FindRandomFreeLocation();
+        var c = FindRandomFreeUSELocation();
         if (c == null)
             return false;
 
@@ -49,21 +55,12 @@ public class WorkBuilding : Building
 
     protected bool FindRandomInputLocation()
     {
-        var c = FindRandomFreeLocation();
+        var c = FindRandomFreeUSELocation();
         if (c == null)
             return false;
 
         c.UseAsInput(this);
         inputLocation = c;
         return true;
-    }
-
-    protected ConnectionPoint FindRandomFreeLocation()
-    {
-        foreach (var c in place.GetConnectionPoints())
-            if (c.FreeForUse())
-                return c;
-
-        return null;
     }
 }

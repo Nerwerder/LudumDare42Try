@@ -10,8 +10,8 @@ public class ConnectionPoint : MonoBehaviour
 
     //Resources and Travel
     private bool resourceOutput, resourceInput, full;
-    private Building    building;
-    private GameObject  resource;    
+    private Building    building = null;
+    private GameObject  resource = null;    
 
     public bool Full()
     {
@@ -19,7 +19,7 @@ public class ConnectionPoint : MonoBehaviour
     }
     public bool FreeForUse()
     {
-        return !(resourceInput || resourceOutput);
+        return ((!(resourceInput || resourceOutput)) && building == null);
     }
     public void UseAsOPutput(Building source)
     {
@@ -39,6 +39,9 @@ public class ConnectionPoint : MonoBehaviour
     }
     public bool PushResource(GameObject prefab)
     {
+        if (full)
+            return false;
+
         resource = Instantiate(prefab, this.transform);
 
         //Remove the Parent Scale
@@ -57,6 +60,18 @@ public class ConnectionPoint : MonoBehaviour
         if (full && resource != null)
             return true;
         return false;
+    }
+    public bool FreeToMoveOn()
+    {
+        return !full;
+    }
+    public void CarriageMovesOnField()
+    {
+        full = true;
+    }
+    public void CarriageMovesFromField()
+    {
+        full = false;
     }
 
     private void Update()

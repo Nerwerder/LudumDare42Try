@@ -32,4 +32,42 @@ public class Building : MonoBehaviour
     {
 
     }
+
+    protected ConnectionPoint FindRandomFreeUSELocation()
+    {
+        var l = GetFreeUSEPoints();
+        if (l.Count == 0)
+            return null;
+        return l[Random.Range(0, l.Count)];
+    }
+
+    protected ConnectionPoint FindRandomFreeMOVELocation()
+    {
+        var l = GetFreeMOVEPoints();
+        if (l.Count == 0)
+            return null;
+        return l[Random.Range(0, l.Count)];
+    }
+
+    protected List<ConnectionPoint> GetFreeUSEPoints()
+    {
+        List<ConnectionPoint> l = new List<ConnectionPoint>();
+
+        foreach (var c in place.GetConnectionPoints())
+            if (c.FreeForUse())
+                l.Add(c);
+
+        return l;
+    }
+
+    protected List<ConnectionPoint> GetFreeMOVEPoints()
+    {
+        List<ConnectionPoint> l = new List<ConnectionPoint>();
+
+        foreach (var c in place.GetConnectionPoints())
+            if (c.FreeToMoveOn())
+                l.Add(c);
+
+        return l;
+    }
 }

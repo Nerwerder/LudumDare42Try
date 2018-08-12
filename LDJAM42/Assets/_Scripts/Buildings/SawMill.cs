@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class SawMill : WorkBuilding
 {
-    private bool input;
-
     public override void Init()
     {
         base.Init();
@@ -19,20 +17,13 @@ public class SawMill : WorkBuilding
 
         Debug.DrawLine(inputLocation.transform.position, inputLocation.transform.position + Vector3.up, Color.red);
 
-        if(!input && inputLocation.ResourceWaiting())
+        if(!inputResource && inputLocation.ResourceWaiting())
         {
             inputLocation.PullResource();
-            input = true;
+            inputResource = true;
         }
 
-        if (!outputLocation.Full() && input)
+        if (!outputLocation.Full() && inputResource)
             workTimer += time;
     }
-
-    public override void Done()
-    {
-        base.Done();
-        input = false;
-    }
-
 }
