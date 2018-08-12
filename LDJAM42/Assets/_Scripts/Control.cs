@@ -84,7 +84,7 @@ public class Control : MonoBehaviour
         p.SetGlowMaterial();
         selectedPlace = p;
 
-        guiControll.ActivateCanvas(p);
+        guiControll.ActivateBuildPanel(p);
     }
     private void deselectPlace(Place p)
     {
@@ -98,7 +98,7 @@ public class Control : MonoBehaviour
 
     private void selectBuilding(Building b)
     {
-
+        guiControll.ActivateBuildingInfo();
     }
 
     private void RightClick()

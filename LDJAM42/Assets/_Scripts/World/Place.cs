@@ -11,14 +11,13 @@ public class Place : MonoBehaviour
 
     [HideInInspector] public PlaceType type;
     [HideInInspector] public int line, column, id;
-    [HideInInspector] public bool buildSpaceFree, canvasSpaceFree;
+    [HideInInspector] public bool buildSpaceFree;
     [HideInInspector] public Neighborhood neighborhood;
     private List<ConnectionPoint> connectionPoints = new List<ConnectionPoint>();
 
     public void Set(int t, int x, int z, int i)
     {
         buildSpaceFree = true;
-        canvasSpaceFree = true;
 
         type = (PlaceType)t;
         SetPos(x, z, i);
