@@ -151,20 +151,26 @@ public class Control : MonoBehaviour
 
         if (selectionState == SelectionState.CarriageSelected && c)
         {
-            if (c.CompareTag("Place"))
+            var p = c.GetComponent<Place>();
+            if (Input.GetKey(KeyCode.LeftShift)) //Shift is pressed, Add Building or Place to Route
             {
-                var p = c.GetComponent<Place>();
-                if (p.building)
-                    selectedCarriage.GoTo(p.building);
-                else
-                    selectedCarriage.GoTo(p);
+                if (c.CompareTag("Place"))
+                        selectedCarriage.AddToRoute(p);
+                else if (c.CompareTag("Building"))
+                    selectedCarriage.AddToRoute(c.GetComponent<Building>().GetPlace());
             }
-
-            else if (c.CompareTag("Building"))
+            else
             {
-                selectedCarriage.GoTo(c.GetComponent<Building>());
+                if (c.CompareTag("Place"))
+                {
+                    if (p.building)
+                        selectedCarriage.GoTo(p.building);
+                    else
+                        selectedCarriage.GoTo(p);
+                }
+                else if (c.CompareTag("Building"))
+                    selectedCarriage.GoTo(c.GetComponent<Building>());
             }
-
         }
     }
 }
