@@ -277,15 +277,15 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1869100039438304, guid: bbedeebba8032fa49b14d11effcd7a45, type: 2}
+      propertyPath: m_Name
+      value: World
+      objectReference: {fileID: 0}
     - target: {fileID: 114600361142561228, guid: bbedeebba8032fa49b14d11effcd7a45,
         type: 2}
       propertyPath: buildings
       value: 
       objectReference: {fileID: 100193756}
-    - target: {fileID: 1869100039438304, guid: bbedeebba8032fa49b14d11effcd7a45, type: 2}
-      propertyPath: m_Name
-      value: World
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bbedeebba8032fa49b14d11effcd7a45, type: 2}
   m_IsPrefabAsset: 0
@@ -448,7 +448,7 @@ AudioSource:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1431797235}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 4347cb6ef4512b0408407f1d7b7dfdb8, type: 3}
@@ -589,6 +589,16 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 114177319164270530, guid: 2b004288090ccea429861c27901abfb3,
+        type: 2}
+      propertyPath: myCamera
+      value: 
+      objectReference: {fileID: 1727512259}
+    - target: {fileID: 114177319164270530, guid: 2b004288090ccea429861c27901abfb3,
+        type: 2}
+      propertyPath: buildings
+      value: 
+      objectReference: {fileID: 100193756}
     - target: {fileID: 114302663958496596, guid: 2b004288090ccea429861c27901abfb3,
         type: 2}
       propertyPath: buildings
@@ -619,16 +629,6 @@ Prefab:
       propertyPath: progressbar
       value: 
       objectReference: {fileID: 1040008229}
-    - target: {fileID: 114177319164270530, guid: 2b004288090ccea429861c27901abfb3,
-        type: 2}
-      propertyPath: myCamera
-      value: 
-      objectReference: {fileID: 1727512259}
-    - target: {fileID: 114177319164270530, guid: 2b004288090ccea429861c27901abfb3,
-        type: 2}
-      propertyPath: buildings
-      value: 
-      objectReference: {fileID: 100193756}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2b004288090ccea429861c27901abfb3, type: 2}
   m_IsPrefabAsset: 0

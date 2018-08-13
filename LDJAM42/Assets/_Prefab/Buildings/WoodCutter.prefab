@@ -108,6 +108,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2239d612f8750c479348225fd760145, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  basicMaterial: {fileID: 2100000, guid: 6b5228e7ff8b5ed4db1205f37f7e7884, type: 2}
+  glowMaterial: {fileID: 2100000, guid: 5ce5acd44ba98904fb974bd8849093b9, type: 2}
   type: 1
   inputResourcePrefab: {fileID: 0}
   inputResourceType: 0

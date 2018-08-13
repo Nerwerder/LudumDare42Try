@@ -95,8 +95,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.10432961, y: 0.10432963, z: 0.036506765}
-  m_Center: {x: -0.000015262516, y: 0.00028848287, z: 0.018314261}
+  m_Size: {x: 0.0686742, y: 0.065083824, z: 0.007476413}
+  m_Center: {x: -0.0007671073, y: -0.00038982503, z: 0.0037990806}
 --- !u!114 &114371624125105662
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -108,6 +108,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cca9ac9b5fcfdf4f9c525d912dffe38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  basicMaterial: {fileID: 2100000, guid: 6b5228e7ff8b5ed4db1205f37f7e7884, type: 2}
+  glowMaterial: {fileID: 2100000, guid: 5ce5acd44ba98904fb974bd8849093b9, type: 2}
   type: 0
   carriagePrefab: {fileID: 1020129574645412, guid: 4949312d0d19a7d4581f41cc14f68207,
     type: 2}

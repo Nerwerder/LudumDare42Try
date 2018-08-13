@@ -4,9 +4,13 @@ using UnityEngine;
 
 public class Building : MonoBehaviour
 {
+    public Material basicMaterial, glowMaterial;
+    public void SetBasicMaterial() { SetMaterial(basicMaterial); }
+    public void SetGlowMaterial() { SetMaterial(glowMaterial); }
+    public void SetMaterial(Material m) { this.GetComponent<Renderer>().material = m; }
+
     public Buildings.BuildingType type;
     protected Place place;
-
 
     private void Update()
     {
