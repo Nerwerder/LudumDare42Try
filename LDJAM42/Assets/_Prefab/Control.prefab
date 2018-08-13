@@ -54,6 +54,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myCamera: {fileID: 0}
   buildings: {fileID: 0}
+  TEST: {fileID: 2100000, guid: c541553c8071e314cb16468ee6c7caf8, type: 2}
 --- !u!114 &114302663958496596
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -66,8 +67,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildings: {fileID: 0}
-  canvas: {fileID: 0}
+  buildPanel: {fileID: 0}
+  buildingInfoPanel: {fileID: 0}
   efficiancy: {fileID: 0}
+  infoPanelLabel: {fileID: 0}
+  progressbar: {fileID: 0}
   efficiancies:
   - {fileID: 21300000, guid: 45993a625410a094b930cea00a0210ec, type: 3}
   - {fileID: 21300000, guid: 10d2aba546ad2b34da8bd008261720ce, type: 3}
@@ -76,3 +80,10 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 709b026261a72b243a34baaa66d50a0f, type: 3}
   - {fileID: 21300000, guid: 4d8f3bd9e5733814c889e456660bf134, type: 3}
   - {fileID: 21300000, guid: c62628ff3674e9e4da74827b2d491766, type: 3}
+  buildingTypes:
+  - {fileID: 21300000, guid: f82f769b6de15b1449e64acca6db918d, type: 3}
+  - {fileID: 21300000, guid: 15725a1fd8d20c24f8a31026242489c0, type: 3}
+  - {fileID: 21300000, guid: f128148fb792a8d4f846dc3015a7325a, type: 3}
+  - {fileID: 21300000, guid: cb357aab65f2684418e899df72e66910, type: 3}
+  - {fileID: 21300000, guid: 84fe6c51de08be0478c32fe682a81413, type: 3}
+  - {fileID: 21300000, guid: b50a95a4229287c4c98432cdacff7d6c, type: 3}

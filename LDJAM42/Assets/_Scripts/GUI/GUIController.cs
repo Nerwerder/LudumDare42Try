@@ -13,13 +13,20 @@ public class GUIController : MonoBehaviour
 
     public Image efficiancy = null;
     public Image infoPanelLabel = null;
+    public Image progressbar = null;
 
     public List<Sprite> efficiancies = new List<Sprite>();
     public List<Sprite> buildingTypes = new List<Sprite>();
 
+    public Text goldAmount = null;
+    public Text foodInfo = null;
+    public Text woodInfo = null;
+
     private bool buildPanelActive = false;
     private bool buildingInfoPanelActive = false;
+
     private Place activeCanvasPlace = null;
+    private Building activeBuilding = null;
 
     // Use this for initialization
     void Start()
@@ -31,6 +38,37 @@ public class GUIController : MonoBehaviour
         buildingInfoPanel.SetActive(false);
     }
 
+
+    void Update()
+    {
+        if(buildingInfoPanelActive)
+        {
+            if(activeBuilding.type != Buildings.BuildingType.City)
+            {
+                progressbar.fillAmount = activeBuilding.GetComponent<WorkBuilding>().getWorkTimerProgress();
+            }
+            else
+            {
+                progressbar.fillAmount = activeBuilding.GetComponent<City>().getSpawnTimerProgress();
+            }
+            
+        }
+    }
+
+    public void UpdateCityInfo(int food, int wood)
+    {
+        string foodText = food.ToString() + "%";
+        string woodText = wood.ToString() + "%";
+
+        woodInfo.text = woodText;
+        foodInfo.text = foodText;
+    }
+
+    public void UpdateGold(int amount)
+    {
+        string goldText = amount.ToString();
+        goldAmount.text = goldText;
+    }
 
     public void ActivateBuildPanel(Place p)
     {
@@ -55,10 +93,12 @@ public class GUIController : MonoBehaviour
     {
         buildingInfoPanel.SetActive(true);
         buildingInfoPanelActive = true;
+        activeBuilding = building;
 
         switch (building.type)
         {
             case Buildings.BuildingType.City:
+                infoPanelLabel.sprite = buildingTypes[0];
                 break;
             case Buildings.BuildingType.WoodCutter:
                 infoPanelLabel.sprite = buildingTypes[1];
@@ -127,7 +167,9 @@ public class GUIController : MonoBehaviour
     public void RemoveCanvas()
     {
         buildPanel.SetActive(false);
+        buildingInfoPanel.SetActive(false);
         buildPanelActive = false;
+        buildingInfoPanelActive = false;
         activeCanvasPlace = null;
     }
 

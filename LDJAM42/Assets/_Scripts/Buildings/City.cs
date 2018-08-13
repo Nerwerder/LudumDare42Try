@@ -43,4 +43,9 @@ public class City : Building
             carriages.Add(ca);
         }
     }
+
+    public float getSpawnTimerProgress()
+    {
+        return workTimer / carriageSpawnTime;
+    }
 }

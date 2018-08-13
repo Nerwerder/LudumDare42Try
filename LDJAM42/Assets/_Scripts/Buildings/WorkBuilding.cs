@@ -42,6 +42,11 @@ public class WorkBuilding : Building
            
     }
 
+    public float getWorkTimerProgress()
+    {
+        return workTimer / productionTime;
+    }
+
     protected bool FindRandomOutputLocation()
     {
         var c = FindRandomFreeUSELocation();
