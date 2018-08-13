@@ -17,7 +17,7 @@ public class SawMill : WorkBuilding
 
         Debug.DrawLine(inputLocation.transform.position, inputLocation.transform.position + Vector3.up, Color.red);
 
-        if(!inputResource && inputLocation.ResourceWaiting())
+        if(!inputResource && inputLocation.ResourceWaitingForUse())
         {
             inputLocation.PullResource();
             inputResource = true;

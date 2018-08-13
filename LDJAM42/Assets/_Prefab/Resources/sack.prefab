@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4146791553854222}
   - component: {fileID: 33547951866171600}
   - component: {fileID: 23131926316199372}
+  - component: {fileID: 114811883281148960}
   m_Layer: 0
   m_Name: sack
   m_TagString: Untagged
@@ -83,3 +84,14 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1748365773276420}
   m_Mesh: {fileID: 4300000, guid: a0d56221d7bf05d4f96001aae76d03b8, type: 3}
+--- !u!114 &114811883281148960
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1748365773276420}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df87392a861210c4792ab171516865da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
