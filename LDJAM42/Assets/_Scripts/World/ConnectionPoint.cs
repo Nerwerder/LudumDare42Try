@@ -19,7 +19,7 @@ public class ConnectionPoint : MonoBehaviour
     }
     public void resetIfFirstEncounter(int id)
     {
-        if(pathID != id)
+        if (pathID != id)
         {
             pathID = id;
             resetPathfindingValues();
@@ -28,8 +28,8 @@ public class ConnectionPoint : MonoBehaviour
 
     //Resources and Travel
     public bool resourceOutput, resourceInput, full, carriageOnField, resourceOnField;
-    private Building    building = null;
-    private GameObject  resource = null;    
+    private Building building = null;
+    private GameObject resource = null;
 
     public void changeFullState()
     {
@@ -59,7 +59,7 @@ public class ConnectionPoint : MonoBehaviour
         resourceOutput = false;
         building = null;
     }
-    public bool PushResource(GameObject prefab, Resource.ResourceType t)
+    public bool CreateResource(GameObject prefab, Resource.ResourceType t)
     {
         if (full)
             return false;
@@ -73,6 +73,28 @@ public class ConnectionPoint : MonoBehaviour
         resourceOnField = true;
         changeFullState();
         return true;
+    }
+    public bool PushResource(GameObject r)
+    {
+        if (resourceOnField)    //Is the Field Empty
+            return false;
+
+        if (building)
+        {
+            var wK = building.GetComponent<WorkBuilding>();
+            var cT = building.GetComponent<City>();
+            if (wK && wK.inputLocation != this && wK.inputResourceType != r.GetComponent<Resource>().type)
+                return false;
+        }
+
+        resource = r;
+        resource.transform.position = this.transform.position;
+        resource.SetActive(true);
+
+        resourceOnField = true;
+        changeFullState();
+        return true;
+
     }
     public GameObject PullResource()
     {
@@ -103,7 +125,7 @@ public class ConnectionPoint : MonoBehaviour
         c.SetActualPosition(this);
         carriageOnField = true;
         changeFullState();
-        
+
     }
     public void CarriageMovesFromField(Carriage c)
     {
@@ -184,18 +206,18 @@ public class ConnectionPoint : MonoBehaviour
         if (this == other)
             return null;
 
-        if(this.GetSharedPlaces(other, sharedPlaces) >= 2)
+        if (this.GetSharedPlaces(other, sharedPlaces) >= 2)
         {
 
             //Test if this Connection already exists
             if (this.ConnectedTo(other))
                 return null;
-            
+
             var c = new Connection(other, sharedPlaces[0], sharedPlaces[1]);
             connections.Add(c);
             return c;
         }
-        
+
         return null;
     }
 }

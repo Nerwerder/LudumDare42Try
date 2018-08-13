@@ -373,6 +373,12 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 602ea616295c52c44bfd80cf6115d353, type: 2}
   m_IsPrefabAsset: 0
+--- !u!114 &888880926 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114100709699975398, guid: b632b8ab7f51bf444a805cc6bfa54b50,
+    type: 2}
+  m_PrefabInternal: {fileID: 1722965550}
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!114 &1040008229 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114352841404663402, guid: b632b8ab7f51bf444a805cc6bfa54b50,
@@ -384,6 +390,12 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1987350642490202, guid: b632b8ab7f51bf444a805cc6bfa54b50,
     type: 2}
   m_PrefabInternal: {fileID: 1722965550}
+--- !u!114 &1365026112 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114016191737000074, guid: b632b8ab7f51bf444a805cc6bfa54b50,
+    type: 2}
+  m_PrefabInternal: {fileID: 1722965550}
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1001 &1428158350
 Prefab:
   m_ObjectHideFlags: 0
@@ -629,9 +641,30 @@ Prefab:
       propertyPath: progressbar
       value: 
       objectReference: {fileID: 1040008229}
+    - target: {fileID: 114302663958496596, guid: 2b004288090ccea429861c27901abfb3,
+        type: 2}
+      propertyPath: goldAmount
+      value: 
+      objectReference: {fileID: 1553330897}
+    - target: {fileID: 114302663958496596, guid: 2b004288090ccea429861c27901abfb3,
+        type: 2}
+      propertyPath: foodInfo
+      value: 
+      objectReference: {fileID: 888880926}
+    - target: {fileID: 114302663958496596, guid: 2b004288090ccea429861c27901abfb3,
+        type: 2}
+      propertyPath: woodInfo
+      value: 
+      objectReference: {fileID: 1365026112}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2b004288090ccea429861c27901abfb3, type: 2}
   m_IsPrefabAsset: 0
+--- !u!114 &1553330897 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114040832841171310, guid: b632b8ab7f51bf444a805cc6bfa54b50,
+    type: 2}
+  m_PrefabInternal: {fileID: 1722965550}
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1001 &1605826590
 Prefab:
   m_ObjectHideFlags: 0

@@ -52,6 +52,9 @@ public class WorldCreation : MonoBehaviour
         //Create Connections between ConnectionPoints
         CreateConnections();
 
+        //If Needed, Create DefaultBuildings
+        CreateDefaultBuildings();
+
         System.DateTime end = System.DateTime.Now;
         System.TimeSpan time = end - start;
         Debug.Log("Worldcreation Done - Time : " + time.TotalMilliseconds + " ms");
@@ -106,8 +109,13 @@ public class WorldCreation : MonoBehaviour
         nPla.Set((type - 1), column, line, counter);
         world.RegisterPlace(nPla);
 
-        //Test if there is already a Building on this Place
-        buildings.DefaultBuild(type, nPla);
+
+    }
+
+    private void CreateDefaultBuildings()
+    {
+        foreach (var p in world.GetPlaces())
+            buildings.DefaultBuild(p);
     }
 
     private Vector3 GetPlacePosition(int x, int z)

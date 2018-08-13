@@ -36,7 +36,7 @@ public class WorkBuilding : Building
     public override void Done()
     {
         base.Done();
-        if (outputLocation.PushResource(outputResourcePrefab, outputResourceType))
+        if (outputLocation.CreateResource(outputResourcePrefab, outputResourceType))
         {
             inputResource = false;
             workTimer = 0f;
