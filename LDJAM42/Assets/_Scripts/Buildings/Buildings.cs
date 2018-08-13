@@ -7,6 +7,10 @@ public class Buildings : MonoBehaviour
     public enum BuildingType { City, WoodCutter, Sawmill, Farm, Windmill, Bakery }
     public List<GameObject> buildingPrefabs;
 
+    public GameObject IOMarkerParent;
+    public GameObject IOMarker;
+    public Material inputMarkerMaterial, outputMarkerMaterial, potentialMarkerMaterial;
+
     //Things the System builds
     public bool DefaultBuild(Place p)
     {
@@ -35,7 +39,7 @@ public class Buildings : MonoBehaviour
                 }
                 return true;
             case Place.PlaceType.City:     //City
-                p.BuildBuilding(buildingPrefabs[0]);
+                (p.BuildBuilding(buildingPrefabs[0])).SetIOMarker(IOMarker, inputMarkerMaterial, outputMarkerMaterial, potentialMarkerMaterial, p, IOMarkerParent);
                 return true;
             default: return false;
         }
@@ -49,7 +53,7 @@ public class Buildings : MonoBehaviour
             return false;
 
         //2. Build the Building
-        p.BuildBuilding(buildingPrefabs[(int)t]);
+        (p.BuildBuilding(buildingPrefabs[(int)t])).SetIOMarker(IOMarker, inputMarkerMaterial, outputMarkerMaterial, potentialMarkerMaterial, p, IOMarkerParent);
         return true;
     }
 

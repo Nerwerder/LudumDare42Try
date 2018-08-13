@@ -5,9 +5,56 @@ using UnityEngine;
 public class Building : MonoBehaviour
 {
     public Material basicMaterial, glowMaterial;
-    public void SetBasicMaterial() { SetMaterial(basicMaterial); }
-    public void SetGlowMaterial() { SetMaterial(glowMaterial); }
-    public void SetMaterial(Material m) { this.GetComponent<Renderer>().material = m; }
+
+    private GameObject IOMarker;
+    private Material inputMarkerMaterial, outputMarkerMaterial, potentialMarkerMaterial;
+    private GameObject inputMarker, outputMarker;
+    public void SetIOMarker(GameObject go, Material mi, Material mo, Material mp, Place p, GameObject parent)
+    {
+        IOMarker = go;
+        inputMarkerMaterial = mi;
+        outputMarkerMaterial = mo;
+        potentialMarkerMaterial = mp;
+
+        inputMarker = Instantiate(IOMarker, this.transform.position, IOMarker.transform.rotation, parent.transform);
+        inputMarker.GetComponent<Renderer>().material = inputMarkerMaterial;
+        inputMarker.SetActive(false);
+
+        outputMarker = Instantiate(IOMarker, this.transform.position, IOMarker.transform.rotation, parent.transform);
+        outputMarker.GetComponent<Renderer>().material = outputMarkerMaterial;
+        outputMarker.SetActive(false);
+    }
+
+    public void SelectBuilding()
+    {
+        SetGlowMaterial();
+
+        var wB = this.GetComponent<WorkBuilding>();
+        if(wB)
+        {
+            if(wB.inputLocation)
+            {
+                inputMarker.transform.position = wB.inputLocation.transform.position + Vector3.up * 0.2f;
+                inputMarker.SetActive(true);
+            }
+            if(wB.outputLocation)
+            {
+                outputMarker.transform.position = wB.outputLocation.transform.position + Vector3.up * 0.2f;
+                outputMarker.SetActive(true);
+            }
+        }
+    }
+
+    public void DeselectBuilding()
+    {
+        SetBasicMaterial();
+        inputMarker.SetActive(false);
+        outputMarker.SetActive(false);
+    }
+
+    private void SetBasicMaterial() { SetMaterial(basicMaterial); }
+    private void SetGlowMaterial() { SetMaterial(glowMaterial); }
+    private void SetMaterial(Material m) { this.GetComponent<Renderer>().material = m; }
 
     public Buildings.BuildingType type;
     protected Place place;

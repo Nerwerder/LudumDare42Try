@@ -122,7 +122,7 @@ public class Control : MonoBehaviour
     {
         selectNothing();    //Clean
 
-        b.SetGlowMaterial();
+        b.SelectBuilding();
         selectionState = SelectionState.BuildingSelected;
         selectedBuilding = b;
         guiControll.ActivateBuildingInfo(b);
@@ -131,7 +131,7 @@ public class Control : MonoBehaviour
     {
         selectionState = SelectionState.NothingSelected;
         if (b != null)
-            b.SetBasicMaterial();
+            b.DeselectBuilding();
         selectedBuilding = null;
     }
     private void selectNothing()
