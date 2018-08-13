@@ -108,6 +108,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4cca9ac9b5fcfdf4f9c525d912dffe38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stopForIOChange: 0
   basicMaterial: {fileID: 2100000, guid: 6b5228e7ff8b5ed4db1205f37f7e7884, type: 2}
   glowMaterial: {fileID: 2100000, guid: 5ce5acd44ba98904fb974bd8849093b9, type: 2}
   type: 0
@@ -120,6 +121,12 @@ MonoBehaviour:
   maxFood: 10
   foodUsage: 3
   goldPerFood: 50
+  happyness: 0
+  nextStage: 1
+  people: 1
+  happynessTimer: 0
+  happynessReduction: 0.1
+  happynessReductionTime: 2
   newCarriagePointLevel: 500
   carriageSpawnTime: 2
   maxCarriages: 3

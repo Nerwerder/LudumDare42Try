@@ -10,11 +10,12 @@ public class Path
     public void SetPath(List<ConnectionPoint> p)
     {
         nodes = p;
-        position = p.Count - 1;
+        position = (p.Count - 1);
     }
 
     public ConnectionPoint GetNetxtTarget()
     {
+        //WORKAROUND
         return nodes[position];
     }
 

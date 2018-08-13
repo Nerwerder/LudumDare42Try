@@ -15,12 +15,12 @@ public class City : Building
     public float foodUsage = 1f;
     public int goldPerFood = 50;
 
-    public float happyness = 0.0f;
-    public float nextStage = 1.0f;
+    public int happyness = 0;
+    public int nextStage = 100;
     public int people = 1;
+    public int happynessReduction = 1;
     public float happynessTimer;
-    public float happynessReduction = 0.1f;
-    public float happynessReductionTime = 10.0f;
+    public float happynessReductionTime = 20.0f;
 
 
     public int newCarriagePointLevel = 500;
@@ -69,7 +69,7 @@ public class City : Building
     private void UpdateGui()
     {
         gui.UpdateGold(gold);
-        gui.UpdateCityInfo((int)((happyness * 100.0f) / nextStage));
+        gui.UpdateCityInfo(happyness);
     }
 
     public override void Work(float time)
@@ -109,7 +109,6 @@ public class City : Building
             gold += goldPerFood;
             points += goldPerFood;
             updateHappyness();
-            UpdateGui();
         }
 
         if (woodUsageTimer >= woodUsage && wood >= 1)
@@ -119,16 +118,15 @@ public class City : Building
             gold += goldPerWood;
             points += goldPerFood;
             updateHappyness();
-            UpdateGui();
         }
 
-        if (happynessTimer >= 20.0f)
+        if (happynessTimer >= happynessReductionTime)
         {      
             happyness -= happynessReduction;
-            if(happyness < 0.0f)
-            {
-                happyness = 0.0f;
-            }
+            happynessTimer = 0f;
+            if (happyness < 0)
+                happyness = 0;
+            UpdateGui();
         }
 
         if (points >= newCarriagePointLevel)
@@ -140,11 +138,12 @@ public class City : Building
 
     private void updateHappyness()
     {
-        happyness += 0.1f;
+        happyness += 10;
         if(happyness >= nextStage)
         {
             LevelUp();
         }
+        UpdateGui();
     }
 
     public bool GetGold(int v)
@@ -181,6 +180,6 @@ public class City : Building
 
     public float getSpawnTimerProgress()
     {
-        return happyness / nextStage;
+        return (float)happyness / (float)nextStage;
     }
 }
