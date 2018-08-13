@@ -29,19 +29,18 @@ public class WorkBuilding : Building
     {
         base.Work(time);
 
-        if (workTimer >= productionTime && !outputLocation.Full())
+        if (workTimer >= productionTime)
             Done();
     }
 
     public override void Done()
     {
         base.Done();
-        if (outputLocation.PushResource(outputResourcePrefab, outputResourceType))
+        if (outputLocation.CreateResource(outputResourcePrefab, outputResourceType))
         {
             inputResource = false;
             workTimer = 0f;
         }
-           
     }
 
     public float getWorkTimerProgress()

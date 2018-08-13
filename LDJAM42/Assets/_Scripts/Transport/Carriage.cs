@@ -23,17 +23,20 @@ public class Carriage : MonoBehaviour
 
     private void Update()
     {
-        if (!path.Empty())
+        switch (cState)
         {
-            foreach (var p in path.nodes)
-                Debug.DrawLine(p.transform.position, p.transform.position + Vector3.up);
-
-            if (followThePath(path))
-            {
-                path.Clear();
-                InteractWithPosition(targetPosition);
-            }
-
+            case carriageState.CarriageIdle:
+                break;
+            case carriageState.CarriageWaitForResource:
+                InteractWithPosition(actualPosition);
+                break;
+            case carriageState.CarriageOnMyWay:
+                if (followThePath(path))
+                {
+                    path.Clear();
+                    InteractWithPosition(targetPosition);
+                }
+                break;
         }
     }
 
@@ -47,11 +50,25 @@ public class Carriage : MonoBehaviour
     public void GoTo(Building b)
     {
         Debug.Log("GoTo Building : " + b.type.ToString());
-
-        //Test if the Building is a WorkBuilding or a City
         var wB = b.GetComponent<WorkBuilding>();
-        if (wB)
-            GoTo(wB.outputLocation);
+        var ci = b.GetComponent<City>();
+
+        switch (cCState)
+        {
+            case carriageCargoState.CarriageFull:
+                if (wB && wB.inputLocation)             //It is a WorkBuilding and it has an Input
+                    GoTo(wB.inputLocation);
+                else if (ci)                            //It is a City
+                    GoTo(ci.getFreeInputLocation());
+
+                break;
+            case carriageCargoState.CarriageEmpty:      //If the Cariage is Empty -> Go and Pick the Resource from the Output up
+                if (wB)
+                    GoTo(wB.outputLocation);
+                break;
+            default:
+                break;
+        }
     }
     public void GoTo(Place p)
     {
@@ -60,9 +77,15 @@ public class Carriage : MonoBehaviour
     }
     public void GoTo(ConnectionPoint p)
     {
-        cState = carriageState.CarriageOnMyWay;
-        targetPosition = p;
-        path.SetPath(pathfinding.FindPath(actualPosition, targetPosition));
+        if (p)
+        {
+            cState = carriageState.CarriageOnMyWay;
+            targetPosition = p;
+            path.SetPath(pathfinding.FindPath(actualPosition, targetPosition));
+        }
+        else
+            Debug.Log("Carriage: " + this.ToString() + " got a null as Target in Carriage.Goto(ConnectionPoint p)");
+
     }
 
     //TRAVEL
@@ -109,24 +132,34 @@ public class Carriage : MonoBehaviour
     }
 
     //MATERIALTRANSPORT
-    enum carriageCargoState { CarriageFull, CarriageEmpty };
-    carriageCargoState cCState = carriageCargoState.CarriageEmpty;
-    public GameObject resourcePrefab;
+    public enum carriageCargoState { CarriageFull, CarriageEmpty };
+    public carriageCargoState cCState = carriageCargoState.CarriageEmpty;
+    public GameObject cargo;
 
     public void InteractWithPosition(ConnectionPoint f)
     {
         switch (cCState)
         {
             case carriageCargoState.CarriageFull:    //Try to Empty the Carriage (Lay Down the Resource)
+                if (f.resourceInput && !f.resourceOnField)
+                {
+                    if (f.PushResource(cargo))
+                    {
+                        ChangeMesh(basicMesh);
+                        cCState = carriageCargoState.CarriageEmpty;
+                        cState = carriageState.CarriageIdle;
+                    }
+                }
 
                 break;
             case carriageCargoState.CarriageEmpty:
                 //Is there a Resource on this Field
                 if (f.ResourceWaitingForPickup() && f.resourceOutput)
                 {
-                    resourcePrefab = f.PullResource();
+                    cargo = f.PullResource();
+                    cCState = carriageCargoState.CarriageFull;
 
-                    var t = resourcePrefab.GetComponent<Resource>().type;
+                    var t = cargo.GetComponent<Resource>().type;
                     if (t == Resource.ResourceType.Wood || t == Resource.ResourceType.Planks)
                         ChangeMesh(woodMesh);
                     else if (t == Resource.ResourceType.Grain || t == Resource.ResourceType.Flour || t == Resource.ResourceType.Bread)

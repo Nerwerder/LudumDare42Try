@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class WindMill : Building
+public class WindMill : ProduceANDUseWorkBuilding
 {
 
 }

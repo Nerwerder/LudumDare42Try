@@ -74,11 +74,6 @@ MonoBehaviour:
     type: 2}
   worldFile: {fileID: 4900000, guid: 303b1ae3480dd4841ba658c455ada836, type: 3}
   buildings: {fileID: 0}
-  materials:
-  - {fileID: 2100000, guid: 051c57c31aefc6a4ebb0c3b44091a0c7, type: 2}
-  - {fileID: 2100000, guid: 25d520364197b544b8f809a4ee34e570, type: 2}
-  - {fileID: 2100000, guid: 958d5792144be2b46aa752632a4742bb, type: 2}
-  - {fileID: 2100000, guid: 9849a89910340f3489fcfc52640a9e16, type: 2}
   xOffset: 2
   zOffset: 1.725
   x2Offset: 1

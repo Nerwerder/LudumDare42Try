@@ -277,15 +277,15 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 1869100039438304, guid: bbedeebba8032fa49b14d11effcd7a45, type: 2}
+      propertyPath: m_Name
+      value: World
+      objectReference: {fileID: 0}
     - target: {fileID: 114600361142561228, guid: bbedeebba8032fa49b14d11effcd7a45,
         type: 2}
       propertyPath: buildings
       value: 
       objectReference: {fileID: 100193756}
-    - target: {fileID: 1869100039438304, guid: bbedeebba8032fa49b14d11effcd7a45, type: 2}
-      propertyPath: m_Name
-      value: World
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bbedeebba8032fa49b14d11effcd7a45, type: 2}
   m_IsPrefabAsset: 0
@@ -379,6 +379,12 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 602ea616295c52c44bfd80cf6115d353, type: 2}
   m_IsPrefabAsset: 0
+--- !u!114 &888880926 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114100709699975398, guid: b632b8ab7f51bf444a805cc6bfa54b50,
+    type: 2}
+  m_PrefabInternal: {fileID: 1722965550}
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!114 &1040008229 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114352841404663402, guid: b632b8ab7f51bf444a805cc6bfa54b50,
@@ -390,6 +396,12 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1987350642490202, guid: b632b8ab7f51bf444a805cc6bfa54b50,
     type: 2}
   m_PrefabInternal: {fileID: 1722965550}
+--- !u!114 &1365026112 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114016191737000074, guid: b632b8ab7f51bf444a805cc6bfa54b50,
+    type: 2}
+  m_PrefabInternal: {fileID: 1722965550}
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1001 &1428158350
 Prefab:
   m_ObjectHideFlags: 0
@@ -454,7 +466,7 @@ AudioSource:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1431797235}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 4347cb6ef4512b0408407f1d7b7dfdb8, type: 3}
@@ -595,6 +607,16 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 114177319164270530, guid: 2b004288090ccea429861c27901abfb3,
+        type: 2}
+      propertyPath: myCamera
+      value: 
+      objectReference: {fileID: 1727512259}
+    - target: {fileID: 114177319164270530, guid: 2b004288090ccea429861c27901abfb3,
+        type: 2}
+      propertyPath: buildings
+      value: 
+      objectReference: {fileID: 100193756}
     - target: {fileID: 114302663958496596, guid: 2b004288090ccea429861c27901abfb3,
         type: 2}
       propertyPath: buildings
@@ -629,30 +651,26 @@ Prefab:
         type: 2}
       propertyPath: goldAmount
       value: 
-      objectReference: {fileID: 2001852240}
+      objectReference: {fileID: 1553330897}
     - target: {fileID: 114302663958496596, guid: 2b004288090ccea429861c27901abfb3,
         type: 2}
       propertyPath: foodInfo
       value: 
-      objectReference: {fileID: 474046512}
+      objectReference: {fileID: 888880926}
     - target: {fileID: 114302663958496596, guid: 2b004288090ccea429861c27901abfb3,
         type: 2}
       propertyPath: woodInfo
       value: 
-      objectReference: {fileID: 2113983520}
-    - target: {fileID: 114177319164270530, guid: 2b004288090ccea429861c27901abfb3,
-        type: 2}
-      propertyPath: myCamera
-      value: 
-      objectReference: {fileID: 1727512259}
-    - target: {fileID: 114177319164270530, guid: 2b004288090ccea429861c27901abfb3,
-        type: 2}
-      propertyPath: buildings
-      value: 
-      objectReference: {fileID: 100193756}
+      objectReference: {fileID: 1365026112}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2b004288090ccea429861c27901abfb3, type: 2}
   m_IsPrefabAsset: 0
+--- !u!114 &1553330897 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114040832841171310, guid: b632b8ab7f51bf444a805cc6bfa54b50,
+    type: 2}
+  m_PrefabInternal: {fileID: 1722965550}
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1001 &1605826590
 Prefab:
   m_ObjectHideFlags: 0

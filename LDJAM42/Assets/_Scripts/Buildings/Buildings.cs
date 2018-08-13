@@ -8,11 +8,11 @@ public class Buildings : MonoBehaviour
     public List<GameObject> buildingPrefabs;
 
     //Things the System builds
-    public bool DefaultBuild(int t, Place p)
+    public bool DefaultBuild(Place p)
     {
-        switch (t)
+        switch (p.type)
         {
-            case 3:     //Trees
+            case Place.PlaceType.Forest:     //Trees
                 int treeCount = Random.Range(1, 4);
                 for (int i = 0; i < treeCount; i++)
                 {
@@ -34,7 +34,7 @@ public class Buildings : MonoBehaviour
                     tree.transform.localScale = scale;
                 }
                 return true;
-            case 4:     //City
+            case Place.PlaceType.City:     //City
                 p.BuildBuilding(buildingPrefabs[0]);
                 return true;
             default: return false;

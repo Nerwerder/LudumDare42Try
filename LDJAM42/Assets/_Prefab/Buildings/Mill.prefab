@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4883351195719304}
   - component: {fileID: 33482733913289518}
   - component: {fileID: 23314342851500136}
+  - component: {fileID: 114168676140976518}
   m_Layer: 0
   m_Name: Mill
   m_TagString: Untagged
@@ -83,3 +84,26 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1668181056183498}
   m_Mesh: {fileID: 4300000, guid: 92deb963c724e124caa2fabb63f0c58f, type: 3}
+--- !u!114 &114168676140976518
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1668181056183498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e939fa061a76774f94212f9b106cc40, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  basicMaterial: {fileID: 2100000, guid: 6b5228e7ff8b5ed4db1205f37f7e7884, type: 2}
+  glowMaterial: {fileID: 2100000, guid: 5ce5acd44ba98904fb974bd8849093b9, type: 2}
+  type: 4
+  inputResourcePrefab: {fileID: 1748365773276420, guid: d37c15083ee8cf8449766ee91e0f54a3,
+    type: 2}
+  inputResourceType: 3
+  outputResourcePrefab: {fileID: 1748365773276420, guid: d37c15083ee8cf8449766ee91e0f54a3,
+    type: 2}
+  outputResourceType: 4
+  outputLocation: {fileID: 0}
+  inputLocation: {fileID: 0}
+  productionTime: 1
