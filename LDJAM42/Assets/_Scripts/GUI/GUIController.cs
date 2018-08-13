@@ -62,12 +62,9 @@ public class GUIController : MonoBehaviour
         }
     }
 
-    public void UpdateCityInfo(int food, int wood)
+    public void UpdateCityInfo(int happyness)
     {
-        string foodText = food.ToString() + "%";
-        string woodText = wood.ToString() + "%";
-
-        woodInfo.text = woodText;
+        string foodText = happyness.ToString() + "%";
         foodInfo.text = foodText;
     }
 
@@ -138,6 +135,7 @@ public class GUIController : MonoBehaviour
     public void ActivateRoutePanel(Route r)
     {
         int count = routePanelContent.transform.childCount;
+        int buildingCounter = 0;
         if(count > 0)
         {
             for (int i = count - 1; i >= 0; i--)
@@ -156,26 +154,32 @@ public class GUIController : MonoBehaviour
                     case Buildings.BuildingType.City:
                         Image city = Instantiate(routeViewImagePrefab, routePanelContent.transform);
                         city.sprite = buildingTypes[0];
+                        buildingCounter++;
                         break;
                     case Buildings.BuildingType.WoodCutter:
                         Image wood = Instantiate(routeViewImagePrefab, routePanelContent.transform);
                         wood.sprite = buildingTypes[1];
+                        buildingCounter++;
                         break;
                     case Buildings.BuildingType.Sawmill:
                         Image saw = Instantiate(routeViewImagePrefab, routePanelContent.transform);
                         saw.sprite = buildingTypes[2];
+                        buildingCounter++;
                         break;
                     case Buildings.BuildingType.Farm:
                         Image farm = Instantiate(routeViewImagePrefab, routePanelContent.transform);
                         farm.sprite = buildingTypes[3];
+                        buildingCounter++;
                         break;
                     case Buildings.BuildingType.Windmill:
                         Image mill = Instantiate(routeViewImagePrefab, routePanelContent.transform);
                         mill.sprite = buildingTypes[4];
+                        buildingCounter++;
                         break;
                     case Buildings.BuildingType.Bakery :
                         Image bakery = Instantiate(routeViewImagePrefab, routePanelContent.transform);
                         bakery.sprite = buildingTypes[5];
+                        buildingCounter++;
                         break;
                     default:
                         break;
@@ -183,7 +187,7 @@ public class GUIController : MonoBehaviour
 
             }
         }
-        if(routePanelContent.transform.childCount > 0)
+        if(buildingCounter > 0)
         {
             routePanel.SetActive(true);
             routePanelActive = true;
