@@ -143,7 +143,7 @@ public class Carriage : MonoBehaviour
                 case CarriageCargoState.CarriageEmpty:      //If the Cariage is Empty -> Go and Pick the Resource from the Output up
                     if (wB && wB.outputLocation)
                         MoveTo(wB.outputLocation);
-                    else
+                    else if(wB)
                         MoveTo(wB.GetPlace().GetRandomFreeConnectionPoint());
                     break;
             }
