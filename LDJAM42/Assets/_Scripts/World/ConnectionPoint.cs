@@ -27,10 +27,14 @@ public class ConnectionPoint : MonoBehaviour
     }
 
     //Resources and Travel
-    private bool resourceOutput, resourceInput, full;
+    public bool resourceOutput, resourceInput, full, carriageOnField, resourceOnField;
     private Building    building = null;
     private GameObject  resource = null;    
 
+    public void changeFullState()
+    {
+        full = (carriageOnField || resourceOnField);
+    }
     public bool Full()
     {
         return full;
@@ -55,30 +59,41 @@ public class ConnectionPoint : MonoBehaviour
         resourceOutput = false;
         building = null;
     }
-    public bool PushResource(GameObject prefab)
+    public bool PushResource(GameObject prefab, Resource.ResourceType t)
     {
         if (full)
             return false;
 
         resource = Instantiate(prefab, this.transform);
+        resource.GetComponent<Resource>().type = t;
 
         //Remove the Parent Scale
         this.transform.parent.GetComponent<Place>().removeScale(resource);
-        
-        full = true;
+
+        resourceOnField = true;
+        changeFullState();
         return true;
     }
     public GameObject PullResource()
     {
-        full = false;
-        return null;
+        resource.SetActive(false);
+        resourceOnField = false;
+        changeFullState();
+        return resource;
     }
-    public bool ResourceWaiting()
+    public bool ResourceWaitingForPickup()
     {
-        if (full && resource != null)
+        if (resourceOnField && resource != null && resourceOutput)
             return true;
         return false;
     }
+    public bool ResourceWaitingForUse()
+    {
+        if (resourceOnField && resource != null && resourceInput)
+            return true;
+        return false;
+    }
+
     public bool FreeToMoveOn()
     {
         return !full;
@@ -86,13 +101,15 @@ public class ConnectionPoint : MonoBehaviour
     public void CarriageMovesOnField(Carriage c)
     {
         c.SetActualPosition(this);
-        full = true;
+        carriageOnField = true;
+        changeFullState();
         
     }
     public void CarriageMovesFromField(Carriage c)
     {
         c.SetActualPosition(null);
-        full = false;
+        carriageOnField = false;
+        changeFullState();
     }
 
     private void Update()

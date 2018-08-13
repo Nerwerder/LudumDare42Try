@@ -110,6 +110,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 1
   inputResourcePrefab: {fileID: 0}
+  inputResourceType: 0
   outputResourcePrefab: {fileID: 1299866933725002, guid: cbf4679bd74743a4a8393114b12b29ea,
     type: 2}
+  outputResourceType: 1
+  outputLocation: {fileID: 0}
+  inputLocation: {fileID: 0}
   productionTime: 2

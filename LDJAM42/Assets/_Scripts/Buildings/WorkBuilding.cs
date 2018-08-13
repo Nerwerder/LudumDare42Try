@@ -5,7 +5,9 @@ using UnityEngine;
 public class WorkBuilding : Building
 {
     public GameObject inputResourcePrefab = null;
+    public Resource.ResourceType inputResourceType;
     public GameObject outputResourcePrefab = null;
+    public Resource.ResourceType outputResourceType;
 
     [HideInInspector] public ConnectionPoint outputLocation;
     [HideInInspector] public ConnectionPoint inputLocation;
@@ -34,7 +36,7 @@ public class WorkBuilding : Building
     public override void Done()
     {
         base.Done();
-        if (outputLocation.PushResource(outputResourcePrefab))
+        if (outputLocation.PushResource(outputResourcePrefab, outputResourceType))
         {
             inputResource = false;
             workTimer = 0f;

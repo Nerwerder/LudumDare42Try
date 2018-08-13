@@ -37,7 +37,8 @@ public class City : Building
         var l = FindRandomFreeMOVELocation();
         if(l != null)
         {
-            var c = Instantiate(carriagePrefab, l.transform.position, carriagePrefab.transform.rotation, carriageParent);
+            var rot = Quaternion.LookRotation((l.transform.position - this.transform.position), Vector3.up);
+            var c = Instantiate(carriagePrefab, l.transform.position, rot, carriageParent);
             var ca = c.GetComponent<Carriage>();
             l.CarriageMovesOnField(ca);
             carriages.Add(ca);

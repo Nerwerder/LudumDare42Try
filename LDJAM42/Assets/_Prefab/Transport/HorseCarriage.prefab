@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 114352541992537268}
   - component: {fileID: 33808736773377564}
   - component: {fileID: 23911191148233336}
-  - component: {fileID: 65286068740243432}
+  - component: {fileID: 65853380039140692}
   m_Layer: 9
   m_Name: HorseCarriage
   m_TagString: Carriage
@@ -36,9 +36,9 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1020129574645412}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: 0, y: -0.04, z: 0}
-  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.12, z: 0}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -85,7 +85,7 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1020129574645412}
   m_Mesh: {fileID: 4300000, guid: 10b15d2c102b32443a87aa5c63effac3, type: 3}
---- !u!65 &65286068740243432
+--- !u!65 &65853380039140692
 BoxCollider:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -95,8 +95,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.017394446, y: 0.0038234163, z: 0.008552521}
-  m_Center: {x: -0.0021988596, y: -0.0002391856, z: 0.0042708577}
+  m_Size: {x: 0.38234168, y: 0.8552522, z: 1.7394443}
+  m_Center: {x: 0.023918562, y: 0.42708585, z: 0.21988592}
 --- !u!114 &114352541992537268
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -108,5 +108,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3f79dfdaf97880478e06d8b6a29eb68, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  basicMesh: {fileID: 4300000, guid: 10b15d2c102b32443a87aa5c63effac3, type: 3}
+  woodMesh: {fileID: 4300000, guid: 467a043422e65cf48bf9f8febc65f107, type: 3}
+  grainMesh: {fileID: 4300000, guid: 81587da9e2396a448920ef510cde3b3b, type: 3}
   basicMaterial: {fileID: 2100000, guid: 6b5228e7ff8b5ed4db1205f37f7e7884, type: 2}
   glowMaterial: {fileID: 2100000, guid: 5ce5acd44ba98904fb974bd8849093b9, type: 2}
+  rotationSpeed: 5
+  arrivalDistance: 0.2
+  resourcePrefab: {fileID: 0}
