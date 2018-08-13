@@ -126,7 +126,7 @@ public class Control : MonoBehaviour
 
         selectionState = SelectionState.BuildingSelected;
         selectedBuilding = b;
-        guiControll.ActivateBuildingInfo();
+        guiControll.ActivateBuildingInfo(b);
     }
     private void deselectBuilding(Building b)
     {

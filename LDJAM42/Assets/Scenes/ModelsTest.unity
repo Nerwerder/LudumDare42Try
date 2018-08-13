@@ -257,6 +257,11 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 223954025445243454, guid: b632b8ab7f51bf444a805cc6bfa54b50,
+        type: 2}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1215768579}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b632b8ab7f51bf444a805cc6bfa54b50, type: 2}
   m_IsPrefabAsset: 0

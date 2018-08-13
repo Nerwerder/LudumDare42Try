@@ -8,29 +8,73 @@ public class GUIController : MonoBehaviour
 
 
     public Buildings buildings = null;
-    public GameObject canvas = null;
+    public GameObject buildPanel = null;
+    public GameObject buildingInfoPanel = null;
 
     public Image efficiancy = null;
+    public Image infoPanelLabel = null;
+    public Image progressbar = null;
 
     public List<Sprite> efficiancies = new List<Sprite>();
+    public List<Sprite> buildingTypes = new List<Sprite>();
 
-    private bool canvasActive = false;
+    public Text goldAmount = null;
+    public Text foodInfo = null;
+    public Text woodInfo = null;
+
+    private bool buildPanelActive = false;
+    private bool buildingInfoPanelActive = false;
+
     private Place activeCanvasPlace = null;
+    private Building activeBuilding = null;
 
     // Use this for initialization
     void Start()
     {
-        if (canvas == null)
-            canvas = GameObject.FindGameObjectWithTag("BuildMenu");
-        canvas.SetActive(false);
+        if (buildPanel == null)
+            buildPanel = GameObject.FindGameObjectWithTag("BuildMenu");
+        
+        buildPanel.SetActive(false);
+        buildingInfoPanel.SetActive(false);
     }
 
 
+    void Update()
+    {
+        if(buildingInfoPanelActive)
+        {
+            if(activeBuilding.type != Buildings.BuildingType.City)
+            {
+                progressbar.fillAmount = activeBuilding.GetComponent<WorkBuilding>().getWorkTimerProgress();
+            }
+            else
+            {
+                progressbar.fillAmount = activeBuilding.GetComponent<City>().getSpawnTimerProgress();
+            }
+            
+        }
+    }
+
+    public void UpdateCityInfo(int food, int wood)
+    {
+        string foodText = food.ToString() + "%";
+        string woodText = wood.ToString() + "%";
+
+        woodInfo.text = woodText;
+        foodInfo.text = foodText;
+    }
+
+    public void UpdateGold(int amount)
+    {
+        string goldText = amount.ToString();
+        goldAmount.text = goldText;
+    }
+
     public void ActivateBuildPanel(Place p)
     {
-        canvas.SetActive(true);
+        buildPanel.SetActive(true);
 
-        var buttons = canvas.GetComponentsInChildren<Button>();
+        var buttons = buildPanel.GetComponentsInChildren<Button>();
 
         //WORKAROUND
         foreach (var b in buttons)
@@ -42,12 +86,39 @@ public class GUIController : MonoBehaviour
         ChangeButton(buttons[3], Buildings.BuildingType.Windmill, p);
         ChangeButton(buttons[4], Buildings.BuildingType.Bakery, p);
 
-        canvasActive = true;
+        buildPanelActive = true;
         activeCanvasPlace = p;
     }
-    public void ActivateBuildingInfo()
+    public void ActivateBuildingInfo(Building building)
     {
+        buildingInfoPanel.SetActive(true);
+        buildingInfoPanelActive = true;
+        activeBuilding = building;
 
+        switch (building.type)
+        {
+            case Buildings.BuildingType.City:
+                infoPanelLabel.sprite = buildingTypes[0];
+                break;
+            case Buildings.BuildingType.WoodCutter:
+                infoPanelLabel.sprite = buildingTypes[1];
+                break;
+            case Buildings.BuildingType.Sawmill:
+                infoPanelLabel.sprite = buildingTypes[2];
+                break;
+            case Buildings.BuildingType.Farm:
+                infoPanelLabel.sprite = buildingTypes[3];
+                break;
+            case Buildings.BuildingType.Windmill:
+                infoPanelLabel.sprite = buildingTypes[4];
+                break;
+            case Buildings.BuildingType.Bakery:
+                infoPanelLabel.sprite = buildingTypes[5];
+                break;
+            default:
+                break;
+        }
+        
     }
 
     private void ChangeButton(Button b, Buildings.BuildingType t, Place p, Place.PlaceType pt)
@@ -95,8 +166,10 @@ public class GUIController : MonoBehaviour
 
     public void RemoveCanvas()
     {
-        canvas.SetActive(false);
-        canvasActive = false;
+        buildPanel.SetActive(false);
+        buildingInfoPanel.SetActive(false);
+        buildPanelActive = false;
+        buildingInfoPanelActive = false;
         activeCanvasPlace = null;
     }
 
@@ -108,6 +181,6 @@ public class GUIController : MonoBehaviour
 
     public bool getCanvasActive()
     {
-        return canvasActive;
+        return buildPanelActive;
     }
 }
