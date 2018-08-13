@@ -6,9 +6,9 @@ public class Carriage : MonoBehaviour
 {
     //MATERIAL
     public Material basicMaterial, glowMaterial;
-    public void SetBasicMaterial(){SetMaterial(basicMaterial);}
-    public void SetGlowMaterial(){SetMaterial(glowMaterial);}
-    public void SetMaterial(Material m){this.GetComponent<Renderer>().material = m;}
+    public void SetBasicMaterial() { SetMaterial(basicMaterial); }
+    public void SetGlowMaterial() { SetMaterial(glowMaterial); }
+    public void SetMaterial(Material m) { this.GetComponent<Renderer>().material = m; }
 
     //BASIC
     private void Awake()
@@ -16,13 +16,20 @@ public class Carriage : MonoBehaviour
         pathfinding = FindObjectOfType<Pathfinding>();
     }
 
+    private void Update()
+    {
+        if (path != null)
+            foreach (var p in path)
+                Debug.DrawLine(p.transform.position, p.transform.position + Vector3.up);
+    }
+
     //TRAVEL
     private Pathfinding pathfinding;
     private ConnectionPoint actualPosition = null, targetPosition = null;
-    private List<ConnectionPoint> path;
+    private List<ConnectionPoint> path = null;
     public void SetActualPosition(ConnectionPoint c) { actualPosition = c; }
 
-    public void GoTo (Building b)
+    public void GoTo(Building b)
     {
         Debug.Log("GoTo Building : " + b.type.ToString());
 
@@ -32,17 +39,17 @@ public class Carriage : MonoBehaviour
             GoTo(wB.outputLocation);
     }
 
-    public void GoTo (Place p)
+    public void GoTo(Place p)
     {
         Debug.Log("GoTo Place : " + p.type.ToString());
 
     }
 
-    public void GoTo (ConnectionPoint p)
+    public void GoTo(ConnectionPoint p)
     {
         Debug.Log("Goto Place :" + p.ToString());
         targetPosition = p;
-        path = pathfinding.findPath(actualPosition, targetPosition);
+        path = pathfinding.FindPath(actualPosition, targetPosition);
     }
-      
+
 }

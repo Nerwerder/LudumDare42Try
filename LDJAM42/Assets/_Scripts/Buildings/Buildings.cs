@@ -6,7 +6,6 @@ public class Buildings : MonoBehaviour
 {
     public enum BuildingType { City, WoodCutter, Sawmill, Farm, Windmill, Bakery }
     public List<GameObject> buildingPrefabs;
-    public List<GameObject> resourcePrefabs;
 
     //Things the System builds
     public bool DefaultBuild(int t, Place p)

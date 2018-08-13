@@ -8,6 +8,24 @@ public class ConnectionPoint : MonoBehaviour
     private List<Place> places = new List<Place>(3);
     public List<Connection> connections = new List<Connection>();
 
+    //PATHFINDING
+    public float pathCost = 0f;
+    public ConnectionPoint pathPredecessor = null;
+    private int pathID = -1;
+    public void resetPathfindingValues()
+    {
+        pathCost = 0f;
+        pathPredecessor = null;
+    }
+    public void resetIfFirstEncounter(int id)
+    {
+        if(pathID != id)
+        {
+            pathID = id;
+            resetPathfindingValues();
+        }
+    }
+
     //Resources and Travel
     private bool resourceOutput, resourceInput, full;
     private Building    building = null;
