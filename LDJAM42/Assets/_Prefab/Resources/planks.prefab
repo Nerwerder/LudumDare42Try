@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4783383649085496}
   - component: {fileID: 33003399479739136}
   - component: {fileID: 23639230931239656}
+  - component: {fileID: 114358133790192732}
   m_Layer: 0
   m_Name: planks
   m_TagString: Untagged
@@ -35,7 +36,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1296035809602964}
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: -0.856, y: 0.01, z: -2.086}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 100, y: 100, z: 100}
   m_Children: []
   m_Father: {fileID: 0}
@@ -83,3 +84,15 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1296035809602964}
   m_Mesh: {fileID: 4300000, guid: 9d0a4ffca923ab84ba8c0dc973cedcd6, type: 3}
+--- !u!114 &114358133790192732
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1296035809602964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df87392a861210c4792ab171516865da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 2

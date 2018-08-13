@@ -114,7 +114,7 @@ MonoBehaviour:
   inputResourcePrefab: {fileID: 1299866933725002, guid: cbf4679bd74743a4a8393114b12b29ea,
     type: 2}
   inputResourceType: 1
-  outputResourcePrefab: {fileID: 1299866933725002, guid: cbf4679bd74743a4a8393114b12b29ea,
+  outputResourcePrefab: {fileID: 1296035809602964, guid: 2dbb36792a749e54897f93058e3da632,
     type: 2}
   outputResourceType: 2
   outputLocation: {fileID: 0}

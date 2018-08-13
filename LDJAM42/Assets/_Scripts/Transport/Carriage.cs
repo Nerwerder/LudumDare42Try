@@ -8,6 +8,7 @@ public class Carriage : MonoBehaviour
     public Mesh basicMesh;
     public Mesh woodMesh;
     public Mesh grainMesh;
+    public Mesh plankMesh;
 
     public bool Logging;
 
@@ -236,8 +237,10 @@ public class Carriage : MonoBehaviour
                     ChangeCarriageCargoStateTO(CarriageCargoState.CarriageFull);
 
                     var t = cargo.GetComponent<Resource>().type;
-                    if (t == Resource.ResourceType.Wood || t == Resource.ResourceType.Planks)
+                    if (t == Resource.ResourceType.Wood)
                         ChangeMesh(woodMesh);
+                    else if (t == Resource.ResourceType.Planks)
+                        ChangeMesh(plankMesh);
                     else if (t == Resource.ResourceType.Grain || t == Resource.ResourceType.Flour || t == Resource.ResourceType.Bread)
                         ChangeMesh(grainMesh);
 
