@@ -15,6 +15,14 @@ public class City : Building
     public float foodUsage = 1f;
     public int goldPerFood = 50;
 
+    public float happyness = 0.0f;
+    public float nextStage = 1.0f;
+    public int people = 1;
+    public float happynessTimer;
+    public float happynessReduction = 0.1f;
+    public float happynessReductionTime = 10.0f;
+
+
     public int newCarriagePointLevel = 500;
     public float carriageSpawnTime = 1f;
     public int maxCarriages;
@@ -92,6 +100,7 @@ public class City : Building
 
         foodUSageTimer += Time.deltaTime;
         woodUsageTimer += Time.deltaTime;
+        happynessTimer += Time.deltaTime;
 
         if (foodUSageTimer >= foodUsage && food >= 1)
         {
@@ -99,6 +108,7 @@ public class City : Building
             foodUSageTimer = 0f;
             gold += goldPerFood;
             points += goldPerFood;
+            updateHappyness();
             UpdateGui();
         }
 
@@ -108,7 +118,18 @@ public class City : Building
             woodUsageTimer = 0f;
             gold += goldPerWood;
             points += goldPerFood;
+            updateHappyness();
             UpdateGui();
+        }
+
+        if (happynessTimer >= 20.0f)
+        {
+            
+            happyness -= happynessReduction;
+            if(happyness < 0.0f)
+            {
+                happyness = 0.0f;
+            }
         }
 
         if (points >= newCarriagePointLevel)
@@ -116,6 +137,22 @@ public class City : Building
             points = 0;
             maxCarriages++;
         }
+    }
+
+    private void updateHappyness()
+    {
+        happyness += 0.1f;
+        if(happyness >= nextStage)
+        {
+            LevelUp();
+        }
+    }
+
+    private void LevelUp()
+    {
+        people++;
+        nextStage = people;
+        maxCarriages += people;
     }
 
     public void SpawnCariage()
@@ -134,6 +171,6 @@ public class City : Building
 
     public float getSpawnTimerProgress()
     {
-        return workTimer / carriageSpawnTime;
+        return happyness / nextStage;
     }
 }
