@@ -29,6 +29,7 @@ public class ConnectionPoint : MonoBehaviour
     //Resources and Travel
     public bool resourceOutput, resourceInput, full, carriageOnField, resourceOnField;
     private Building building = null;
+    private Carriage cariage = null;
     private GameObject resource = null;
 
     public void changeFullState()
@@ -61,7 +62,7 @@ public class ConnectionPoint : MonoBehaviour
     }
     public bool CreateResource(GameObject prefab, Resource.ResourceType t)
     {
-        if (full)
+        if (full && !EmptyCarriageWaiting())
             return false;
 
         resource = Instantiate(prefab, this.transform);
@@ -105,15 +106,11 @@ public class ConnectionPoint : MonoBehaviour
     }
     public bool ResourceWaitingForPickup()
     {
-        if (resourceOnField && resource != null && resourceOutput)
-            return true;
-        return false;
+        return (resourceOnField && resource != null && resourceOutput);
     }
     public bool ResourceWaitingForUse()
     {
-        if (resourceOnField && resource != null && resourceInput)
-            return true;
-        return false;
+        return (resourceOnField && resource != null && resourceInput);
     }
 
     public bool FreeToMoveOn()
@@ -123,6 +120,7 @@ public class ConnectionPoint : MonoBehaviour
     public void CarriageMovesOnField(Carriage c)
     {
         c.SetActualPosition(this);
+        cariage = c;
         carriageOnField = true;
         changeFullState();
 
@@ -130,8 +128,13 @@ public class ConnectionPoint : MonoBehaviour
     public void CarriageMovesFromField(Carriage c)
     {
         c.SetActualPosition(null);
+        cariage = null;
         carriageOnField = false;
         changeFullState();
+    }
+    public bool EmptyCarriageWaiting()
+    {
+        return (full && carriageOnField && cariage.cCState == Carriage.carriageCargoState.CarriageEmpty);
     }
 
     private void Update()

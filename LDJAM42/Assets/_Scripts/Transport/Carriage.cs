@@ -132,8 +132,8 @@ public class Carriage : MonoBehaviour
     }
 
     //MATERIALTRANSPORT
-    enum carriageCargoState { CarriageFull, CarriageEmpty };
-    carriageCargoState cCState = carriageCargoState.CarriageEmpty;
+    public enum carriageCargoState { CarriageFull, CarriageEmpty };
+    public carriageCargoState cCState = carriageCargoState.CarriageEmpty;
     public GameObject cargo;
 
     public void InteractWithPosition(ConnectionPoint f)

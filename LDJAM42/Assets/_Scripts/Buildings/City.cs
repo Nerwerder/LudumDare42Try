@@ -40,6 +40,7 @@ public class City : Building
                 inputLocations.Add(con);
             }
 
+        gold = startGold;
     }
 
     public ConnectionPoint getFreeInputLocation()
@@ -76,7 +77,7 @@ public class City : Building
                     if (t == InputTypes[0])
                         wood++;
                     else if (t == InputTypes[1])
-                        wood++;
+                        food++;
                     Destroy(r);
                 }
 

@@ -29,7 +29,7 @@ public class WorkBuilding : Building
     {
         base.Work(time);
 
-        if (workTimer >= productionTime && !outputLocation.Full())
+        if (workTimer >= productionTime)
             Done();
     }
 
@@ -41,7 +41,6 @@ public class WorkBuilding : Building
             inputResource = false;
             workTimer = 0f;
         }
-           
     }
 
     public float getWorkTimerProgress()
