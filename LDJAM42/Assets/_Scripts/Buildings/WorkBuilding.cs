@@ -69,4 +69,30 @@ public class WorkBuilding : Building
         inputLocation = c;
         return true;
     }
+
+    //IOCHANGE
+    public bool wBChangeInput(IOMarker m)
+    {      
+        //Check if there is a InputLocation and the Place is free
+        if(inputLocation && m.point && m.point.FreeForUse())
+        {
+            inputLocation.StopUsing(this);
+            m.point.UseAsInput(this);
+            inputLocation = m.point;
+            return true;
+        }
+        return false;
+    }
+
+    public bool wbChangeOutput(IOMarker m)
+    {
+        if(outputLocation && m.point && m.point.FreeForUse())
+        {
+            outputLocation.StopUsing(this);
+            m.point.UseAsOPutput(this);
+            outputLocation = m.point;
+            return true;
+        }
+        return false;
+    }
 }

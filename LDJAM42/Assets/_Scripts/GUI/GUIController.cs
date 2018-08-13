@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class GUIController : MonoBehaviour
 {
-
-
     public Buildings buildings = null;
     public GameObject buildPanel = null;
     public GameObject buildingInfoPanel = null;
@@ -33,6 +31,7 @@ public class GUIController : MonoBehaviour
     private Place activeCanvasPlace = null;
     private Building activeBuilding = null;
     private Route activeroute = null;
+    private Control control = null;
 
     // Use this for initialization
     void Start()
@@ -42,6 +41,8 @@ public class GUIController : MonoBehaviour
         
         buildPanel.SetActive(false);
         buildingInfoPanel.SetActive(false);
+
+        control = FindObjectOfType<Control>();
     }
 
 
@@ -124,7 +125,15 @@ public class GUIController : MonoBehaviour
             default:
                 break;
         }
-        
+
+        var buttons = buildingInfoPanel.GetComponentsInChildren<Button>();
+
+        //WORKAROUND
+        foreach (var b in buttons)
+            b.onClick.RemoveAllListeners();
+
+        buttons[0].onClick.AddListener(() => control.ChangeBuildingInput(building));
+        buttons[1].onClick.AddListener(() => control.ChangeBuildingOutput(building));
     }
     public void ActivateRoutePanel(Route r)
     {

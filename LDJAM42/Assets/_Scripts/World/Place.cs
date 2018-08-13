@@ -55,7 +55,7 @@ public class Place : MonoBehaviour
         return false;
     }
 
-    public GameObject BuildBuilding(GameObject g)
+    public Building BuildBuilding(GameObject g)
     {
         buildSpaceFree = false;
         var b = Instantiate(g, (this.transform.position + g.transform.position), this.transform.rotation, this.transform);
@@ -65,7 +65,7 @@ public class Place : MonoBehaviour
         building.SetPlace(this);
         building.GetComponent<Building>().Init();
 
-        return b;
+        return building;
     }
 
     public void removeScale(GameObject o)

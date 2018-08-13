@@ -8,6 +8,19 @@ public class ConnectionPoint : MonoBehaviour
     private List<Place> places = new List<Place>(3);
     public List<Connection> connections = new List<Connection>();
 
+    //POTENTIAL MARKER
+    public GameObject potentialMarker = null;
+    public void CreatePotentialMarker(GameObject g, Material m, GameObject parent)
+    {
+        if(potentialMarker == null)
+        {
+            potentialMarker = Instantiate(g, this.transform.position + Vector3.up * 0.2f, g.transform.rotation, parent.transform);
+            potentialMarker.GetComponent<Renderer>().material = m;
+            potentialMarker.SetActive(false);
+            potentialMarker.GetComponent<IOMarker>().point = this;
+        }
+    }
+
     //PATHFINDING
     public float pathCost = 0f;
     public ConnectionPoint pathPredecessor = null;

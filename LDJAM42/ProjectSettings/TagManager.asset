@@ -9,6 +9,7 @@ TagManager:
   - Place
   - Carriage
   - Building
+  - Marker
   layers:
   - Default
   - TransparentFX

@@ -59,3 +59,10 @@ MonoBehaviour:
   - {fileID: 1668181056183498, guid: 2b1b6978fc349e04c84b0cecbc8395f9, type: 2}
   - {fileID: 1831609278846814, guid: 439cbe7a0d0c83e42af5338c6cc659bc, type: 2}
   - {fileID: 1488824970728930, guid: 368eda53378c2cf499edc05b242af8dd, type: 2}
+  IOMarkerParent: {fileID: 0}
+  IOMarker: {fileID: 1780828313154626, guid: a935d816391efb94fbddee4695aefe0d, type: 2}
+  inputMarkerMaterial: {fileID: 2100000, guid: 965337e8978eda84cb54f6619d57475f, type: 2}
+  outputMarkerMaterial: {fileID: 2100000, guid: 426f02dc0d7e2d84281771396f33ac6d,
+    type: 2}
+  potentialMarkerMaterial: {fileID: 2100000, guid: 7c5339451a194d449b2e26f014dc682d,
+    type: 2}
