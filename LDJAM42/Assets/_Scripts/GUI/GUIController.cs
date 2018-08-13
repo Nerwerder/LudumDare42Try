@@ -62,12 +62,9 @@ public class GUIController : MonoBehaviour
         }
     }
 
-    public void UpdateCityInfo(int food, int wood)
+    public void UpdateCityInfo(int happyness)
     {
-        string foodText = food.ToString() + "%";
-        string woodText = wood.ToString() + "%";
-
-        woodInfo.text = woodText;
+        string foodText = happyness.ToString() + "%";
         foodInfo.text = foodText;
     }
 

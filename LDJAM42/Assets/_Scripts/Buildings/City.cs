@@ -69,7 +69,7 @@ public class City : Building
     private void UpdateGui()
     {
         gui.UpdateGold(gold);
-        gui.UpdateCityInfo((food * 100) / maxFood, (wood * 100) / maxWood);
+        gui.UpdateCityInfo((int)((happyness * 100.0f) / nextStage));
     }
 
     public override void Work(float time)
