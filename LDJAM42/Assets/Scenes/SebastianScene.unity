@@ -386,6 +386,11 @@ Prefab:
       propertyPath: IOMarkerParent
       value: 
       objectReference: {fileID: 1916001998}
+    - target: {fileID: 114882021720941498, guid: 602ea616295c52c44bfd80cf6115d353,
+        type: 2}
+      propertyPath: CostPerBuilding
+      value: 70
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 602ea616295c52c44bfd80cf6115d353, type: 2}
   m_IsPrefabAsset: 0
@@ -400,7 +405,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1775839147639038, guid: b632b8ab7f51bf444a805cc6bfa54b50,
     type: 2}
   m_PrefabInternal: {fileID: 1305313304}
---- !u!65 &1129743679
+--- !u!65 &1129743682
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
