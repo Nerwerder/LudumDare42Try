@@ -4,22 +4,46 @@ using UnityEngine;
 
 public class Buildings : MonoBehaviour
 {
-    public enum BuildingType { City, WoodCutter, Sawmill, Farm, Windmill, Bakery}
+    public enum BuildingType { City, WoodCutter, Sawmill, Farm, Windmill, Bakery }
     public List<GameObject> buildingPrefabs;
+    public int CostPerBuilding = 80;
 
-    private List<Building> buildings = new List<Building>();
+    public GameObject IOMarkerParent;
+    public GameObject IOMarker;
+    public Material inputMarkerMaterial, outputMarkerMaterial, potentialMarkerMaterial;
+
+    private City city;
 
     //Things the System builds
-    public bool DefaultBuild(int t, Place p)
+    public bool DefaultBuild(Place p)
     {
-        switch (t)
+        switch (p.type)
         {
-            case 3:     //Trees
+            case Place.PlaceType.Forest:     //Trees
+                int treeCount = Random.Range(1, 4);
+                for (int i = 0; i < treeCount; i++)
+                {
+                    Vector3 treepos;
+                    int whileThreshold = 20;
+                    int counter = 0;
+                    do
+                    {
+                        float deltaX = Random.Range(-0.35f, 0.35f);
+                        float deltaZ = Random.Range(-0.35f, 0.35f);
+                        treepos = new Vector3(p.transform.position.x + deltaX, p.transform.position.y + 0.114f, p.transform.position.z + deltaZ);
+                        ++counter;
+                    } while (checkTreesInRange(treepos) && counter < whileThreshold);
 
+
+                    float sizeModifier = Random.Range(0.8f, 1.2f) + 1 / treeCount;
+                    GameObject tree = Instantiate(buildingPrefabs[6], treepos, p.transform.rotation, this.transform);
+                    Vector3 scale = new Vector3(tree.transform.localScale.x * sizeModifier, tree.transform.localScale.y * sizeModifier, tree.transform.localScale.z * sizeModifier);
+                    tree.transform.localScale = scale;
+                }
                 return true;
-            case 4:     //City
-                var gO = p.BuildBuilding(buildingPrefabs[0], this.transform);
-                buildings.Add(AddBuildingForType(BuildingType.City, gO));
+            case Place.PlaceType.City:     //City
+                city = (p.BuildBuilding(buildingPrefabs[0])).GetComponent<City>();
+                city.SetIOMarker(IOMarker, inputMarkerMaterial, outputMarkerMaterial, potentialMarkerMaterial, IOMarkerParent);
                 return true;
             default: return false;
         }
@@ -33,36 +57,17 @@ public class Buildings : MonoBehaviour
             return false;
 
         //2. Build the Building
-        GameObject gO = p.BuildBuilding(buildingPrefabs[(int)t], this.transform);
-        buildings.Add(AddBuildingForType(t, gO));
-
+        if (city.GetGold(CostPerBuilding))
+            (p.BuildBuilding(buildingPrefabs[(int)t])).SetIOMarker(IOMarker, inputMarkerMaterial, outputMarkerMaterial, potentialMarkerMaterial, IOMarkerParent);
         return true;
-
     }
 
-    public Building AddBuildingForType(BuildingType t, GameObject g)
+    private bool checkTreesInRange(Vector3 pos)
     {
-        switch (t)
-        {
-            case BuildingType.City:
-                return g.AddComponent<City>();
-
-            case BuildingType.WoodCutter:
-                return g.AddComponent<WoodCutter>();
-
-            case BuildingType.Sawmill:
-                return g.AddComponent<SawMill>();
-
-            case BuildingType.Farm:
-                return g.AddComponent<Farm>();
-
-            case BuildingType.Windmill:
-                return g.AddComponent<WindMill>();
-
-            case BuildingType.Bakery:
-                return g.AddComponent<Bakery>();
-
-            default: return null;
-        }
+        Collider[] hitcolliders = Physics.OverlapSphere(pos, 0.1f);
+        for (int i = 0; i < hitcolliders.Length; ++i)
+            if (hitcolliders[i].tag == "tree")
+                return true;
+        return false;
     }
 }

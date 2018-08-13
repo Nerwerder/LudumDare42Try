@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1851631853199130}
+  m_IsPrefabAsset: 1
+--- !u!1 &1851631853199130
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4109566187849768}
+  - component: {fileID: 114882021720941498}
+  m_Layer: 0
+  m_Name: Buildings
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4109566187849768
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1851631853199130}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 6.543515, y: 16.089476, z: -12.947813}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114882021720941498
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1851631853199130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f04f3a8eae5e4fe49a2167625a12118e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  buildingPrefabs:
+  - {fileID: 1041265108855874, guid: 83c4f7615476f5242852e5f98b34a426, type: 2}
+  - {fileID: 1702279550035938, guid: a34c7f3698f02604a89e9d84d52d0c11, type: 2}
+  - {fileID: 1081771321270006, guid: b06919bd157aaf84b820cbac86204845, type: 2}
+  - {fileID: 1563517753739242, guid: cbb28e6c2cbf8e044bede34301722be5, type: 2}
+  - {fileID: 1668181056183498, guid: 2b1b6978fc349e04c84b0cecbc8395f9, type: 2}
+  - {fileID: 1831609278846814, guid: 439cbe7a0d0c83e42af5338c6cc659bc, type: 2}
+  - {fileID: 1488824970728930, guid: 368eda53378c2cf499edc05b242af8dd, type: 2}
+  IOMarkerParent: {fileID: 0}
+  IOMarker: {fileID: 1780828313154626, guid: a935d816391efb94fbddee4695aefe0d, type: 2}
+  inputMarkerMaterial: {fileID: 2100000, guid: 965337e8978eda84cb54f6619d57475f, type: 2}
+  outputMarkerMaterial: {fileID: 2100000, guid: 426f02dc0d7e2d84281771396f33ac6d,
+    type: 2}
+  potentialMarkerMaterial: {fileID: 2100000, guid: 7c5339451a194d449b2e26f014dc682d,
+    type: 2}

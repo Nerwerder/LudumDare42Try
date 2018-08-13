@@ -1,32 +1,43 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+
 
 
 public class Control : MonoBehaviour
 {
     public CameraBehaviour myCamera = null;
-    public GameObject canvasPrefab = null;
     public Buildings buildings = null;
+    public Material TEST = null;
 
-    private enum LeftClickState {Selection, Selected};
-    LeftClickState lCState = LeftClickState.Selection;
+    private GUIController guiControll;
 
-    private GameObject activeCanvas = null;
-    private Place activeCanvasPlace = null;
-
-	void Update ()
+    //Change BUILDING IO
+    Building inputChangeBuilding = null;
+    Building outputChangeBuilding = null;
+    public void ChangeBuildingInput(Building b)
     {
-        //Camera
-        CameraControl();
+        inputChangeBuilding = b;
+        inputChangeBuilding.stopForIOChange = true;
+    }
 
-        //LeftClick
-        LeftClick();
+    public void ChangeBuildingOutput(Building b)
+    {
+        outputChangeBuilding = b;
+        outputChangeBuilding.stopForIOChange = true;
+    }
 
+    //Selection
+    private enum SelectionState { PlaceSelected, BuildingSelected, CarriageSelected, NothingSelected };
+    private SelectionState selectionState = SelectionState.NothingSelected;
+    private Place selectedPlace = null;
+    private Building selectedBuilding = null;
+    private Carriage selectedCarriage = null;
 
-	}
-
+    void Start()
+    {
+        guiControll = GetComponent<GUIController>();
+    }
 
     private void CameraControl()
     {
@@ -39,89 +50,166 @@ public class Control : MonoBehaviour
         myCamera.SetInput(cBR, cBM, cAX, cAY, cAZ, cKR);
     }
 
+    void Update()
+    {
+        //Camera
+        CameraControl();
+
+        //LeftClick
+        if (Input.GetMouseButtonDown(0))
+            LeftClick();
+
+        //RightClick
+        if (Input.GetMouseButtonDown(1))
+            RightClick(); ;
+    }
+
+    private Collider MouseRayCast()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hitInfo;
+        Physics.Raycast(ray, out hitInfo);
+        return hitInfo.collider;
+    }
+
     private void LeftClick()                //This is basically a state Machine
     {
-        if(Input.GetMouseButtonDown(0))
+        LeftClickSelection();
+
+        //CHANGE Building-IO
+        if(inputChangeBuilding)
         {
-            switch (lCState)
+            inputChangeBuilding.stopForIOChange = false;
+            inputChangeBuilding = null;
+        }
+        if(outputChangeBuilding)
+        {
+            outputChangeBuilding.stopForIOChange = false;
+            outputChangeBuilding = null;
+        }
+
+    }
+
+    private void LeftClickSelection()
+    {
+        var c = MouseRayCast();
+        if (c)
+        {
+            if (c.CompareTag("Place"))
+                selectPlace(c.GetComponent<Place>());
+
+            if (c.CompareTag("Carriage"))
+                selectCarriage(c.GetComponent<Carriage>());
+
+            if (c.CompareTag("Building"))
+                selectBuilding(c.GetComponent<Building>());
+
+            if (c.CompareTag("Marker"))
+                selectMarker(c.GetComponent<IOMarker>());
+        }
+        else
+            selectNothing();
+
+    }
+    private void selectMarker(IOMarker m)
+    {
+        if (inputChangeBuilding)
+            inputChangeBuilding.ChangeInput(m);
+        if (outputChangeBuilding)
+            outputChangeBuilding.ChangeOutput(m);
+    }
+    private void selectPlace(Place p)
+    {
+        selectNothing();    //Clean
+
+        if (p.building)     //If there is a Building on the Place, select this instead ! (TODO)
+            selectBuilding(p.building);
+        else
+        {
+            p.SetGlowMaterial();
+            selectionState = SelectionState.PlaceSelected;
+
+            selectedPlace = p;
+            if (p.TestForBuilding())
+                guiControll.ActivateBuildPanel(p);
+        }
+    }
+    private void deselectPlace(Place p)
+    {
+        selectionState = SelectionState.NothingSelected;
+        if (p != null)
+            p.SetBasicMaterial();
+        p = null;
+    }
+    private void selectCarriage(Carriage c)
+    {
+        selectNothing();    //Clean
+
+        selectionState = SelectionState.CarriageSelected;
+        c.SetGlowMaterial();
+        selectedCarriage = c;
+        guiControll.ActivateRoutePanel(c.GetRoute());
+    }
+    private void deselectCarriage(Carriage c)
+    {
+        selectionState = SelectionState.NothingSelected;
+        if (c != null)
+            c.SetBasicMaterial();
+        selectedCarriage = null;
+    }
+    private void selectBuilding(Building b)
+    {
+        selectNothing();    //Clean
+
+        b.SelectBuilding();
+        selectionState = SelectionState.BuildingSelected;
+        selectedBuilding = b;
+        guiControll.ActivateBuildingInfo(b);
+    }
+    private void deselectBuilding(Building b)
+    {
+        selectionState = SelectionState.NothingSelected;
+        if (b != null)
+            b.DeselectBuilding();
+        selectedBuilding = null;
+    }
+    private void selectNothing()
+    {
+        selectionState = SelectionState.NothingSelected;
+
+        guiControll.RemoveCanvas();
+        deselectPlace(selectedPlace);
+        deselectCarriage(selectedCarriage);
+        deselectBuilding(selectedBuilding);
+    }
+
+
+    private void RightClick()
+    {
+        var c = MouseRayCast();
+
+        if (selectionState == SelectionState.CarriageSelected && c)
+        {
+            var p = c.GetComponent<Place>();
+            if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.X)) //Shift is pressed, Add Building or Place to Route
             {
-                case LeftClickState.Selection:  //Select a Field
-                    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                    RaycastHit hitInfo;
-
-                    if (Physics.Raycast(ray, out hitInfo))
-                    {
-                        //Get the Right Place
-                        Place p = hitInfo.collider.GetComponent<Place>();
-                        if(p && p.GetCanvasSpaceFree())
-                        {
-                            AddCanvas(p);
-                        }
-                        lCState = LeftClickState.Selected;
-                    }
-                       
-                    
-                    break;
-                case LeftClickState.Selected:
-
-                    if (activeCanvas != null)
-                        RemoveCanvas(activeCanvas, activeCanvasPlace);
-
-                    lCState = LeftClickState.Selection;
-                    break;
-                default:
-                    break;
+                if (c.CompareTag("Place"))
+                        selectedCarriage.AddToRoute(p);
+                else if (c.CompareTag("Building"))
+                    selectedCarriage.AddToRoute(c.GetComponent<Building>().GetPlace());
+            }
+            else
+            {
+                if (c.CompareTag("Place"))
+                {
+                    if (p.building)
+                        selectedCarriage.GoTo(p.building);
+                    else
+                        selectedCarriage.GoTo(p);
+                }
+                else if (c.CompareTag("Building"))
+                    selectedCarriage.GoTo(c.GetComponent<Building>());
             }
         }
     }
-
-    public void AddCanvas(Place p)
-    {
-        Vector3 canvasPosition = new Vector3(p.transform.position.x, 1, p.transform.position.z);
-        Quaternion canvasRotation = Quaternion.LookRotation(myCamera.transform.forward, myCamera.transform.up);
-
-        //Prefab, Position, Rotation, Parent
-        var canvas = Instantiate(canvasPrefab, canvasPosition, canvasRotation, p.transform);
-
-        //Move the Canvas to the Right Position
-        //var canvasRect = canvas.GetComponent<RectTransform>();
-        //var canvasOffset = new Vector3((canvasRect.rect.width / 2) * canvas.transform.localScale.x, 0, (canvasRect.rect.height / 2) * canvas.transform.localScale.z);
-        //canvas.transform.position += canvasOffset;
-
-        var text = canvas.GetComponentInChildren<Text>();
-        text.text = p.getPlaceType().ToString();
-
-        var buttons = canvas.GetComponentsInChildren<Button>();
-        ChangeButton(buttons[0], Buildings.BuildingType.WoodCutter, p);
-        ChangeButton(buttons[1], Buildings.BuildingType.Sawmill, p);
-        ChangeButton(buttons[2], Buildings.BuildingType.Farm, p);
-        ChangeButton(buttons[3], Buildings.BuildingType.Windmill, p);
-        ChangeButton(buttons[4], Buildings.BuildingType.Bakery, p);
-
-        activeCanvas = canvas;
-        activeCanvasPlace = p;
-    }
-
-    private void ChangeButton(Button b, Buildings.BuildingType t, Place p)
-    {
-        b.GetComponentInChildren<Text>().text = t.ToString(); ;
-        b.onClick.AddListener(() => ActionWrapper(t, p));
-    }
-
-    private void RemoveCanvas(GameObject canvas, Place p)
-    {
-        Destroy(canvas, 0.3f);
-        p.SetCanvasSpaceFree(true);
-        activeCanvas = null;
-        activeCanvasPlace = null;
-    }
-
-    public void ActionWrapper(Buildings.BuildingType type, Place p)
-    {
-        buildings.Build(type, p);
-    }
-
-    
-
-
 }

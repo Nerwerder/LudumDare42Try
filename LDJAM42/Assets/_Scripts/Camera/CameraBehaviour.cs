@@ -23,7 +23,7 @@ public class CameraBehaviour : MonoBehaviour
 	void Start ()
     {
         world = FindObjectOfType<WorldCreation>().GetWorld();
-        startPosition = new Vector3(world.getSizeX() / 2, startHeight, -(world.getSizeY()/2));
+        startPosition = new Vector3(world.sizeX / 2, startHeight, -(world.sizeZ/2));
         startRotEuler = new Vector3(55, 0, 0);
         startRotation = Quaternion.Euler(startRotEuler);
         resetCamera();

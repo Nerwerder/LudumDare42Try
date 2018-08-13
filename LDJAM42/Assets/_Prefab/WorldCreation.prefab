@@ -52,6 +52,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cd7aaecdf14ec04ca56312bba0cc070, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lines: 0
+  columns: 0
+  elements: 0
+  sizeX: 0
+  sizeZ: 0
 --- !u!114 &114600361142561228
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -63,14 +68,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc63d20ab4f80cb4aa04ba862ef0994b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hexagon: {fileID: 1459146187104986, guid: abd2776a53d8b744f89ca97e42fe1779, type: 2}
+  hexagonPrefab: {fileID: 1459146187104986, guid: abd2776a53d8b744f89ca97e42fe1779,
+    type: 2}
+  connecionPointPrefab: {fileID: 1391535735475780, guid: 17e673f9e83baa040a86f76acaffcd51,
+    type: 2}
   worldFile: {fileID: 4900000, guid: 303b1ae3480dd4841ba658c455ada836, type: 3}
   buildings: {fileID: 0}
-  materials:
-  - {fileID: 2100000, guid: 051c57c31aefc6a4ebb0c3b44091a0c7, type: 2}
-  - {fileID: 2100000, guid: 25d520364197b544b8f809a4ee34e570, type: 2}
-  - {fileID: 2100000, guid: 958d5792144be2b46aa752632a4742bb, type: 2}
-  - {fileID: 2100000, guid: 9849a89910340f3489fcfc52640a9e16, type: 2}
   xOffset: 2
   zOffset: 1.725
   x2Offset: 1
+  defaultTravelSpeed: 1
+  forestSlowdown: 0.25
+  waterSlowdown: 0.5

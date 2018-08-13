@@ -22,9 +22,10 @@ GameObject:
   - component: {fileID: 33906661299949276}
   - component: {fileID: 23990192429701860}
   - component: {fileID: 64516659366472058}
-  m_Layer: 0
+  - component: {fileID: 114133615493618740}
+  m_Layer: 9
   m_Name: Hexagon
-  m_TagString: Untagged
+  m_TagString: Place
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -98,3 +99,29 @@ MeshCollider:
   m_CookingOptions: 14
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: 1eeaf9cd4a669494ba1610926bc46e54, type: 3}
+--- !u!114 &114133615493618740
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1459146187104986}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a75063b528749e543ab916c5a4ffc62a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  basicMaterials:
+  - {fileID: 2100000, guid: 051c57c31aefc6a4ebb0c3b44091a0c7, type: 2}
+  - {fileID: 2100000, guid: 25d520364197b544b8f809a4ee34e570, type: 2}
+  - {fileID: 2100000, guid: 958d5792144be2b46aa752632a4742bb, type: 2}
+  - {fileID: 2100000, guid: 9849a89910340f3489fcfc52640a9e16, type: 2}
+  glowiMaterials:
+  - {fileID: 2100000, guid: 5da95d0969bd96d47ae8013582de064b, type: 2}
+  - {fileID: 2100000, guid: c541553c8071e314cb16468ee6c7caf8, type: 2}
+  - {fileID: 2100000, guid: 8ea96df1e56d31446906ee821af03929, type: 2}
+  - {fileID: 2100000, guid: 4cc7137a6d528434aab946648356bfc1, type: 2}
+  type: 0
+  line: 0
+  column: 0
+  id: 0
+  buildSpaceFree: 0

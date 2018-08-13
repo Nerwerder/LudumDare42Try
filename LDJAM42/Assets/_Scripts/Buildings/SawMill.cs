@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SawMill : Building
+public class SawMill : ProduceANDUseWorkBuilding
 {
-
 
 }
