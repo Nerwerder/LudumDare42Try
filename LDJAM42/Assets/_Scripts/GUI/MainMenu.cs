@@ -23,7 +23,7 @@ public class MainMenu : MonoBehaviour {
 
     public void LoadGame()
     {
-        SceneManager.LoadScene("MainScene", LoadSceneMode.Single);
+        SceneManager.LoadScene("SebastianScene", LoadSceneMode.Single);
     }
 
     public void changeMusicState()
