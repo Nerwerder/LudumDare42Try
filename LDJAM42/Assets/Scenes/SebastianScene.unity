@@ -331,6 +331,12 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 31bb9a7165b9f1245b5ff68b38656451, type: 2}
   m_IsPrefabAsset: 0
+--- !u!114 &474046512 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114100709699975398, guid: b632b8ab7f51bf444a805cc6bfa54b50,
+    type: 2}
+  m_PrefabInternal: {fileID: 1722965550}
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1001 &835301710
 Prefab:
   m_ObjectHideFlags: 0
@@ -619,6 +625,21 @@ Prefab:
       propertyPath: progressbar
       value: 
       objectReference: {fileID: 1040008229}
+    - target: {fileID: 114302663958496596, guid: 2b004288090ccea429861c27901abfb3,
+        type: 2}
+      propertyPath: goldAmount
+      value: 
+      objectReference: {fileID: 2001852240}
+    - target: {fileID: 114302663958496596, guid: 2b004288090ccea429861c27901abfb3,
+        type: 2}
+      propertyPath: foodInfo
+      value: 
+      objectReference: {fileID: 474046512}
+    - target: {fileID: 114302663958496596, guid: 2b004288090ccea429861c27901abfb3,
+        type: 2}
+      propertyPath: woodInfo
+      value: 
+      objectReference: {fileID: 2113983520}
     - target: {fileID: 114177319164270530, guid: 2b004288090ccea429861c27901abfb3,
         type: 2}
       propertyPath: myCamera
@@ -807,3 +828,15 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 1428158350}
   m_Script: {fileID: 11500000, guid: 09f9c6a21087b4c47819d1c10a4ec7fc, type: 3}
+--- !u!114 &2001852240 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114040832841171310, guid: b632b8ab7f51bf444a805cc6bfa54b50,
+    type: 2}
+  m_PrefabInternal: {fileID: 1722965550}
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+--- !u!114 &2113983520 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114016191737000074, guid: b632b8ab7f51bf444a805cc6bfa54b50,
+    type: 2}
+  m_PrefabInternal: {fileID: 1722965550}
+  m_Script: {fileID: 708705254, guid: f70555f144d8491a825f0804e09c671c, type: 3}
