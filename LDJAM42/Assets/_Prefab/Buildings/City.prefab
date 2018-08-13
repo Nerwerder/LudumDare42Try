@@ -121,11 +121,11 @@ MonoBehaviour:
   maxFood: 10
   foodUsage: 3
   goldPerFood: 50
-  happyness: 0
-  nextStage: 1
+  happyness: 20
+  nextStage: 100
   people: 1
+  happynessReduction: 1
   happynessTimer: 0
-  happynessReduction: 0.1
   happynessReductionTime: 2
   newCarriagePointLevel: 500
   carriageSpawnTime: 2

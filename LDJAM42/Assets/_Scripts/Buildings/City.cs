@@ -129,11 +129,11 @@ public class City : Building
             UpdateGui();
         }
 
-        if (points >= newCarriagePointLevel)
-        {
-            points = 0;
-            maxCarriages++;
-        }
+        //if (points >= newCarriagePointLevel)
+        //{
+        //    points = 0;
+        //    maxCarriages++;
+        //}
     }
 
     private void updateHappyness()
@@ -160,8 +160,9 @@ public class City : Building
     private void LevelUp()
     {
         people++;
-        nextStage = people;
+        nextStage = people * 100;
         maxCarriages += people;
+        happyness = 0;
     }
 
     public void SpawnCariage()
