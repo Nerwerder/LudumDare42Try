@@ -26,7 +26,7 @@ public class ConnectionPoint : MonoBehaviour
         }
     }
 
-    //Resources and Travel
+    //RESOURCES AND TRAVEL
     public bool resourceOutput, resourceInput, full, carriageOnField, resourceOnField;
     private Building building = null;
     private Carriage cariage = null;
@@ -83,7 +83,6 @@ public class ConnectionPoint : MonoBehaviour
         if (building)
         {
             var wK = building.GetComponent<WorkBuilding>();
-            var cT = building.GetComponent<City>();
             if (wK && wK.inputLocation != this && wK.inputResourceType != r.GetComponent<Resource>().type)
                 return false;
         }
@@ -134,15 +133,19 @@ public class ConnectionPoint : MonoBehaviour
     }
     public bool EmptyCarriageWaiting()
     {
-        return (full && carriageOnField && cariage.cCState == Carriage.carriageCargoState.CarriageEmpty);
+        return (full && carriageOnField && cariage.GetCarriageCargoState() == Carriage.CarriageCargoState.CarriageEmpty);
     }
 
-    private void Update()
+    public float getConnectionSpeed(ConnectionPoint t)
     {
-        //foreach (var c in connections)
-        //    Debug.DrawLine(this.transform.position, c.target.transform.position);
+        foreach (var c in connections)
+            if (c.target == t)
+                return c.speed;
+
+        return 1f;
     }
 
+    //CONNECTIONPOINT CREATION
     static int SortByID(Place p1, Place p2)
     {
         return p1.id.CompareTo(p2.id);

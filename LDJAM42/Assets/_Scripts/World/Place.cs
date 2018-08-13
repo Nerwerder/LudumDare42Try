@@ -96,4 +96,17 @@ public class Place : MonoBehaviour
     }
 
     public List<ConnectionPoint> GetConnectionPoints() { return connectionPoints; }
+
+    public ConnectionPoint GetRandomFreeConnectionPoint()
+    {
+        List<ConnectionPoint> p = new List<ConnectionPoint>();
+        foreach (var c in GetConnectionPoints())
+            if (c.FreeToMoveOn())
+                p.Add(c);
+
+        if (p.Count != 0)
+            return p[Random.Range(0, p.Count)];
+        else
+            return null;
+    }
 }

@@ -111,8 +111,10 @@ MonoBehaviour:
   basicMesh: {fileID: 4300000, guid: 10b15d2c102b32443a87aa5c63effac3, type: 3}
   woodMesh: {fileID: 4300000, guid: 467a043422e65cf48bf9f8febc65f107, type: 3}
   grainMesh: {fileID: 4300000, guid: 81587da9e2396a448920ef510cde3b3b, type: 3}
+  plankMesh: {fileID: 4300000, guid: 843284ffc9139d340961488bb408d2d0, type: 3}
+  Logging: 0
   basicMaterial: {fileID: 2100000, guid: 6b5228e7ff8b5ed4db1205f37f7e7884, type: 2}
   glowMaterial: {fileID: 2100000, guid: 5ce5acd44ba98904fb974bd8849093b9, type: 2}
   rotationSpeed: 5
   arrivalDistance: 0.2
-  resourcePrefab: {fileID: 0}
+  cargo: {fileID: 0}

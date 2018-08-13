@@ -6,21 +6,27 @@ public class City : Building
 {
     public GameObject carriagePrefab = null;
     public int startGold = 500;
+
     public int maxWood = 10;
     public float woodUsage = 1f;
+    public int goldPerWood = 50;
+
     public int maxFood = 10;
     public float foodUsage = 1f;
+    public int goldPerFood = 50;
 
+    public int newCarriagePointLevel = 500;
     public float carriageSpawnTime = 1f;
     public int maxCarriages;
 
     public List<Resource.ResourceType> InputTypes;
 
+    private float woodUsageTimer, foodUSageTimer;
     private GUIController gui;
     private float workTimer = 0f;
     private Transform carriageParent = null;
     private List<Carriage> carriages;
-    private int wood, food, gold;
+    private int wood, food, gold, points;
     private List<ConnectionPoint> inputLocations = new List<ConnectionPoint>(6);
 
     public override void Init()
@@ -31,7 +37,6 @@ public class City : Building
         carriageParent = c.gameObject.transform;
         carriages = c.carriages;
         gui = FindObjectOfType<GUIController>();
-        UpdateGui();
 
         foreach (var con in place.GetConnectionPoints())
             if (con.FreeForUse())
@@ -41,6 +46,7 @@ public class City : Building
             }
 
         gold = startGold;
+        UpdateGui();
     }
 
     public ConnectionPoint getFreeInputLocation()
@@ -83,6 +89,33 @@ public class City : Building
 
                 UpdateGui();
             }
+
+        foodUSageTimer += Time.deltaTime;
+        woodUsageTimer += Time.deltaTime;
+
+        if (foodUSageTimer >= foodUsage && food >= 1)
+        {
+            --food;
+            foodUSageTimer = 0f;
+            gold += goldPerFood;
+            points += goldPerFood;
+            UpdateGui();
+        }
+
+        if (woodUsageTimer >= woodUsage && wood >= 1)
+        {
+            --wood;
+            woodUsageTimer = 0f;
+            gold += goldPerWood;
+            points += goldPerFood;
+            UpdateGui();
+        }
+
+        if (points >= newCarriagePointLevel)
+        {
+            points = 0;
+            maxCarriages++;
+        }
     }
 
     public void SpawnCariage()

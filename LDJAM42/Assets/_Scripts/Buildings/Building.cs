@@ -17,10 +17,8 @@ public class Building : MonoBehaviour
         Work(Time.deltaTime);
     }
 
-    public void SetPlace(Place p)
-    {
-        place = p;
-    }
+    public void SetPlace(Place p) { place = p; }
+    public Place GetPlace() { return place; }
 
     public virtual void Init()
     {

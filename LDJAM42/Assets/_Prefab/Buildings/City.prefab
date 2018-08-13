@@ -115,9 +115,12 @@ MonoBehaviour:
     type: 2}
   startGold: 500
   maxWood: 10
-  woodUsage: 1
+  woodUsage: 3
+  goldPerWood: 50
   maxFood: 10
-  foodUsage: 1
-  carriageSpawnTime: 1
+  foodUsage: 3
+  goldPerFood: 50
+  newCarriagePointLevel: 500
+  carriageSpawnTime: 2
   maxCarriages: 3
   InputTypes: 0200000005000000
