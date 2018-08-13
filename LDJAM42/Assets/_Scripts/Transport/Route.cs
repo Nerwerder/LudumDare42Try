@@ -30,5 +30,5 @@ public class Route
         return places.Count;
     }
 
-    private List<Place> GetPlaces() { return places; }
+    public List<Place> GetPlaces() { return places; }
 }

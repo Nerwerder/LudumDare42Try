@@ -110,6 +110,7 @@ public class Control : MonoBehaviour
         selectionState = SelectionState.CarriageSelected;
         c.SetGlowMaterial();
         selectedCarriage = c;
+        guiControll.ActivateRoutePanel(c.GetRoute());
     }
     private void deselectCarriage(Carriage c)
     {
