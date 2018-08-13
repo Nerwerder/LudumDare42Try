@@ -367,6 +367,11 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 602ea616295c52c44bfd80cf6115d353, type: 2}
   m_IsPrefabAsset: 0
+--- !u!1 &1129743678 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1987350642490202, guid: b632b8ab7f51bf444a805cc6bfa54b50,
+    type: 2}
+  m_PrefabInternal: {fileID: 1722965550}
 --- !u!1001 &1428158350
 Prefab:
   m_ObjectHideFlags: 0
@@ -416,6 +421,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 114302663958496596, guid: 2b004288090ccea429861c27901abfb3,
+        type: 2}
+      propertyPath: buildingTypes.Array.size
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4856498483941806, guid: 2b004288090ccea429861c27901abfb3, type: 2}
       propertyPath: m_LocalPosition.x
       value: 12.748482
@@ -478,9 +488,66 @@ Prefab:
       propertyPath: TEST
       value: 
       objectReference: {fileID: 2100000, guid: c541553c8071e314cb16468ee6c7caf8, type: 2}
+    - target: {fileID: 114302663958496596, guid: 2b004288090ccea429861c27901abfb3,
+        type: 2}
+      propertyPath: buildingTypes.Array.data[1]
+      value: 
+      objectReference: {fileID: 21300000, guid: 15725a1fd8d20c24f8a31026242489c0,
+        type: 3}
+    - target: {fileID: 114302663958496596, guid: 2b004288090ccea429861c27901abfb3,
+        type: 2}
+      propertyPath: buildingTypes.Array.data[2]
+      value: 
+      objectReference: {fileID: 21300000, guid: f128148fb792a8d4f846dc3015a7325a,
+        type: 3}
+    - target: {fileID: 114302663958496596, guid: 2b004288090ccea429861c27901abfb3,
+        type: 2}
+      propertyPath: buildingTypes.Array.data[3]
+      value: 
+      objectReference: {fileID: 21300000, guid: cb357aab65f2684418e899df72e66910,
+        type: 3}
+    - target: {fileID: 114302663958496596, guid: 2b004288090ccea429861c27901abfb3,
+        type: 2}
+      propertyPath: buildingTypes.Array.data[4]
+      value: 
+      objectReference: {fileID: 21300000, guid: 84fe6c51de08be0478c32fe682a81413,
+        type: 3}
+    - target: {fileID: 114302663958496596, guid: 2b004288090ccea429861c27901abfb3,
+        type: 2}
+      propertyPath: buildingTypes.Array.data[5]
+      value: 
+      objectReference: {fileID: 21300000, guid: b50a95a4229287c4c98432cdacff7d6c,
+        type: 3}
+    - target: {fileID: 114302663958496596, guid: 2b004288090ccea429861c27901abfb3,
+        type: 2}
+      propertyPath: buildingTypes.Array.data[0]
+      value: 
+      objectReference: {fileID: 21300000, guid: cb357aab65f2684418e899df72e66910,
+        type: 3}
+    - target: {fileID: 114302663958496596, guid: 2b004288090ccea429861c27901abfb3,
+        type: 2}
+      propertyPath: buildingInfoPanel
+      value: 
+      objectReference: {fileID: 1129743678}
+    - target: {fileID: 114302663958496596, guid: 2b004288090ccea429861c27901abfb3,
+        type: 2}
+      propertyPath: infoPanelLabel
+      value: 
+      objectReference: {fileID: 1654188852}
+    - target: {fileID: 114302663958496596, guid: 2b004288090ccea429861c27901abfb3,
+        type: 2}
+      propertyPath: buildPanel
+      value: 
+      objectReference: {fileID: 1722965551}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2b004288090ccea429861c27901abfb3, type: 2}
   m_IsPrefabAsset: 0
+--- !u!114 &1654188852 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114398536963352748, guid: b632b8ab7f51bf444a805cc6bfa54b50,
+    type: 2}
+  m_PrefabInternal: {fileID: 1722965550}
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1001 &1722965550
 Prefab:
   m_ObjectHideFlags: 0

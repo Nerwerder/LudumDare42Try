@@ -98,7 +98,7 @@ public class Control : MonoBehaviour
 
     private void selectBuilding(Building b)
     {
-        guiControll.ActivateBuildingInfo();
+        guiControll.ActivateBuildingInfo(b);
     }
 
     private void RightClick()
