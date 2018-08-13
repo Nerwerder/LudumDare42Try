@@ -15,7 +15,7 @@ public class WoodCutter : WorkBuilding
 
     public override void Work(float time)
     {
-        if (!outputLocation.Full() || outputLocation.EmptyCarriageWaiting())
+        if ((!outputLocation.Full() || outputLocation.EmptyCarriageWaiting()) && !stopForIOChange)
             workTimer += (time * efficiency);
 
         base.Work(time);

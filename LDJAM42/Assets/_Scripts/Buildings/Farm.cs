@@ -11,7 +11,7 @@ public class Farm : WorkBuilding
 
     public override void Work(float time)
     {
-        if (!outputLocation.Full() || outputLocation.EmptyCarriageWaiting())
+        if ((!outputLocation.Full() || outputLocation.EmptyCarriageWaiting()) && !stopForIOChange)
             workTimer += (time);
 
         base.Work(time);

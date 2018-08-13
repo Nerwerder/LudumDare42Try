@@ -39,7 +39,7 @@ public class Buildings : MonoBehaviour
                 }
                 return true;
             case Place.PlaceType.City:     //City
-                (p.BuildBuilding(buildingPrefabs[0])).SetIOMarker(IOMarker, inputMarkerMaterial, outputMarkerMaterial, potentialMarkerMaterial, p, IOMarkerParent);
+                (p.BuildBuilding(buildingPrefabs[0])).SetIOMarker(IOMarker, inputMarkerMaterial, outputMarkerMaterial, potentialMarkerMaterial, IOMarkerParent);
                 return true;
             default: return false;
         }
@@ -53,7 +53,7 @@ public class Buildings : MonoBehaviour
             return false;
 
         //2. Build the Building
-        (p.BuildBuilding(buildingPrefabs[(int)t])).SetIOMarker(IOMarker, inputMarkerMaterial, outputMarkerMaterial, potentialMarkerMaterial, p, IOMarkerParent);
+        (p.BuildBuilding(buildingPrefabs[(int)t])).SetIOMarker(IOMarker, inputMarkerMaterial, outputMarkerMaterial, potentialMarkerMaterial, IOMarkerParent);
         return true;
     }
 

@@ -12,6 +12,21 @@ public class Control : MonoBehaviour
 
     private GUIController guiControll;
 
+    //Change BUILDING IO
+    Building inputChangeBuilding = null;
+    Building outputChangeBuilding = null;
+    public void ChangeBuildingInput(Building b)
+    {
+        inputChangeBuilding = b;
+        inputChangeBuilding.stopForIOChange = true;
+    }
+
+    public void ChangeBuildingOutput(Building b)
+    {
+        outputChangeBuilding = b;
+        outputChangeBuilding.stopForIOChange = true;
+    }
+
     //Selection
     private enum SelectionState { PlaceSelected, BuildingSelected, CarriageSelected, NothingSelected };
     private SelectionState selectionState = SelectionState.NothingSelected;
@@ -60,6 +75,19 @@ public class Control : MonoBehaviour
     private void LeftClick()                //This is basically a state Machine
     {
         LeftClickSelection();
+
+        //CHANGE Building-IO
+        if(inputChangeBuilding)
+        {
+            inputChangeBuilding.stopForIOChange = false;
+            inputChangeBuilding = null;
+        }
+        if(outputChangeBuilding)
+        {
+            outputChangeBuilding.stopForIOChange = false;
+            outputChangeBuilding = null;
+        }
+
     }
 
     private void LeftClickSelection()
@@ -75,10 +103,20 @@ public class Control : MonoBehaviour
 
             if (c.CompareTag("Building"))
                 selectBuilding(c.GetComponent<Building>());
+
+            if (c.CompareTag("Marker"))
+                selectMarker(c.GetComponent<IOMarker>());
         }
         else
             selectNothing();
 
+    }
+    private void selectMarker(IOMarker m)
+    {
+        if (inputChangeBuilding)
+            inputChangeBuilding.ChangeInput(m);
+        if (outputChangeBuilding)
+            outputChangeBuilding.ChangeOutput(m);
     }
     private void selectPlace(Place p)
     {
@@ -152,7 +190,7 @@ public class Control : MonoBehaviour
         if (selectionState == SelectionState.CarriageSelected && c)
         {
             var p = c.GetComponent<Place>();
-            if (Input.GetKey(KeyCode.LeftShift)) //Shift is pressed, Add Building or Place to Route
+            if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.X)) //Shift is pressed, Add Building or Place to Route
             {
                 if (c.CompareTag("Place"))
                         selectedCarriage.AddToRoute(p);

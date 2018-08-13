@@ -23,7 +23,7 @@ public class ProduceANDUseWorkBuilding : WorkBuilding
             inputResource = true;
         }
 
-        if ((!outputLocation.Full() || outputLocation.EmptyCarriageWaiting()) && inputResource)
+        if ((!outputLocation.Full() || outputLocation.EmptyCarriageWaiting()) && inputResource && !stopForIOChange)
             workTimer += time;
     }
 }
