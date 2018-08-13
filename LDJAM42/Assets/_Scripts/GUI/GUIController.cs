@@ -8,10 +8,14 @@ public class GUIController : MonoBehaviour
     public Buildings buildings = null;
     public GameObject buildPanel = null;
     public GameObject buildingInfoPanel = null;
+    public GameObject routePanel = null;
+    public GameObject routePanelContent;
 
     public Image efficiancy = null;
     public Image infoPanelLabel = null;
     public Image progressbar = null;
+
+    public Image routeViewImagePrefab = null;
 
     public List<Sprite> efficiancies = new List<Sprite>();
     public List<Sprite> buildingTypes = new List<Sprite>();
@@ -22,9 +26,11 @@ public class GUIController : MonoBehaviour
 
     private bool buildPanelActive = false;
     private bool buildingInfoPanelActive = false;
+    private bool routePanelActive = false;
 
     private Place activeCanvasPlace = null;
     private Building activeBuilding = null;
+    private Route activeroute = null;
     private Control control = null;
 
     // Use this for initialization
@@ -129,6 +135,61 @@ public class GUIController : MonoBehaviour
         buttons[0].onClick.AddListener(() => control.ChangeBuildingInput(building));
         buttons[1].onClick.AddListener(() => control.ChangeBuildingOutput(building));
     }
+    public void ActivateRoutePanel(Route r)
+    {
+        int count = routePanelContent.transform.childCount;
+        if(count > 0)
+        {
+            for (int i = count - 1; i >= 0; i--)
+            {
+                GameObject toDestroy = routePanelContent.transform.GetChild(i).gameObject;
+                GameObject.Destroy(toDestroy);
+            }
+        }
+        
+        foreach(Place p in r.GetPlaces())
+        {
+            if(p.building)
+            {
+                switch (p.building.type)
+                {
+                    case Buildings.BuildingType.City:
+                        Image city = Instantiate(routeViewImagePrefab, routePanelContent.transform);
+                        city.sprite = buildingTypes[0];
+                        break;
+                    case Buildings.BuildingType.WoodCutter:
+                        Image wood = Instantiate(routeViewImagePrefab, routePanelContent.transform);
+                        wood.sprite = buildingTypes[1];
+                        break;
+                    case Buildings.BuildingType.Sawmill:
+                        Image saw = Instantiate(routeViewImagePrefab, routePanelContent.transform);
+                        saw.sprite = buildingTypes[2];
+                        break;
+                    case Buildings.BuildingType.Farm:
+                        Image farm = Instantiate(routeViewImagePrefab, routePanelContent.transform);
+                        farm.sprite = buildingTypes[3];
+                        break;
+                    case Buildings.BuildingType.Windmill:
+                        Image mill = Instantiate(routeViewImagePrefab, routePanelContent.transform);
+                        mill.sprite = buildingTypes[4];
+                        break;
+                    case Buildings.BuildingType.Bakery :
+                        Image bakery = Instantiate(routeViewImagePrefab, routePanelContent.transform);
+                        bakery.sprite = buildingTypes[5];
+                        break;
+                    default:
+                        break;
+                }
+
+            }
+        }
+        if(routePanelContent.transform.childCount > 0)
+        {
+            routePanel.SetActive(true);
+            routePanelActive = true;
+        }
+        
+    }
 
     private void ChangeButton(Button b, Buildings.BuildingType t, Place p, Place.PlaceType pt)
     {
@@ -180,6 +241,8 @@ public class GUIController : MonoBehaviour
         buildPanelActive = false;
         buildingInfoPanelActive = false;
         activeCanvasPlace = null;
+        routePanel.SetActive(false);
+        routePanelActive = true;
     }
 
     public void ActionWrapper(Buildings.BuildingType type, Place p)
