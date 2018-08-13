@@ -124,7 +124,7 @@ public class GUIController : MonoBehaviour
         b.onClick.AddListener(() => ActionWrapper(t, p));
     }
 
-    private void RemoveCanvas()
+    public void RemoveCanvas()
     {
         buildPanel.SetActive(false);
         buildPanelActive = false;

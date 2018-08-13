@@ -12,6 +12,7 @@ public class Place : MonoBehaviour
     [HideInInspector] public PlaceType type;
     [HideInInspector] public int line, column, id;
     [HideInInspector] public bool buildSpaceFree;
+    [HideInInspector] public Building building = null;
     [HideInInspector] public Neighborhood neighborhood;
     private List<ConnectionPoint> connectionPoints = new List<ConnectionPoint>();
 
@@ -58,9 +59,11 @@ public class Place : MonoBehaviour
     {
         buildSpaceFree = false;
         var b = Instantiate(g, (this.transform.position + g.transform.position), this.transform.rotation, this.transform);
-        b.GetComponent<Building>().SetPlace(this);
         removeScale(b);
-        b.GetComponent<Building>().Init();
+
+        building = b.GetComponent<Building>();
+        building.SetPlace(this);
+        building.GetComponent<Building>().Init();
 
         return b;
     }

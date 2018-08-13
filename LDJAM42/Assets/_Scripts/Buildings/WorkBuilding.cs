@@ -7,8 +7,8 @@ public class WorkBuilding : Building
     public GameObject inputResourcePrefab = null;
     public GameObject outputResourcePrefab = null;
 
-    protected ConnectionPoint outputLocation;
-    protected ConnectionPoint inputLocation;
+    [HideInInspector] public ConnectionPoint outputLocation;
+    [HideInInspector] public ConnectionPoint inputLocation;
 
     public float productionTime = 1f;
 

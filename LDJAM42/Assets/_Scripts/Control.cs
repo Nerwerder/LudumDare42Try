@@ -10,14 +10,14 @@ public class Control : MonoBehaviour
     public Buildings buildings = null;
     public Material TEST = null;
 
-    private enum LeftClickState { Selection, Selected };
-    private LeftClickState lCState = LeftClickState.Selection;
-
     private GUIController guiControll;
 
     //Selection
+    private enum SelectionState { PlaceSelected, BuildingSelected, CarriageSelected, NothingSelected };
+    private SelectionState selectionState = SelectionState.NothingSelected;
     private Place selectedPlace = null;
-
+    private Building selectedBuilding = null;
+    private Carriage selectedCarriage = null;
 
     void Start()
     {
@@ -49,6 +49,13 @@ public class Control : MonoBehaviour
             RightClick(); ;
     }
 
+    private Collider MouseRayCast()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hitInfo;
+        Physics.Raycast(ray, out hitInfo);
+        return hitInfo.collider;
+    }
 
     private void LeftClick()                //This is basically a state Machine
     {
@@ -57,57 +64,106 @@ public class Control : MonoBehaviour
 
     private void LeftClickSelection()
     {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hitInfo;
-
-        if (Physics.Raycast(ray, out hitInfo))
+        var c = MouseRayCast();
+        if (c)
         {
-            Debug.Log(hitInfo.collider.tag.ToString());
+            if (c.CompareTag("Place"))
+                selectPlace(c.GetComponent<Place>());
 
-            if (hitInfo.collider.CompareTag("Place"))
-                selectPlace(hitInfo.collider.GetComponent<Place>());
+            if (c.CompareTag("Carriage"))
+                selectCarriage(c.GetComponent<Carriage>());
 
-            if (hitInfo.collider.CompareTag("Carriage"))
-                selectCarriage(hitInfo.collider.GetComponent<Carriage>());
-
-            if (hitInfo.collider.CompareTag("Building"))
-                selectBuilding(hitInfo.collider.GetComponent<Building>());
+            if (c.CompareTag("Building"))
+                selectBuilding(c.GetComponent<Building>());
         }
-    }
+        else
+            selectNothing();
 
+    }
     private void selectPlace(Place p)
     {
-        //Mark the Selected Element
-        if (selectedPlace)
-            deselectPlace(selectedPlace);
+        selectNothing();    //Clean
 
-        p.SetGlowMaterial();
-        selectedPlace = p;
+        if (p.building)     //If there is a Building on the Place, select this instead ! (TODO)
+            selectBuilding(p.building);
+        else
+        {
+            p.SetGlowMaterial();
+            selectionState = SelectionState.PlaceSelected;
 
-        guiControll.ActivateBuildPanel(p);
+            selectedPlace = p;
+            if (p.TestForBuilding())
+                guiControll.ActivateBuildPanel(p);
+        }
     }
     private void deselectPlace(Place p)
     {
-        p.SetBasicMaterial();
+        selectionState = SelectionState.NothingSelected;
+        if (p != null)
+            p.SetBasicMaterial();
+        p = null;
     }
-
     private void selectCarriage(Carriage c)
     {
+        selectNothing();    //Clean
 
+        selectionState = SelectionState.CarriageSelected;
+        c.SetGlowMaterial();
+        selectedCarriage = c;
     }
-
+    private void deselectCarriage(Carriage c)
+    {
+        selectionState = SelectionState.NothingSelected;
+        if (c != null)
+            c.SetBasicMaterial();
+        selectedCarriage = null;
+    }
     private void selectBuilding(Building b)
     {
+        selectNothing();    //Clean
+
+        Debug.Log("Select Building : " + b.ToString());
+
+        selectionState = SelectionState.BuildingSelected;
+        selectedBuilding = b;
         guiControll.ActivateBuildingInfo(b);
     }
+    private void deselectBuilding(Building b)
+    {
+        selectionState = SelectionState.NothingSelected;
+        selectedBuilding = null;
+    }
+    private void selectNothing()
+    {
+        selectionState = SelectionState.NothingSelected;
+
+        guiControll.RemoveCanvas();
+        deselectPlace(selectedPlace);
+        deselectCarriage(selectedCarriage);
+        deselectBuilding(selectedBuilding);
+    }
+
 
     private void RightClick()
     {
+        var c = MouseRayCast();
 
+        if (selectionState == SelectionState.CarriageSelected && c)
+        {
+            if (c.CompareTag("Place"))
+            {
+                var p = c.GetComponent<Place>();
+                if (p.building)
+                    selectedCarriage.GoTo(p.building);
+                else
+                    selectedCarriage.GoTo(p);
+            }
+
+            else if (c.CompareTag("Building"))
+            {
+                selectedCarriage.GoTo(c.GetComponent<Building>());
+            }
+
+        }
     }
-
-
-
-    //ChangeButton but Search the Environment for a special Type of Area
-
 }
