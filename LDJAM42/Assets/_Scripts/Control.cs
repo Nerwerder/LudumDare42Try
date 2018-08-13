@@ -84,11 +84,17 @@ public class Control : MonoBehaviour
     {
         selectNothing();    //Clean
 
-        selectionState = SelectionState.PlaceSelected;
-        p.SetGlowMaterial();
-        selectedPlace = p;
-        if (p.TestForBuilding())
-            guiControll.ActivateBuildPanel(p);
+        if (p.building)     //If there is a Building on the Place, select this instead ! (TODO)
+            selectBuilding(p.building);
+        else
+        {
+            p.SetGlowMaterial();
+            selectionState = SelectionState.PlaceSelected;
+
+            selectedPlace = p;
+            if (p.TestForBuilding())
+                guiControll.ActivateBuildPanel(p);
+        }
     }
     private void deselectPlace(Place p)
     {
@@ -116,7 +122,10 @@ public class Control : MonoBehaviour
     {
         selectNothing();    //Clean
 
+        Debug.Log("Select Building : " + b.ToString());
+
         selectionState = SelectionState.BuildingSelected;
+        selectedBuilding = b;
         guiControll.ActivateBuildingInfo();
     }
     private void deselectBuilding(Building b)
@@ -138,10 +147,10 @@ public class Control : MonoBehaviour
     private void RightClick()
     {
         var c = MouseRayCast();
-        
-        if(selectionState == SelectionState.CarriageSelected && c)
+
+        if (selectionState == SelectionState.CarriageSelected && c)
         {
-            if(c.CompareTag("Place"))
+            if (c.CompareTag("Place"))
             {
                 var p = c.GetComponent<Place>();
                 if (p.building)
@@ -150,7 +159,7 @@ public class Control : MonoBehaviour
                     selectedCarriage.GoTo(p);
             }
 
-            else if(c.CompareTag("Building"))
+            else if (c.CompareTag("Building"))
             {
                 selectedCarriage.GoTo(c.GetComponent<Building>());
             }
