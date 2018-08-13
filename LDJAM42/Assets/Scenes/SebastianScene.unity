@@ -1318,6 +1318,11 @@ Prefab:
       propertyPath: IOMarkerParent
       value: 
       objectReference: {fileID: 1916001998}
+    - target: {fileID: 114882021720941498, guid: 602ea616295c52c44bfd80cf6115d353,
+        type: 2}
+      propertyPath: CostPerBuilding
+      value: 70
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 602ea616295c52c44bfd80cf6115d353, type: 2}
   m_IsPrefabAsset: 0

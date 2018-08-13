@@ -123,8 +123,7 @@ public class City : Building
         }
 
         if (happynessTimer >= 20.0f)
-        {
-            
+        {      
             happyness -= happynessReduction;
             if(happyness < 0.0f)
             {
@@ -146,6 +145,17 @@ public class City : Building
         {
             LevelUp();
         }
+    }
+
+    public bool GetGold(int v)
+    {
+        if (gold >= v)
+        {
+            gold -= v;
+            UpdateGui();
+            return true;
+        }
+        return false;
     }
 
     private void LevelUp()
