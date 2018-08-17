@@ -16,7 +16,7 @@ public class Pathfinding : MonoBehaviour
         return p1.pathCost.CompareTo(p2.pathCost);
     }
 
-    public List<ConnectionPoint> FindPath(ConnectionPoint start, ConnectionPoint end)   //TODO Zero the Cost at Start
+    public List<ConnectionPoint> CalculatePath(ConnectionPoint start, ConnectionPoint end)   //TODO Zero the Cost at Start
     {
         //PREPERATION
         ConnectionPoint current = null;
@@ -36,7 +36,7 @@ public class Pathfinding : MonoBehaviour
 
             //Is this the Target?
             if (current == end)
-                return CalculatePath(current);
+                return CreatePath(current);
 
             closed.Add(current);
             Expand(current);
@@ -73,16 +73,23 @@ public class Pathfinding : MonoBehaviour
         return (worldCreation.defaultTravelSpeed + defaultCost) - c.speed;
     }
 
-    private List<ConnectionPoint> CalculatePath(ConnectionPoint p)
+    List<ConnectionPoint> rPath = new List<ConnectionPoint>();
+    private List<ConnectionPoint> CreatePath(ConnectionPoint p)
     {
-        var c = p;
-        List<ConnectionPoint> path = new List<ConnectionPoint>();
+        rPath.Clear();
+        ConnectionPoint c = p;
 
-        while(c.pathPredecessor != null)
+        while (c.pathPredecessor != null)
         {
-            path.Add(c);
+            rPath.Add(c);
             c = c.pathPredecessor;
         }
+
+        //Reverse the Path
+        List<ConnectionPoint> path = new List<ConnectionPoint>(rPath.Count);
+        path.Add(c);    //Add thje First point
+        for (int k = (rPath.Count - 1); k >= 0; --k)
+            path.Add(rPath[k]);
 
         return path;
     }

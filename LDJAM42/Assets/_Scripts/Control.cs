@@ -122,8 +122,8 @@ public class Control : MonoBehaviour
     {
         selectNothing();    //Clean
 
-        if (p.building)     //If there is a Building on the Place, select this instead ! (TODO)
-            selectBuilding(p.building);
+        if (p.GetBuilding())     //If there is a Building on the Place, select this instead ! (TODO)
+            selectBuilding(p.GetBuilding());
         else
         {
             p.SetGlowMaterial();
@@ -147,14 +147,19 @@ public class Control : MonoBehaviour
 
         selectionState = SelectionState.CarriageSelected;
         c.SetGlowMaterial();
+        c.SetDrawPath(true);
         selectedCarriage = c;
+ 
         guiControll.ActivateRoutePanel(c.GetRoute());
     }
     private void deselectCarriage(Carriage c)
     {
         selectionState = SelectionState.NothingSelected;
         if (c != null)
+        {
             c.SetBasicMaterial();
+            c.SetDrawPath(false);
+        }
         selectedCarriage = null;
     }
     private void selectBuilding(Building b)
@@ -202,8 +207,8 @@ public class Control : MonoBehaviour
             {
                 if (c.CompareTag("Place"))
                 {
-                    if (p.building)
-                        selectedCarriage.GoTo(p.building);
+                    if (p.GetBuilding())
+                        selectedCarriage.GoTo(p.GetBuilding());
                     else
                         selectedCarriage.GoTo(p);
                 }

@@ -68,7 +68,7 @@ public class Building : MonoBehaviour
     public void ChangeInput(IOMarker m)
     {
         var wB = this.GetComponent<WorkBuilding>();
-        if (wB && wB.wBChangeInput(m))
+        if (wB && wB.WBChangeInput(m))
         {
             DeactivateAllPotentialMarkers();
             SelectBuilding();
@@ -77,7 +77,7 @@ public class Building : MonoBehaviour
     public void ChangeOutput(IOMarker m)
     {
         var wB = this.GetComponent<WorkBuilding>();
-        if (wB && wB.wbChangeOutput(m))
+        if (wB && wB.WbChangeOutput(m))
         {
             DeactivateAllPotentialMarkers();
             SelectBuilding();
@@ -101,56 +101,17 @@ public class Building : MonoBehaviour
     public void SetPlace(Place p) { place = p; }
     public Place GetPlace() { return place; }
 
+    //OVERRIDE
     public virtual void Init()
     {
 
     }
-
     public virtual void Work(float time)
     {
 
     }
-
     public virtual void Done()
     {
 
-    }
-
-    protected ConnectionPoint FindRandomFreeUSELocation()
-    {
-        var l = GetFreeUSEPoints();
-        if (l.Count == 0)
-            return null;
-        return l[Random.Range(0, l.Count)];
-    }
-
-    protected ConnectionPoint FindRandomFreeMOVELocation()
-    {
-        var l = GetFreeMOVEPoints();
-        if (l.Count == 0)
-            return null;
-        return l[Random.Range(0, l.Count)];
-    }
-
-    protected List<ConnectionPoint> GetFreeUSEPoints()
-    {
-        List<ConnectionPoint> l = new List<ConnectionPoint>();
-
-        foreach (var c in place.GetConnectionPoints())
-            if (c.FreeForUse())
-                l.Add(c);
-
-        return l;
-    }
-
-    protected List<ConnectionPoint> GetFreeMOVEPoints()
-    {
-        List<ConnectionPoint> l = new List<ConnectionPoint>();
-
-        foreach (var c in place.GetConnectionPoints())
-            if (c.FreeToMoveOn())
-                l.Add(c);
-
-        return l;
     }
 }

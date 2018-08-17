@@ -168,7 +168,7 @@ public class City : Building
     public void SpawnCariage()
     {
         workTimer = 0f;
-        var l = FindRandomFreeMOVELocation();
+        var l = place.GetRandomFreeMOVELocation();
         if (l != null)
         {
             var rot = Quaternion.LookRotation((l.transform.position - this.transform.position), Vector3.up);

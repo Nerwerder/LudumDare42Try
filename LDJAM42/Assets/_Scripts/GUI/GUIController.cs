@@ -26,11 +26,8 @@ public class GUIController : MonoBehaviour
 
     private bool buildPanelActive = false;
     private bool buildingInfoPanelActive = false;
-    private bool routePanelActive = false;
 
-    private Place activeCanvasPlace = null;
     private Building activeBuilding = null;
-    private Route activeroute = null;
     private Control control = null;
 
     // Use this for initialization
@@ -52,13 +49,12 @@ public class GUIController : MonoBehaviour
         {
             if(activeBuilding.type != Buildings.BuildingType.City)
             {
-                progressbar.fillAmount = activeBuilding.GetComponent<WorkBuilding>().getWorkTimerProgress();
+                progressbar.fillAmount = activeBuilding.GetComponent<WorkBuilding>().GetWorkTimerProgress();
             }
             else
             {
                 progressbar.fillAmount = activeBuilding.GetComponent<City>().getSpawnTimerProgress();
-            }
-            
+            }   
         }
     }
 
@@ -91,7 +87,6 @@ public class GUIController : MonoBehaviour
         ChangeButton(buttons[4], Buildings.BuildingType.Bakery, p);
 
         buildPanelActive = true;
-        activeCanvasPlace = p;
     }
     public void ActivateBuildingInfo(Building building)
     {
@@ -144,7 +139,7 @@ public class GUIController : MonoBehaviour
                 GameObject.Destroy(toDestroy);
             }
         }
-        
+        /*
         foreach(Place p in r.GetPlaces())
         {
             if(p.building)
@@ -187,10 +182,10 @@ public class GUIController : MonoBehaviour
 
             }
         }
+        */
         if(buildingCounter > 0)
         {
             routePanel.SetActive(true);
-            routePanelActive = true;
         }
         
     }
@@ -244,9 +239,7 @@ public class GUIController : MonoBehaviour
         buildingInfoPanel.SetActive(false);
         buildPanelActive = false;
         buildingInfoPanelActive = false;
-        activeCanvasPlace = null;
         routePanel.SetActive(false);
-        routePanelActive = true;
     }
 
     public void ActionWrapper(Buildings.BuildingType type, Place p)

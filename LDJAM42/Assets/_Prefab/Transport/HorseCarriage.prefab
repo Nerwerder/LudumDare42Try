@@ -115,6 +115,10 @@ MonoBehaviour:
   Logging: 0
   basicMaterial: {fileID: 2100000, guid: 6b5228e7ff8b5ed4db1205f37f7e7884, type: 2}
   glowMaterial: {fileID: 2100000, guid: 5ce5acd44ba98904fb974bd8849093b9, type: 2}
+  pathMaterial: {fileID: 2100000, guid: c814d504e66cf70469af50e5d68b7f05, type: 2}
+  deliveryMaterial: {fileID: 2100000, guid: 43ba05730a7815a468e4134a6234ab9f, type: 2}
+  collectMaterial: {fileID: 2100000, guid: 3ccabb2f0412260489799261fffce540, type: 2}
+  RouteStationMarker: {fileID: 0}
   rotationSpeed: 5
-  arrivalDistance: 0.2
+  arrivalDistance: 0.1
   cargo: {fileID: 0}

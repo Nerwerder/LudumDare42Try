@@ -11,39 +11,82 @@ public class Carriage : MonoBehaviour
     public Mesh plankMesh;
 
     public bool Logging;
+    private bool drawPath;
 
     //MATERIAL
     public Material basicMaterial, glowMaterial;
     public void SetBasicMaterial() { SetMaterial(basicMaterial); }
     public void SetGlowMaterial() { SetMaterial(glowMaterial); }
     public void SetMaterial(Material m) { this.GetComponent<Renderer>().material = m; }
+    public void SetDrawPath(bool t)
+    {
+        drawPath = t;
+        if (!t)
+        {
+            if (drawn != null)
+                drawn.StopDrawing();
+            if (route != null)
+                route.StopDrawing();
+        }
+    }
 
     //BASIC
     private void Awake()
     {
         pathfinding = FindObjectOfType<Pathfinding>();
     }
-
     private void Update()
     {
-        switch (carriageState)
+        switch (carriageControlState)
         {
-            case CarriageState.CarriageIdle:
-                if (carriageControlState == CarriageControlState.CarriageRoute)
-                    GetNextInstructionFromRoute();
-                break;
-            case CarriageState.CarriageWaitForResource:
-                InteractWithPosition(actualPosition);
-                break;
-            case CarriageState.CarriageOnMyWay:
-                if (followThePath(path))
+            case CarriageControlState.CarriageManual:
+                switch (carriageState)
                 {
-                    path.Clear();
-                    InteractWithPosition(targetPosition);
+                    case CarriageState.CarriageIdle:
+                        break;
+                    case CarriageState.CarriageWaitForResource:
+                        InteractWithPosition(actualPosition);
+                        break;
+                    case CarriageState.CarriageOnMyWay:
+                        if (followThePath(path))
+                            InteractWithPosition(targetPosition);
+                        break;
                 }
                 break;
+            case CarriageControlState.CarriageRoute:
+                FollowRoute();
+                break;
         }
+
+        if (drawPath)
+            DrawPath();
     }
+
+    //DRAW PATH
+    public Material pathMaterial, deliveryMaterial, collectMaterial;
+    Path drawn = null;
+    private void DrawPath()
+    {
+        if (drawn != null && drawn != path)
+            drawn.StopDrawing();
+
+        switch (carriageControlState)
+        {
+            case CarriageControlState.CarriageManual:
+                drawn = path;
+                if (drawn != null)
+                    drawn.Draw(pathMaterial);
+                break;
+            case CarriageControlState.CarriageRoute:
+                //route.DrawRoute(pathMaterial, deliveryMaterial, collectMaterial);
+                drawn = route.GetCurrentPath();
+                if (drawn != null)
+                    drawn.Draw(pathMaterial);
+                break;
+        }
+
+    }
+
 
     //PATH
     private enum CarriageControlState { CarriageManual, CarriageRoute };
@@ -57,10 +100,10 @@ public class Carriage : MonoBehaviour
 
     private Pathfinding pathfinding;
     private ConnectionPoint actualPosition = null, targetPosition = null;
-    Path path = new Path();
+    private Path path;
 
     public void SetActualPosition(ConnectionPoint c) { actualPosition = c; }
-
+    public ConnectionPoint GetActualPosition() { return actualPosition; }
     //GOTO = Manual Mode
     public void GoTo(Building b)
     {
@@ -74,14 +117,14 @@ public class Carriage : MonoBehaviour
         {
             case CarriageCargoState.CarriageFull:
                 if (wB && wB.inputLocation)             //It is a WorkBuilding and it has an Input
-                    MoveTo(wB.inputLocation);
+                    GoTo(wB.inputLocation);
                 else if (ci)                            //It is a City
-                    MoveTo(ci.getFreeInputLocation());
+                    GoTo(ci.getFreeInputLocation());
 
                 break;
             case CarriageCargoState.CarriageEmpty:      //If the Cariage is Empty -> Go and Pick the Resource from the Output up
                 if (wB)
-                    MoveTo(wB.outputLocation);
+                    GoTo(wB.outputLocation);
                 break;
             default:
                 break;
@@ -92,64 +135,56 @@ public class Carriage : MonoBehaviour
         if (carriageControlState == CarriageControlState.CarriageRoute)
             ClearRoute();
 
-        MoveTo(p.GetRandomFreeConnectionPoint());
+        GoTo(p.GetRandomFreeMOVELocation());
     }
-
-    private void MoveTo(ConnectionPoint p)
+    public void GoTo(ConnectionPoint p)
     {
-        if (p)
-        {
-            ChangeCarriageStateTO(CarriageState.CarriageOnMyWay);
-            targetPosition = p;
-            path.SetPath(pathfinding.FindPath(actualPosition, targetPosition));
-        }
-        else
-            Debug.Log("Carriage: " + this.ToString() + " got a null as Target in Carriage.Goto(ConnectionPoint p)");
+        ChangeCarriageStateTO(CarriageState.CarriageOnMyWay);
+        targetPosition = p;
+
+        if (path != null)
+            path.StopDrawing();
+
+        path = new Path(pathfinding, actualPosition, p);
     }
 
     //ROUTE = Route Mode
-    private Route route = new Route();
+    public GameObject RouteStationMarker;
+
+    private Route route;
     public Route GetRoute() { return route; }
     public void AddToRoute(Place p)
     {
         ChangeCarriageControlState(CarriageControlState.CarriageRoute);
-        route.AddPlace(p);
+        if (route == null)
+        {
+            ChangeCarriageStateTO(CarriageState.CarriageOnMyWay);
+            route = new Route(pathfinding, this);
+        }
 
-        if (route.GetSize() == 1)   //NEw Route -> Start
-            GetNextInstructionFromRoute();
+        route.AddPlace(p);
     }
     public void ClearRoute()
     {
         ChangeCarriageControlState(CarriageControlState.CarriageManual);
-        route.Clear();
+        route = null;
     }
-    public void GetNextInstructionFromRoute() //TODO Fuse the copy&paste Code together
+    public void FollowRoute()
     {
-        var p = route.GetNextPlace();
-        var wB = p.building.GetComponent<WorkBuilding>();
-        var ci = p.building.GetComponent<City>();
-
-        if (wB || ci)
+        switch (carriageState)
         {
-            switch (carriageCargoState)
-            {
-                case CarriageCargoState.CarriageFull:
-                    if (wB && wB.inputLocation)             //It is a WorkBuilding and it has an Input
-                        MoveTo(wB.inputLocation);
-                    else if (ci)                            //It is a City
-                        MoveTo(ci.getFreeInputLocation());
-
-                    break;
-                case CarriageCargoState.CarriageEmpty:      //If the Cariage is Empty -> Go and Pick the Resource from the Output up
-                    if (wB && wB.outputLocation)
-                        MoveTo(wB.outputLocation);
-                    else if(wB)
-                        MoveTo(wB.GetPlace().GetRandomFreeConnectionPoint());
-                    break;
-            }
+            case CarriageState.CarriageIdle:
+                route.DoneWithStation();
+                carriageState = CarriageState.CarriageOnMyWay;
+                break;
+            case CarriageState.CarriageWaitForResource:
+                InteractWithPosition(actualPosition);
+                break;
+            case CarriageState.CarriageOnMyWay:
+                if (followThePath(route.GetCurrentPath()))
+                    InteractWithPosition(route.GetCurrentTargetPosition());
+                break;
         }
-        else
-            MoveTo(p.GetRandomFreeConnectionPoint());
     }
 
     //TRAVEL
@@ -166,7 +201,7 @@ public class Carriage : MonoBehaviour
     public float arrivalDistance = 0.2f;
     public bool followThePath(Path p)
     {
-        var t = p.GetNetxtTarget();
+        var t = p.GetTarget();
 
         //ROTATE
         var targetRot = Quaternion.LookRotation((t.transform.position - this.transform.position), Vector3.up);
@@ -180,7 +215,9 @@ public class Carriage : MonoBehaviour
 
         //Only Move if the target Field is Free (exeption: the target Field has a Resource you have to Pick up)
         Vector3 pos;
-        if (t.FreeToMoveOn() || (t == targetPosition && t.ResourceWaitingForPickup())) //TODO Resource Waiting for Pickup
+
+        bool tp = (t == targetPosition || ((route != null) && (route.GetCurrentTargetPosition() == t))); //WORKAROUND
+        if (t.FreeToMoveOn() || (tp && t.ResourceWaitingForPickup())) //TODO Resource Waiting for Pickup
             pos = this.transform.position + v * Time.deltaTime * actualPosition.getConnectionSpeed(t);
         else
             pos = this.transform.position;
@@ -212,7 +249,6 @@ public class Carriage : MonoBehaviour
     }
     public CarriageCargoState GetCarriageCargoState() { return carriageCargoState; }
     public GameObject cargo;
-
     public void InteractWithPosition(ConnectionPoint f)
     {
         switch (carriageCargoState)

@@ -8,15 +8,15 @@ public class WorkBuilding : Building
     public Resource.ResourceType inputResourceType;
     public GameObject outputResourcePrefab = null;
     public Resource.ResourceType outputResourceType;
+    public float productionTime = 1f;
 
     [HideInInspector] public ConnectionPoint outputLocation;
     [HideInInspector] public ConnectionPoint inputLocation;
 
-    public float productionTime = 1f;
-
     protected float workTimer;
     protected bool inputResource;
 
+    //OVERIDE BLOCK
     public override void Init()
     {
         base.Init();
@@ -24,7 +24,6 @@ public class WorkBuilding : Building
         if (!FindRandomOutputLocation())
             Debug.Log("Buildings.init -> No Output Found");
     }
-
     public override void Work(float time)
     {
         base.Work(time);
@@ -32,7 +31,6 @@ public class WorkBuilding : Building
         if (workTimer >= productionTime)
             Done();
     }
-
     public override void Done()
     {
         base.Done();
@@ -43,14 +41,14 @@ public class WorkBuilding : Building
         }
     }
 
-    public float getWorkTimerProgress()
+    //FUNCTIONS
+    public float GetWorkTimerProgress()
     {
         return workTimer / productionTime;
     }
-
     protected bool FindRandomOutputLocation()
     {
-        var c = FindRandomFreeUSELocation();
+        var c = place.GetRandomFreeUSELocation();
         if (c == null)
             return false;
 
@@ -58,10 +56,9 @@ public class WorkBuilding : Building
         outputLocation = c;
         return true;
     }
-
     protected bool FindRandomInputLocation()
     {
-        var c = FindRandomFreeUSELocation();
+        var c = place.GetRandomFreeUSELocation();
         if (c == null)
             return false;
 
@@ -70,29 +67,73 @@ public class WorkBuilding : Building
         return true;
     }
 
-    //IOCHANGE
-    public bool wBChangeInput(IOMarker m)
-    {      
+   //IOCHANGE
+    public bool WBChangeInput(IOMarker m)
+    {
         //Check if there is a InputLocation and the Place is free
-        if(inputLocation && m.point && m.point.FreeForUse())
+        if (inputLocation && m.point && m.point.FreeForUse())
         {
             inputLocation.StopUsing(this);
             m.point.UseAsInput(this);
             inputLocation = m.point;
+            ReCalculatePaths(inputLocation, WorkBuildingInteractionPoint.WBInput);
+            return true;
+        }
+        return false;
+    }
+    public bool WbChangeOutput(IOMarker m)
+    {
+        if (outputLocation && m.point && m.point.FreeForUse())
+        {
+            outputLocation.StopUsing(this);
+            m.point.UseAsOPutput(this);
+            outputLocation = m.point;
+            ReCalculatePaths(outputLocation, WorkBuildingInteractionPoint.WBOutput);
             return true;
         }
         return false;
     }
 
-    public bool wbChangeOutput(IOMarker m)
+    //REGISTER PATHS (so input and output-Changes can change the Path)
+    public enum WorkBuildingInteractionPoint { WBInput, WBOutput };
+    private List<Path> inputPaths = new List<Path>();
+    private List<Path> outputPaths = new List<Path>();
+    public void RegisterPath(Path p, WorkBuildingInteractionPoint i)
     {
-        if(outputLocation && m.point && m.point.FreeForUse())
+        switch (i)
         {
-            outputLocation.StopUsing(this);
-            m.point.UseAsOPutput(this);
-            outputLocation = m.point;
-            return true;
+            case WorkBuildingInteractionPoint.WBInput:
+                inputPaths.Add(p);
+                break;
+            case WorkBuildingInteractionPoint.WBOutput:
+                outputPaths.Add(p);
+                break;
         }
-        return false;
+    }
+    public void DeregisterPath(Path p, WorkBuildingInteractionPoint i)
+    {
+        switch (i)
+        {
+            case WorkBuildingInteractionPoint.WBInput:
+                inputPaths.Remove(p);
+                break;
+            case WorkBuildingInteractionPoint.WBOutput:
+                outputPaths.Remove(p);
+                break;
+        }
+    }
+    public void ReCalculatePaths(ConnectionPoint p, WorkBuildingInteractionPoint i)
+    {
+        switch (i)
+        {
+            case WorkBuildingInteractionPoint.WBInput:
+                foreach (var ip in inputPaths)
+                    ip.ChangePath(p, i);
+                break;
+            case WorkBuildingInteractionPoint.WBOutput:
+                foreach (var op in outputPaths)
+                    op.ChangePath(p, i);
+                break;
+        }
     }
 }
