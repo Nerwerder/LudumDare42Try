@@ -79,20 +79,21 @@ public class Path
         Reset();
     }
 
-    //DRAW
-    public void Draw(Material m)
-    {
-        if (points == null)
-            return;
-        for (int k = 0; k < (points.Count - 1); ++k)
-            points[k].DrawLineTo(points[k + 1], m);
-    }
-    public void StopDrawing()
-    {
-        if (points == null)
-            return;
+    public int GetPathSize() { return points.Count; }
+    public List<ConnectionPoint> GetPath() { return points; }
 
-        foreach (var p in points)
-            p.StopDrawing();
+    //DRAW
+    public int Draw(LineRenderer l,Material m)
+    {
+        if (points == null)
+            return 0;
+
+        l.material = m;
+        l.positionCount = GetPathSize();
+
+        for (int k = 0; k < GetPathSize(); ++k)
+            l.SetPosition(k, points[k].transform.position);
+
+        return GetPathSize();
     }
 }

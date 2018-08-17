@@ -11,29 +11,40 @@ public class Carriage : MonoBehaviour
     public Mesh plankMesh;
 
     public bool Logging;
+    private bool drawSelection, drawTab;
     private bool drawPath;
+
 
     //MATERIAL
     public Material basicMaterial, glowMaterial;
     public void SetBasicMaterial() { SetMaterial(basicMaterial); }
     public void SetGlowMaterial() { SetMaterial(glowMaterial); }
     public void SetMaterial(Material m) { this.GetComponent<Renderer>().material = m; }
-    public void SetDrawPath(bool t)
+    /// <summary>
+    /// Set Draw to false or True and give the source
+    /// </summary>
+    /// <param name="s"> 1 == Selection, 2 == Tab</param>
+    public void SetDrawPath(bool t, int s)
     {
-        drawPath = t;
-        if (!t)
-        {
-            if (drawn != null)
-                drawn.StopDrawing();
-            if (route != null)
-                route.StopDrawing();
-        }
+        if (s == 1)
+            drawSelection = t;
+        else if (s == 2)
+            drawTab = t;
+
+        drawPath = (drawSelection || drawTab);
+        if (drawPath)   //activate
+            lineRenderer.enabled = true;
+        else            //deactivate
+            lineRenderer.enabled = false;
     }
 
     //BASIC
     private void Awake()
     {
         pathfinding = FindObjectOfType<Pathfinding>();
+        lineRenderer = GetComponent<LineRenderer>();
+
+        lineRenderer.widthMultiplier = 0.1f;
     }
     private void Update()
     {
@@ -64,27 +75,20 @@ public class Carriage : MonoBehaviour
 
     //DRAW PATH
     public Material pathMaterial, deliveryMaterial, collectMaterial;
-    Path drawn = null;
+    LineRenderer lineRenderer;
     private void DrawPath()
     {
-        if (drawn != null && drawn != path)
-            drawn.StopDrawing();
-
         switch (carriageControlState)
         {
             case CarriageControlState.CarriageManual:
-                drawn = path;
-                if (drawn != null)
-                    drawn.Draw(pathMaterial);
+                if (path != null)
+                    path.Draw(lineRenderer, pathMaterial);
                 break;
             case CarriageControlState.CarriageRoute:
-                //route.DrawRoute(pathMaterial, deliveryMaterial, collectMaterial);
-                drawn = route.GetCurrentPath();
-                if (drawn != null)
-                    drawn.Draw(pathMaterial);
+                if (route != null)
+                    route.DrawRoute(lineRenderer, pathMaterial, deliveryMaterial, collectMaterial);
                 break;
         }
-
     }
 
 
@@ -104,6 +108,7 @@ public class Carriage : MonoBehaviour
 
     public void SetActualPosition(ConnectionPoint c) { actualPosition = c; }
     public ConnectionPoint GetActualPosition() { return actualPosition; }
+
     //GOTO = Manual Mode
     public void GoTo(Building b)
     {
@@ -141,10 +146,6 @@ public class Carriage : MonoBehaviour
     {
         ChangeCarriageStateTO(CarriageState.CarriageOnMyWay);
         targetPosition = p;
-
-        if (path != null)
-            path.StopDrawing();
-
         path = new Path(pathfinding, actualPosition, p);
     }
 

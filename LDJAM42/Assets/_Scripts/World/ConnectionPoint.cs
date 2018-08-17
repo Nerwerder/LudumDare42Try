@@ -21,30 +21,6 @@ public class ConnectionPoint : MonoBehaviour
         }
     }
 
-    //DRAWING
-    public LineRenderer lineRenderer = null;
-    private void Awake()
-    {
-        lineRenderer = GetComponent<LineRenderer>();
-    }
-    public void DrawLineTo(ConnectionPoint o, Material m, int k = 0)
-    {
-        lineRenderer.enabled = true;
-        lineRenderer.widthMultiplier = 0.1f + ((k/4) * 0.1f);
-        lineRenderer.positionCount = 2;
-
-        lineRenderer.material = m;
-
-        lineRenderer.SetPosition(0, this.transform.position);
-        lineRenderer.SetPosition(1, o.transform.position);
-
-    }
-    public void StopDrawing()
-    {
-        if (lineRenderer)
-            lineRenderer.enabled = false;
-    }
-
     //PATHFINDING
     public float pathCost = 0f;
     public ConnectionPoint pathPredecessor = null;

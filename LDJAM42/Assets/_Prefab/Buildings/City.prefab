@@ -128,6 +128,6 @@ MonoBehaviour:
   happynessTimer: 0
   happynessReductionTime: 2
   newCarriagePointLevel: 500
-  carriageSpawnTime: 1
-  maxCarriages: 1
+  carriageSpawnTime: 2
+  maxCarriages: 3
   InputTypes: 0200000005000000

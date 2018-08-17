@@ -78,26 +78,29 @@ public class Route
     }
 
     //WORK IN PROGRESS
-    public void DrawRoute(Material p, Material d, Material c)
+    public void DrawRoute(LineRenderer l, Material p, Material d, Material c)
     {
+        int c0 = 0;
+        if (tmpPath != null)
+            c0 = tmpPath.Draw(l, p);
+
+        if (stations.Count <= 1)
+            return;
+
+        //Calculate the PointCount
+        int c1 = 0;
         foreach (var s in stations)
-            if (s.pathToNext != null)
-                switch (s.routeStationType)
-                {
-                    case RouteStation.RouteStationType.None:
-                        s.pathToNext.Draw(p);
-                        break;
-                    case RouteStation.RouteStationType.Output:
-                        s.pathToNext.Draw(c);
-                        break;
-                    case RouteStation.RouteStationType.Input:
-                        s.pathToNext.Draw(d);
-                        break;
-                }
-    }
+            c1 += s.pathToNext.GetPathSize();
+        l.positionCount = (c0 + c1);
 
-    public void StopDrawing()
-    {
+        l.material = p;
 
+        int c2 = c0;
+        foreach (var s in stations)
+            foreach (var n in s.pathToNext.GetPath())
+            {
+                l.SetPosition(c2, n.transform.position);
+                c2++;
+            }
     }
 }

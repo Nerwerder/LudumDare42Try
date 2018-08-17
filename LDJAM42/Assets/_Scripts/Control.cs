@@ -11,6 +11,7 @@ public class Control : MonoBehaviour
     public Material TEST = null;
 
     private GUIController guiControll;
+    private Carriages carriages;
 
     //Change BUILDING IO
     Building inputChangeBuilding = null;
@@ -37,6 +38,7 @@ public class Control : MonoBehaviour
     void Start()
     {
         guiControll = GetComponent<GUIController>();
+        carriages = FindObjectOfType<Carriages>();
     }
 
     private void CameraControl()
@@ -62,6 +64,12 @@ public class Control : MonoBehaviour
         //RightClick
         if (Input.GetMouseButtonDown(1))
             RightClick(); ;
+
+        //Tab -> Draw all the Carriage Paths
+        if (Input.GetKeyDown(KeyCode.Tab))
+            carriages.DrawAllCarriagePaths();
+        if (Input.GetKeyUp(KeyCode.Tab))
+            carriages.StopDrawing();
     }
 
     private Collider MouseRayCast()
@@ -147,7 +155,7 @@ public class Control : MonoBehaviour
 
         selectionState = SelectionState.CarriageSelected;
         c.SetGlowMaterial();
-        c.SetDrawPath(true);
+        c.SetDrawPath(true, 1);
         selectedCarriage = c;
  
         guiControll.ActivateRoutePanel(c.GetRoute());
@@ -158,7 +166,7 @@ public class Control : MonoBehaviour
         if (c != null)
         {
             c.SetBasicMaterial();
-            c.SetDrawPath(false);
+            c.SetDrawPath(false, 1);
         }
         selectedCarriage = null;
     }
