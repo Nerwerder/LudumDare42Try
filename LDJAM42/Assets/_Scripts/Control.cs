@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
-
 public class Control : MonoBehaviour
 {
     public CameraBehaviour myCamera = null;

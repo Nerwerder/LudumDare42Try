@@ -83,16 +83,19 @@ public class Path
     public List<ConnectionPoint> GetPath() { return points; }
 
     //DRAW
-    public int Draw(LineRenderer l,Material m)
+    public int Draw(LineRenderer l)
+    {
+        l.positionCount = GetPathSize();
+        return Draw(l, 0);
+    }
+
+    public int Draw(LineRenderer l, int o)
     {
         if (points == null)
             return 0;
 
-        l.material = m;
-        l.positionCount = GetPathSize();
-
         for (int k = 0; k < GetPathSize(); ++k)
-            l.SetPosition(k, points[k].transform.position);
+            l.SetPosition((k + o), points[k].transform.position);
 
         return GetPathSize();
     }

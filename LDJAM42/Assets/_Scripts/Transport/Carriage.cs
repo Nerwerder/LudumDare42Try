@@ -11,6 +11,7 @@ public class Carriage : MonoBehaviour
     public Mesh plankMesh;
 
     public bool Logging;
+    private LineRendererParent lineRendererParent;
     private bool drawSelection, drawTab;
     private bool drawPath;
 
@@ -33,18 +34,51 @@ public class Carriage : MonoBehaviour
 
         drawPath = (drawSelection || drawTab);
         if (drawPath)   //activate
-            lineRenderer.enabled = true;
+        {
+            switch (carriageControlState)
+            {
+                case CarriageControlState.CarriageManual:
+                    if (path != null)
+                    {
+                        lineRenderer[0].enabled = true;
+                        lineRenderer[1].enabled = false;
+                        lineRenderer[2].enabled = false;
+
+                    }
+                    break;
+                case CarriageControlState.CarriageRoute:
+                    if(route != null)
+                    {
+                        lineRenderer[0].enabled = false;
+                        lineRenderer[1].enabled = true;
+                        lineRenderer[2].enabled = true;
+                    }
+                    break;
+            }
+        }
+
         else            //deactivate
-            lineRenderer.enabled = false;
+            foreach (var l in lineRenderer)
+                l.enabled = false;
     }
 
     //BASIC
     private void Awake()
     {
         pathfinding = FindObjectOfType<Pathfinding>();
-        lineRenderer = GetComponent<LineRenderer>();
 
-        lineRenderer.widthMultiplier = 0.1f;
+        lineRendererParent = FindObjectOfType<LineRendererParent>();
+        lineRenderer = new List<LineRenderer>(3);
+        for (int k = 0; k < 3; ++k)
+        {
+            lineRenderer.Add(new GameObject().AddComponent<LineRenderer>() as LineRenderer);
+            lineRenderer[k].widthMultiplier = 0.1f;
+            lineRenderer[k].transform.parent = lineRendererParent.transform;
+        }
+        lineRenderer[0].material = pathMaterial;
+        lineRenderer[1].material = collectMaterial;
+        lineRenderer[2].material = deliveryMaterial;
+
     }
     private void Update()
     {
@@ -60,7 +94,11 @@ public class Carriage : MonoBehaviour
                         break;
                     case CarriageState.CarriageOnMyWay:
                         if (followThePath(path))
+                        {
                             InteractWithPosition(targetPosition);
+                            path = null;
+                        }
+
                         break;
                 }
                 break;
@@ -75,18 +113,19 @@ public class Carriage : MonoBehaviour
 
     //DRAW PATH
     public Material pathMaterial, deliveryMaterial, collectMaterial;
-    LineRenderer lineRenderer;
+    List<LineRenderer> lineRenderer;
     private void DrawPath()
     {
         switch (carriageControlState)
         {
             case CarriageControlState.CarriageManual:
                 if (path != null)
-                    path.Draw(lineRenderer, pathMaterial);
+                    path.Draw(lineRenderer[0]);
+
                 break;
             case CarriageControlState.CarriageRoute:
                 if (route != null)
-                    route.DrawRoute(lineRenderer, pathMaterial, deliveryMaterial, collectMaterial);
+                    route.DrawRoute(lineRenderer);
                 break;
         }
     }
@@ -100,6 +139,17 @@ public class Carriage : MonoBehaviour
         if (Logging)
             Debug.Log("carriageState: " + carriageControlState.ToString() + " -> " + s.ToString());
         carriageControlState = s;
+
+        //Change the active LineRenderers
+        switch (s)
+        {
+            case CarriageControlState.CarriageManual:
+                SetDrawPath(true, 1);
+                break;
+            case CarriageControlState.CarriageRoute:
+                SetDrawPath(true, 1);
+                break;
+        }
     }
 
     private Pathfinding pathfinding;
@@ -144,9 +194,9 @@ public class Carriage : MonoBehaviour
     }
     public void GoTo(ConnectionPoint p)
     {
-        ChangeCarriageStateTO(CarriageState.CarriageOnMyWay);
         targetPosition = p;
         path = new Path(pathfinding, actualPosition, p);
+        ChangeCarriageStateTO(CarriageState.CarriageOnMyWay);
     }
 
     //ROUTE = Route Mode
@@ -156,13 +206,12 @@ public class Carriage : MonoBehaviour
     public Route GetRoute() { return route; }
     public void AddToRoute(Place p)
     {
-        ChangeCarriageControlState(CarriageControlState.CarriageRoute);
         if (route == null)
         {
             ChangeCarriageStateTO(CarriageState.CarriageOnMyWay);
             route = new Route(pathfinding, this);
+            ChangeCarriageControlState(CarriageControlState.CarriageRoute);
         }
-
         route.AddPlace(p);
     }
     public void ClearRoute()
